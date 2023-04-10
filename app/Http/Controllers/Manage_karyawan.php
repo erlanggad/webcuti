@@ -42,6 +42,9 @@ class Manage_karyawan extends Controller
         ])->first();
         $karyawan->nama_karyawan = $request->nama_karyawan;
         $karyawan->email = $request->email;
+        $karyawan->nik = $request->nik;
+        $karyawan->posisi = $request->posisi;
+        $karyawan->unit = $request->unit;
         if ($karyawan->save()) {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('success', 'Berhasil memperbarui karyawan');
         } else {

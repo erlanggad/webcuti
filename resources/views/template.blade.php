@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{URL::asset('plugins/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{URL::asset('plugins/images/cuti (2).png')}}">
     <title>SI CUTKAR @yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{URL::asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -57,7 +57,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
-                <div class="top-left-part"><a class="logo" href="index.html"><b><img src="{{URL::asset('plugins/images/jptn.png')}}" alt="home" /></b></a></div>
+                <div class="top-left-part"><a class="logo" href="index.html"><b><img src="{{URL::asset('plugins/images/jp.png')}}" alt="home" /></b></a></div>
                 <ul class="nav navbar-top-links navbar-left hidden-xs">
                     <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
                     <!-- <li>
@@ -67,7 +67,7 @@
                     </li> -->
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                    
+                  
                     
                     <li class="dropdown">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{URL::asset('plugins/images/users/user.png')}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{Session('user')['nama']}}</b> </a>
@@ -105,12 +105,13 @@
                     <li> <a href="/admin/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti  </span></a></li>
                     <li> <a href="/admin/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
+                    <li> <a href="/admin/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti non Tahunan  </span></a></li>
                     @elseif (Session('user')['role'] == 'staf-hr')
                     <li> <a href="/staf-hr/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
                     <li> <a href="/staf-hr/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/staf-hr/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/staf-hr/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti  </span></a></li>
-                    <li> <a href="/staf-hr/manage-pengajuan-cuti_nontahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti <Non-Tahunan></Non-Tahunan>  </span></a></li>
+                    <li> <a href="/staf-hr/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti non Tahunan <Non-Tahunan></Non-Tahunan>  </span></a></li>
                     <li> <a href="/staf-hr/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
                     @elseif (Session('user')['role'] == 'karyawan')
                     <li> <a href="/karyawan/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>

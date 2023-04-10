@@ -1,12 +1,12 @@
 @extends('template')
 
-@section('title','- Manage Karyawan')
+@section('title','- Manage Pengajuan Cuti')
 
 @section('konten')
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Manage Karyawan</h4>
+            <h4 class="page-title">Manage Pengajuan Cuti Diluar Tahunan</h4>
         </div>
         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             @if (Session::has('success'))
@@ -24,51 +24,57 @@
         </div>
         <!-- /.col-lg-12 -->
         <div class="col-md-12">
-            <a href="/{{ Session('user')['role'] }}/manage-karyawan/create">
+            @if ($role == 'karyawan')
+            <a href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/create">
                 <button class="btn btn-primary btn-block">Tambah</button>
             </a>
+            @endif
         </div>
     </div>
     <!-- /row -->
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Data Karyawan</h3>
+                <h3 class="box-title m-b-0">Data Pengajuan Cuti</h3>
                 <div class="table-responsive">
                     <table id="myTable" class="table table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
-                                <th>NIK</th>
-                                <th>Email</th>
-                                <th>Tanggal Mulai Bekerja</th>
-                                <th>Posisi</th>
-                                <th>Unit Kerja</th>
+                                <th>Nama Karyawan</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Lama Cuti</th>
+                                <th>Keterangan</th>
+                                <th>Status</th>
+                                <th>verifikasi Oleh</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1 ?>
-                            @foreach($karyawan as $item)
+                            @foreach($cuti_non as $item)
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_karyawan}}</td>
-                                <td>{{$item->nik}}</td>
-                                <td>{{$item->email}}</td>
-                                <td>{{$item->tanggal_lahir}}</td>
-                                <td>{{$item->posisi}}</td>
-                                <td>{{$item->unit}}</td>
+                                <td>{{$item->tanggal_pengajuan}}</td>
+                                <td>{{$item->lama_cuti}} hari</td>
+                                <td>{{$item->keterangan}}</td>
+                                <td>{{$item->status}}</td>
+                                <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id_karyawan}}/edit">
+                                    @if (in_array($role,['staf-hr','admin']))
+                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/{{$item->id_cuti_non}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id_karyawan}}">
+                                    @endif
+                                    @if ($item->status == 'verifikasi')
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/{{$item->id_cuti_non}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
                                         <button class="btn btn-danger ml-auto mr-auto">Delete</button>
                                     </form>
+                                    @endif
                                 </th>
                             </tr>
                             <?php $no++ ?>
