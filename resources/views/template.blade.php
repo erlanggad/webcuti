@@ -103,19 +103,20 @@
                     <li> <a href="/admin/manage-staf-hr" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Staf HR  </span></a></li>
                     <li> <a href="/admin/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/admin/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
-                    <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti  </span></a></li>
+                    <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
                     <li> <a href="/admin/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
                     <li> <a href="/admin/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti non Tahunan  </span></a></li>
                     @elseif (Session('user')['role'] == 'staf-hr')
                     <li> <a href="/staf-hr/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
                     <li> <a href="/staf-hr/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/staf-hr/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
-                    <li> <a href="/staf-hr/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti  </span></a></li>
+                    <li> <a href="/staf-hr/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
                     <li> <a href="/staf-hr/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti non Tahunan <Non-Tahunan></Non-Tahunan>  </span></a></li>
                     <li> <a href="/staf-hr/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
                     @elseif (Session('user')['role'] == 'karyawan')
                     <li> <a href="/karyawan/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
-                    <li> <a href="/karyawan/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Pengajuan Cuti  </span></a></li>
+                    <li> <a href="/karyawan/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
+                    <li> <a href="/karyawan/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti non Tahunan  </span></a></li>
                     @endif
 
                 </ul>

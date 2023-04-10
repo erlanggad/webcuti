@@ -25,7 +25,7 @@
         <!-- /.col-lg-12 -->
         <div class="col-md-12">
             @if ($role == 'karyawan')
-            <a href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/create">
+            <a href="/{{ Session('user')['role'] }}/cuti-non-tahunan/create">
                 <button class="btn btn-primary btn-block">Tambah</button>
             </a>
             @endif
@@ -63,12 +63,12 @@
                                 <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
                                     @if (in_array($role,['staf-hr','admin']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/{{$item->id_cuti_non}}/edit">
+                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
                                     @endif
                                     @if ($item->status == 'verifikasi')
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti-non/{{$item->id_cuti_non}}">
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 

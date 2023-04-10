@@ -42,6 +42,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="ttd" type="file" value="" id="example-email-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-md-12">
 
                             <button class="btn btn-primary btn-block" type="submit">Buat</button>
@@ -59,7 +65,7 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Staf HR</h3>
                 <hr>
-                <form class="form" action="/{{Session('user')['role']}}/manage-staf-hr/{{Request::segment(3)}}" method="post">
+                <form class="form" action="/{{Session('user')['role']}}/manage-staf-hr/{{Request::segment(3)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -74,7 +80,12 @@
                             <input class="form-control" name="email" type="email" value="{{$staf_hr->email}}" id="example-search-input" required>
                         </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="ttd" type="file" value="{{$staf_hr->ttd}}" id="image" required>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-12">
 

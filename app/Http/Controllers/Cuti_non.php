@@ -48,12 +48,15 @@ class Cuti_non extends Controller
 
     public function create()
     {
-        return view('form_pengajuan_cuti');
+        return view('form_pengajuan_cuti_non');
     }
 
     public function store(Request $request)
     {      
-            if (Pengajuan_cuti_non::create($request->all())) {
+        $id_karyawan = Session('user')['id_karyawan'];
+        $data = $request->all();
+            $data['id_karyawan'] = $id_karyawan;
+            if (Pengajuan_cuti_non::create($data)) {
                 return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('success', 'Berhasil membuat pengajuan cuti');
             } else {
                 return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('failed', 'Gagal membuat pengajuan cuti');
@@ -65,7 +68,7 @@ class Cuti_non extends Controller
         $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')->where([
             'id_cuti_non' => $request->segment(3)
         ])->first();
-        return view('form_konfirmasi_pengajuan', $data);
+        return view('form_konfirmasi_pengajuan_non', $data);
     }
 
     public function update(Request $request)

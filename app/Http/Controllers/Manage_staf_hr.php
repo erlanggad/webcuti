@@ -20,6 +20,7 @@ class Manage_staf_hr extends Controller
 
     public function store(Request $request)
     {
+        
         if (Staf_hr::create($request->all())) {
             return redirect(Session('user')['role'].'/manage-staf-hr')->with('success', 'Berhasil membuat staf HR');
         } else {

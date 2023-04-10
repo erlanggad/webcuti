@@ -75,6 +75,11 @@
                                         <button class="btn btn-danger ml-auto mr-auto">Delete</button>
                                     </form>
                                     @endif
+                                    @if ($item->status == 'disetujui')
+                                    <a href="/{{ Session('user')['role'] }}/print">
+                                        <button class="btn btn-warning ml-auto mr-auto">Print</button>
+                                    </form>
+                                    @endif
                                 </th>
                             </tr>
                             <?php $no++ ?>
