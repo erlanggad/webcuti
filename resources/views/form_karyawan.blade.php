@@ -112,12 +112,14 @@
                             <input class="form-control" name="tanggal_lahir" type="date" value="{{$karyawan->tanggal_lahir}}" id="example-email-input" required>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Posisi</label>
                         <div class="col-10">
                             <input class="form-control" name="posisi" type="text" value="{{$karyawan->posisi}}" id="example-text-input" required>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Unit Kerja</label>
                         <div class="col-10">

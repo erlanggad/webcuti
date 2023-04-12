@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Cuti_non;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Register;
@@ -9,9 +9,8 @@ use App\Http\Controllers\Konfigurasi_cuti;
 use App\Http\Controllers\Manage_karyawan;
 use App\Http\Controllers\Manage_staf_hr;
 use App\Http\Controllers\Manage_pengajuan_cuti;
-use App\Http\Controllers\Print_Tahunan;
 use App\Http\Controllers\Rekap_pengajuan_cuti;
-
+use App\Http\Controllers\Cuti_non;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,8 +26,8 @@ Route::get('/', [Login::class,'index']);
 Route::get('/login', [Login::class,'index']);
 Route::post('/login-action', [Login::class,'login_action']);
 Route::get('/register', [Register::class,'index']);
+Route::post('/store-register', [Register::class,'store']);
 Route::get('/logout-action', [Login::class,'logout_action']);
-Route::resource('/manage-karyawan', Manage_karyawan::class);
 //admin
 Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/home', [Home::class,'index']);
@@ -55,9 +54,9 @@ Route::middleware(['authStafHR'])->prefix('staf-hr')->group(function () {
 //karyawan
 Route::middleware(['authKaryawan'])->prefix('karyawan')->group(function () {
     Route::get('/home', [Home::class,'index']);
-    Route::get('/print', [Print_Tahunan::class,'index']);
     Route::post('/store-pengajuan', [Manage_pengajuan_cuti::class,'store']);
     Route::resource('/manage-pengajuan-cuti', Manage_pengajuan_cuti::class);
+    Route::get('/print-tahunan', [Manage_pengajuan_cuti::class,'show']);
     Route::resource('/cuti-non-tahunan', Cuti_non::class);
     Route::post('/store-pengajuan-non', [Cuti_non::class,'store']);
 

@@ -75,10 +75,14 @@
                                         <button class="btn btn-danger ml-auto mr-auto">Delete</button>
                                     </form>
                                     @endif
+                                    
                                     @if ($item->status == 'disetujui')
-                                    <a href="/{{ Session('user')['role'] }}/print">
-                                        <button class="btn btn-warning ml-auto mr-auto">Print</button>
-                                    </form>
+                                    @if (in_array($role,['karyawan']))
+                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{ $item->id_pengajuan_cuti}}/show">
+                                        <button class="btn btn-success ml-auto mr-auto">Print</button>
+                                    </a>
+                                    
+                                    @endif
                                     @endif
                                 </th>
                             </tr>

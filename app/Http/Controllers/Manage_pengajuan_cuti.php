@@ -77,9 +77,15 @@ class Manage_pengajuan_cuti extends Controller
         $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->where([
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
-        return view('form_konfirmasi_pengajuan', $data);
+        return view('print_tahunan', $data);
     }
-
+    public function edit1(Request $request)
+    {
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->where([
+            'id_pengajuan_cuti' => $request->segment(3)
+        ])->first();
+        return view('print_tahunan', $data);
+    }
     public function update(Request $request)
     {
         $pengajuan_cuti = Pengajuan_cuti::where([
@@ -95,10 +101,16 @@ class Manage_pengajuan_cuti extends Controller
         }
     }
 
-    public function show(){
-
+    public function show(Request $request)
+    {
+        $p['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->where([
+            'id_pengajuan_cuti' => $request->segment(3)
+        ])->first();
+        return view('form_konfirmasi_pengajuan', $p); 
     }
-
+    public function print(){
+        
+    }
     public function destroy(Request $request)
     {
         $pengajuan_cuti = Pengajuan_cuti::find($request->segment(3));
