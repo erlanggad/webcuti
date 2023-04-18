@@ -38,7 +38,7 @@
                   <tr>
 				<td>
 				<center>
-					<font size="4">PERMOHONAN CUTI TAHUNAN KARYAWAN</font><br>
+					<font size="4">PERMOHONAN CUTI DILUAR TAHUNAN KARYAWAN</font><br>
 				</center>
 				</td>
 			</tr>
@@ -68,49 +68,45 @@
 		<table>
 			<tr >
 				<td>Nama</td>
-				<td width="545">: <b>{{$pengajuan_cuti->nama_karyawan}}</b></td>
+				<td width="545">: <b>{{$cuti_non->nama_karyawan}}</b></td>
 			</tr>
 			<tr>
 				<td>Jabatan</td>
-				<td width="525">: <b>{{$pengajuan_cuti->posisi}}</b></td>
+				<td width="525">: <b>{{$cuti_non->posisi}}</b></td>
 			</tr>
 			<tr>
 				<td>Unit Kerja</td>
-				<td width="525">: <b>{{$pengajuan_cuti->unit}}</b></td>
+				<td width="525">: <b>{{$cuti_non->unit}}</b></td>
 			</tr>
                   <tr>
 				<td>Tanggal Mulai Bekerja</td>
-				<td width="100">: <b>{{$pengajuan_cuti->tanggal_lahir->format('d M Y')}}</b></td>
+				<td width="100">: <b>{{$cuti_non->tanggal_lahir->format('d M Y')}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Dengan ini mengajukan permohonan Cuti Tahunan sebagai berikut :</font>
+			       <font size="2">Dengan ini mengajukan permohonan Cuti Diluar Tahunan sebagai berikut :</font>
 		       </td>
 		    </tr>
 		</table>
 		</table>
 		<table>
-			<tr >
-				<td>Periode Cuti Tahunan</td>
-				<td width="545">: <b>2023</b></td>
-			</tr>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>
-				<td width="525">: <b>{{$pengajuan_cuti->tanggal_pengajuan->format('d M Y')}}</b></td>
+				<td width="525">: <b>{{$cuti_non->tanggal_pengajuan->format('d M Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Lama Cuti</td>
-				<td width="525">: <b>{{$pengajuan_cuti->lama_cuti}} Hari</b></td>
+				<td width="525">: <b>{{$cuti_non->lama_cuti}} Hari</b></td>
 			</tr>
-                  <tr>
+            <tr>
 				<td>Keterangan</td>
-				<td width="100">: <b>{{$pengajuan_cuti->keterangan}}</b></td>
+				<td width="100">: <b>{{$cuti_non->keterangan}}</b></td>
 			</tr>
-                  <tr>
-				<td>Alamat</td>
-				<td width="100">: <b>{{$pengajuan_cuti->alamat}}</b></td>
+			<tr>
+				<td>Putusan Pejabat Berwenang</td>
+				<td width="100">: <b>{{$cuti_non->status}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
@@ -125,7 +121,7 @@
 		<table width="625">
 			<tr>
 				<td width="430"><br><br><br><br></td>
-				<td class="text" align="center"><br>Pandaan <br> Karyawan Yang Bersangkutan<br><br><br><br>{{$pengajuan_cuti->nama_karyawan}}</td>
+				<td class="text" align="center"><br>Pandaan <br> Karyawan Yang Bersangkutan<br><br><br><br>{{$cuti_non->nama_karyawan}}</td>
 			</tr>
 	     </table>
 	</center>

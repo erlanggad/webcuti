@@ -65,7 +65,7 @@
 <body>
     
     <!-- form section start -->
-    <section class="w3l-mockup-form">
+    <section class="w2l-mockup-form">
         <div class="container">
             <!-- /form -->
             <div class="workinghny-form-grid">
@@ -73,7 +73,7 @@
                     <div class="alert-close">
                         <span class="fa fa-close"></span>
                     </div>
-                    <div class="w3l_form align-self">
+                    <div class="w2l_form align-self">
                         <div class="left_grid_info">
                             <img src="" alt="">
                         </div>

@@ -49,6 +49,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Alamat</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{$pengajuan_cuti->alamat}}" id="example-text-input" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Status</label>
                         <div class="col-10">
                            <select name="status" class="form-control" id="" required>

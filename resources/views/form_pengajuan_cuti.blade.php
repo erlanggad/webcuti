@@ -42,6 +42,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Alamat</label>
+                        <div class="col-10">
+                            <input class="form-control" name="alamat" type="text" value="" id="example-email-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-md-12">
 
                             <button class="btn btn-primary btn-block" type="submit">Buat</button>

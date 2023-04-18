@@ -45,6 +45,7 @@
                                 <th>Tanggal Pengajuan</th>
                                 <th>Lama Cuti</th>
                                 <th>Keterangan</th>
+                                <th>Alamat</th>
                                 <th>Status</th>
                                 <th>verifikasi Oleh</th>
                                 <th>Aksi</th>
@@ -59,6 +60,7 @@
                                 <td>{{$item->tanggal_pengajuan}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
                                 <td>{{$item->keterangan}}</td>
+                                <td>{{$item->alamat}}</td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
@@ -78,7 +80,7 @@
                                     
                                     @if ($item->status == 'disetujui')
                                     @if (in_array($role,['karyawan']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{ $item->id_pengajuan_cuti}}/show">
+                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
                                     

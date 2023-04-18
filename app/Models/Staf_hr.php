@@ -14,7 +14,6 @@ class Staf_hr extends Model
         'nama_staf_hr',
         'email',
         'password',
-        'ttd'
     ];
     public $timestamps = false;
 

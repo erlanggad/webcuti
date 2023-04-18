@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Karyawan extends Model
 {
     use HasFactory;
+    protected $dates =['tanggal_lahir'];
     protected $primaryKey = 'id_karyawan';
     protected $table = "karyawan";
     protected $fillable = [

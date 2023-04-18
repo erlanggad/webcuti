@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengajuan_cuti_non extends Model
 {
     use HasFactory;
+    protected $dates =['tanggal_pengajuan','tanggal_lahir'];
     protected $primaryKey = 'id_cuti_non';
     protected $table = "cuti_non";
     protected $fillable = [
