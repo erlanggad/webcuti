@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\models\View_sisa_cuti;
 use App\models\Pengajuan_cuti;
 use App\models\Karyawan;
-use App\models\Staf_hr;
+use App\models\Pejabat_struktural;
 
 class Home extends Controller
 {
@@ -17,9 +17,9 @@ class Home extends Controller
                 # code...
                 return $this->index_karyawan($request);
                 break;
-            case 'staf-hr':
+            case 'pejabat-struktural':
                 # code...
-                return $this->index_staf_hr($request);
+                return $this->index_pejabat_struktural($request);
                 break;
             case 'admin':
                 # code...
@@ -58,7 +58,7 @@ class Home extends Controller
         return view('home_karyawan',$data);
     }
 
-    private function index_staf_hr($request){
+    private function index_pejabat_struktural($request){
         $jumlah_karyawan = Karyawan::count();
         $pengajuan_cuti_verifikasi = pengajuan_cuti::where([
             'status' => 'verifikasi'
@@ -74,7 +74,7 @@ class Home extends Controller
 
     private function index_admin($request){
         $jumlah_karyawan = Karyawan::count();
-        $jumlah_staf_hr = Staf_hr::count();
+        $jumlah_staf_hr = Pejabat_struktural::count();
         $pengajuan_cuti_verifikasi = pengajuan_cuti::where([
             'status' => 'verifikasi'
         ])

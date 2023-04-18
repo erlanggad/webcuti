@@ -38,7 +38,21 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Keterangan</label>
                         <div class="col-10">
-                            <input class="form-control" name="keterangan" type="text" value="" id="example-email-input" required>
+                           <select name="keterangan" class="form-control" id="" required>
+                                <option>Cuti sakit dengan surat keterangan dokter</option>
+                                <option>Cuti bersalin</option>
+                                <option>Cuti gugur kandungan dengan surat keterangan dokter</option>
+                                <option>Cuti bersalin</option>
+                                <option>Cuti melangsungkan pernikahan</option>
+                                <option>Mengkhitankan anak</option>
+                                <option>Membaptis anak</option>
+                                <option>Menikahkan anak</option>
+                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu menderita sakit keras atau istri gugur kandungan</option>
+                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu meninggal dunia</option>
+                                <option>Istri melahirkan/option>
+                                <option>Menunaikan ibadah haji</option>
+                                <option>Istirahat panjang selama 6 (enam) bulan</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

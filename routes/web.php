@@ -33,7 +33,7 @@ Route::get('/logout-action', [Login::class,'logout_action']);
 //admin
 Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/home', [Home::class,'index']);
-    Route::resource('/manage-staf-hr', Manage_staf_hr::class);
+    Route::resource('/manage-pejabat-struktural', Manage_staf_hr::class);
     Route::resource('/manage-pengajuan-cuti', Manage_pengajuan_cuti::class);
     Route::resource('/cuti-non-tahunan', Cuti_non::class);
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
@@ -43,7 +43,7 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
 });
 
 //staf hr
-Route::middleware(['authStafHR'])->prefix('staf-hr')->group(function () {
+Route::middleware(['authStafHR'])->prefix('pejabat-struktural')->group(function () {
     Route::get('/home', [Home::class,'index']);
     Route::resource('/manage-pengajuan-cuti', Manage_pengajuan_cuti::class);
     Route::resource('/cuti-non-tahunan', Cuti_non::class);

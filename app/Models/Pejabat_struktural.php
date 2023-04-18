@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Staf_hr extends Model
+class Pejabat_struktural extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_staf_hr';
-    protected $table = "staf_hr";
+    protected $primaryKey = 'id_pejabat_struktural';
+    protected $table = "pejabat_struktural";
     protected $fillable = [
-        'nama_staf_hr',
+        'nama_pejabat_struktural',
         'email',
         'password',
     ];

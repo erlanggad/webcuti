@@ -16,7 +16,7 @@ class Manage_pengajuan_cuti extends Controller
                 # code...
                 return $this->index_karyawan($request);
                 break;
-            case 'staf-hr':
+            case 'pejabat-struktural':
                 # code...
                 return $this->index_pengelola($request);
                 break;

@@ -94,7 +94,7 @@
 		<table>
 			<tr >
 				<td>Periode Cuti Tahunan</td>
-				<td width="545">: <b>2023</b></td>
+				<td width="545">: <b>{{date('Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>

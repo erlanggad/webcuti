@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Pengajuan_cuti;
-use App\models\Karyawan;
-use App\models\View_sisa_cuti;
 
 class Print_tahunan extends Controller
 {

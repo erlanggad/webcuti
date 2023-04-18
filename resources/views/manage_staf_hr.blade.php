@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title','- Manage Staf HR')
+@section('title','- Manage Pejabat Struktural')
 
 @section('konten')
 <div class="container-fluid">
@@ -24,7 +24,7 @@
         </div>
         <!-- /.col-lg-12 -->
         <div class="col-md-12">
-            <a href="/{{Session('user')['role']}}/manage-staf-hr/create">
+            <a href="/{{Session('user')['role']}}/manage-pejabat-struktural/create">
                 <button class="btn btn-primary btn-block">Tambah</button>
             </a>
         </div>
@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Data Staf HR</h3>
+                <h3 class="box-title m-b-0">Data Pejabat Struktural</h3>
                 <div class="table-responsive">
                     <table id="myTable" class="table table-striped">
                         <thead>
@@ -49,10 +49,10 @@
                             @foreach($staf_hr as $item)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$item->nama_staf_hr}}</td>
+                                <td>{{$item->nama_pejabat_struktural}}</td>
                                 <td>{{$item->email}}</td>
                                 <th>
-                                    <a class="ml-auto mr-auto" href="/{{Session('user')['role']}}/manage-staf-hr/{{$item->id_staf_hr}}/edit">
+                                    <a class="ml-auto mr-auto" href="/{{Session('user')['role']}}/manage-pejabat-struktural/{{$item->id_pejabat_struktural}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
                                     <form class="ml-auto mr-auto mt-3" method="POST" action="/{{Session('user')['role']}}/manage-staf-hr/{{$item->id_staf_hr}}">

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Staf_hr;
+use App\models\Pejabat_struktural;
 
 class Manage_staf_hr extends Controller
 {
     public function index()
     {
-        $data['staf_hr'] = Staf_hr::all();
+        $data['staf_hr'] = Pejabat_struktural::all();
         return view('manage_staf_hr', $data);
     }
 
@@ -21,32 +21,32 @@ class Manage_staf_hr extends Controller
     public function store(Request $request)
     {
         
-        if (Staf_hr::create($request->all())) {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('success', 'Berhasil membuat staf HR');
+        if (Pejabat_struktural::create($request->all())) {
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil membuat pejabat struktural');
         } else {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('failed', 'Gagal membuat staf HR');
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('failed', 'Gagal membuat pejabat-struktural');
         }
     }
 
     public function edit(Request $request)
     {
-        $data['staf_hr'] = Staf_hr::where([
-            'id_staf_hr' => $request->segment(3)
+        $data['staf_hr'] = Pejabat_struktural::where([
+            'id_pejabat_struktural' => $request->segment(3)
         ])->first();
         return view('form_staf_hr', $data);
     }
 
     public function update(Request $request)
     {
-        $staf_hr = Staf_hr::where([
+        $staf_hr = Pejabat_struktural::where([
             'id_staf_hr' => $request->segment(3)
         ])->first();
-        $staf_hr->nama_staf_hr = $request->nama_staf_hr;
+        $staf_hr->nama_pejabat_struktural = $request->nama_pejabat_struktural;
         $staf_hr->email = $request->email;
         if ($staf_hr->save()) {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('success', 'Berhasil memperbarui staf HR');
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil memperbarui pejabat struktural');
         } else {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('failed', 'Gagal memperbarui staf HR');
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('failed', 'Gagal memperbarui pejabat struktural');
         }
     }
 
@@ -56,11 +56,11 @@ class Manage_staf_hr extends Controller
 
     public function destroy(Request $request)
     {
-        $staf_hr = Staf_hr::find($request->segment(3));
+        $staf_hr = Pejabat_struktural::find($request->segment(3));
         if ($staf_hr->delete()) {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('success', 'Berhasil menghapus staf HR');
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil menghapus pejabat struktural');
         } else {
-            return redirect(Session('user')['role'].'/manage-staf-hr')->with('failed', 'Gagal menghapus staf HR');
+            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('failed', 'Gagal menghapus pejabat struktural');
         }
     }
 }

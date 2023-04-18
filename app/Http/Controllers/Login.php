@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use App\models\Admin;
-use App\models\Staf_hr;
+use App\models\Pejabat_struktural;
 use App\models\Karyawan;
 
 class Login extends Controller
@@ -39,12 +39,12 @@ class Login extends Controller
             return $check;
         }
 
-        $staf_hr = Staf_hr::where([
+        $staf_hr = Pejabat_struktural::where([
             'email' => $request->email,
             'password' => $request->password,
         ]);
 
-        $check = $this->checkUser($request, $staf_hr, 'staf-hr');
+        $check = $this->checkUser($request, $staf_hr, 'pejabat-struktural');
         if($check != null){
             return $check;
         }
@@ -68,7 +68,7 @@ class Login extends Controller
             $user = $user->first()->toArray();
             unset($user['password']);
             $user['role'] = $role;
-            $user['nama'] = $user['nama_admin'] ?? $user['nama_staf_hr'] ?? $user['nama_karyawan'];
+            $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'];
             Session(['user' => $user]);
             switch ($role) {
                 case 'karyawan':
@@ -76,9 +76,9 @@ class Login extends Controller
                     return redirect('/karyawan/home');
                     break;
 
-                case 'staf-hr':
+                case 'pejabat-struktural':
                     # code...
-                    return redirect('/staf-hr/home');
+                    return redirect('/pejabat-struktural/home');
                     break;
 
                 case 'admin':
