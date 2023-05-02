@@ -52,15 +52,17 @@ class Cuti_non extends Controller
     }
 
     public function store(Request $request)
-    {      
+    {    
         $id_karyawan = Session('user')['id_karyawan'];
         $data = $request->all();
             $data['id_karyawan'] = $id_karyawan;
-            if (Pengajuan_cuti_non::create($data)) {
-                return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('success', 'Berhasil membuat pengajuan cuti');
-            } else {
-                return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('failed', 'Gagal membuat pengajuan cuti');
+            $simpan = Pengajuan_cuti_non::create($data);
+            if ($request->hasFile('image')) {
+               $request->file('image')->move('uploadnon/', $request->file('image')->getClientOriginalName());
+               $simpan->image = $request->file('image')->getClientOriginalName();
+               $simpan->save();
             }
+            return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('success', 'Berhasil membuat pengajuan cuti');
     }
 
     public function edit(Request $request)

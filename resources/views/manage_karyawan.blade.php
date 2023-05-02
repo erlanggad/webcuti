@@ -56,7 +56,7 @@
                                 <td>{{$item->nama_karyawan}}</td>
                                 <td>{{$item->nik}}</td>
                                 <td>{{$item->email}}</td>
-                                <td>{{$item->tanggal_lahir}}</td>
+                                <td>{{$item->tanggal_lahir->format('d M Y')}}</td>
                                 <td>{{$item->posisi}}</td>
                                 <td>{{$item->unit}}</td>
                                 <th>

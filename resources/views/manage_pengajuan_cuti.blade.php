@@ -57,7 +57,7 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_karyawan}}</td>
-                                <td>{{$item->tanggal_pengajuan}}</td>
+                                <td>{{$item->tanggal_pengajuan->format('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
                                 <td>{{$item->keterangan}}</td>
                                 <td>{{$item->alamat}}</td>

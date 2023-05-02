@@ -45,6 +45,7 @@
                                 <th>Tanggal Pengajuan</th>
                                 <th>Lama Cuti</th>
                                 <th>Keterangan</th>
+                                <th>Lampiran</th>
                                 <th>Status</th>
                                 <th>verifikasi Oleh</th>
                                 <th>Aksi</th>
@@ -56,9 +57,12 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_karyawan}}</td>
-                                <td>{{$item->tanggal_pengajuan}}</td>
+                                <td>{{$item->tanggal_pengajuan->format('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
                                 <td>{{$item->keterangan}}</td>
+                                <td>
+                                    <img src="{{asset('uploadnon/'.$item->image)}}"alt="" style="width: 50px" >
+                                </td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
