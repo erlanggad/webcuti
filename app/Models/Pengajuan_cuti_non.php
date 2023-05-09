@@ -16,8 +16,11 @@ class Pengajuan_cuti_non extends Model
         'tanggal_pengajuan',
         'lama_cuti',
         'keterangan',
+        'ttd_karyawan',
         'image'=> 'image|file',
         'status',
-        'verifikasi_oleh'
+        'verifikasi_oleh',
+        'jabatan_verifikasi',
+        'catatan'
     ];
 }

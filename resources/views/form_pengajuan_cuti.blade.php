@@ -21,7 +21,7 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Pengajuan Cuti</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/store-pengajuan" method="post">
+                <form class="form" action="/{{ Session('user')['role'] }}/store-pengajuan" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Tanggal Pengajuan</label>
@@ -45,6 +45,12 @@
                         <label for="example-email-input" class="col-2 col-form-label">Alamat</label>
                         <div class="col-10">
                             <input class="form-control" name="alamat" type="text" value="" id="example-email-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -12,8 +12,10 @@ class Pejabat_struktural extends Model
     protected $table = "pejabat_struktural";
     protected $fillable = [
         'nama_pejabat_struktural',
+        'jabatan',
         'email',
         'password',
+        'image'=> 'image|file',
     ];
     public $timestamps = false;
 

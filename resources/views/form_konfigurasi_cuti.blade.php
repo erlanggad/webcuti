@@ -30,6 +30,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-search-input" class="col-2 col-form-label">Cuti Bersama</label>
+                        <div class="col-10">
+                            <input class="form-control" name="cuti_bersama" type="text" value="" id="example-search-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="example-search-input" class="col-2 col-form-label">Jumlah Cuti</label>
                         <div class="col-10">
                             <input class="form-control" name="jumlah_cuti" type="text" value="" id="example-search-input" required>
@@ -61,6 +67,12 @@
                         <label for="example-text-input" class="col-2 col-form-label">Tahun</label>
                         <div class="col-10">
                             <input class="form-control" name="tahun" type="text" value="{{$konfigurasi_cuti->tahun}}" id="example-text-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Jumlah Cuti Bersama</label>
+                        <div class="col-10">
+                            <input class="form-control" name="cuti_bersama" type="text" value="{{$konfigurasi_cuti->cuti_bersama}}" id="example-text-input" required>
                         </div>
                     </div>
                     <div class="form-group row">

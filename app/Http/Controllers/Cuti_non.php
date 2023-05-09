@@ -57,11 +57,16 @@ class Cuti_non extends Controller
         $data = $request->all();
             $data['id_karyawan'] = $id_karyawan;
             $simpan = Pengajuan_cuti_non::create($data);
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('image') ) {
                $request->file('image')->move('uploadnon/', $request->file('image')->getClientOriginalName());
                $simpan->image = $request->file('image')->getClientOriginalName();
                $simpan->save();
             }
+            if ($request->hasFile('ttd_karyawan') ) {
+                $request->file('ttd_karyawan')->move('uploadnon/', $request->file('ttd_karyawan')->getClientOriginalName());
+                $simpan->ttd_karyawan = $request->file('ttd_karyawan')->getClientOriginalName();
+                $simpan->save();
+             }
             return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('success', 'Berhasil membuat pengajuan cuti');
     }
 
@@ -79,8 +84,13 @@ class Cuti_non extends Controller
             'id_cuti_non' => $request->segment(3)
         ])->first();
         $nama = Session('user')['nama'];
+        $jabatan = Session('user')['jabatan'];
+        $ttd = Session('user')['image'];
         $pengajuan_cuti->status = $request->status;
         $pengajuan_cuti->verifikasi_oleh = $nama;
+        $pengajuan_cuti->jabatan_verifikasi = $jabatan;
+        $pengajuan_cuti->catatan = $request->catatan;
+        $pengajuan_cuti->ttd = $ttd;
         if ($pengajuan_cuti->save()) {
             return redirect(Session('user')['role'].'/cuti-non-tahunan')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {

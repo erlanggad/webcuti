@@ -40,7 +40,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Jabatan</th>
                                 <th>Email</th>
+                                <th>Tanda Tangan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -50,12 +52,16 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_pejabat_struktural}}</td>
+                                <td>{{$item->jabatan}}</td>
                                 <td>{{$item->email}}</td>
+                                <td>
+                                    <img src="{{asset('tanda_tangan/'.$item->image)}}"alt="" style="width: 100px" >
+                                </td>
                                 <th>
                                     <a class="ml-auto mr-auto" href="/{{Session('user')['role']}}/manage-pejabat-struktural/{{$item->id_pejabat_struktural}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{Session('user')['role']}}/manage-staf-hr/{{$item->id_staf_hr}}">
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{Session('user')['role']}}/manage-pejabat-struktural/{{$item->id_pejabat_struktural}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 

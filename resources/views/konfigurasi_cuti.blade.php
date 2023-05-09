@@ -40,6 +40,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tahun</th>
+                                <th>Jumlah Cuti Bersama</th>
                                 <th>Jumlah Cuti</th>
                                 <th>Aksi</th>
                             </tr>
@@ -50,6 +51,7 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->tahun}}</td>
+                                <td>{{$item->cuti_bersama}}</td>
                                 <td>{{$item->jumlah_cuti}}</td>
                                 <th>
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/konfigurasi-cuti/{{$item->id_konfig_cuti}}/edit">

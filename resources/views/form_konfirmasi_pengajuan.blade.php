@@ -64,7 +64,12 @@
                            </select>
                         </div>
                     </div>
-                    
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-2 col-form-label">Catatan</label>
+                            <div class="col-10">
+                                <input class="form-control" name="catatan" type="text" value="{{$pengajuan_cuti->catatan }}" id="example-email-input">
+                            </div>
+                        </div>
                     <div class="form-group row">
                         <div class="col-md-12">
 

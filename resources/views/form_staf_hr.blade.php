@@ -21,12 +21,18 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Pejabat Struktural</h3>
                 <hr>
-                <form class="form" action="/{{Session('user')['role']}}/manage-pejabat-struktural" method="post">
+                <form class="form" action="/{{Session('user')['role']}}/manage-pejabat-struktural" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Nama Pejabat Struktural</label>
                         <div class="col-10">
                             <input class="form-control" name="nama_pejabat_struktural" type="text" value="" id="example-text-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Jabatan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="jabatan" type="text" value="" id="example-text-input" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,6 +45,12 @@
                         <label for="example-email-input" class="col-2 col-form-label">Password</label>
                         <div class="col-10">
                             <input class="form-control" name="password" type="password" value="" id="example-email-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="image" type="file" id="example-email-input">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -69,9 +81,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Jabatan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="jabatan" type="text" value="{{$staf_hr->jabatan}}" id="example-search-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="example-search-input" class="col-2 col-form-label">Email</label>
                         <div class="col-10">
                             <input class="form-control" name="email" type="email" value="{{$staf_hr->email}}" id="example-search-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="image" value="{{$staf_hr->image}}" type="file" id="example-email-input">
                         </div>
                     </div>
                     <div class="form-group row">

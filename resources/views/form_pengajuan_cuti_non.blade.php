@@ -42,15 +42,14 @@
                                 <option>Cuti sakit dengan surat keterangan dokter</option>
                                 <option>Cuti bersalin</option>
                                 <option>Cuti gugur kandungan dengan surat keterangan dokter</option>
-                                <option>Cuti bersalin</option>
-                                <option>Cuti melangsungkan pernikahan</option>
-                                <option>Mengkhitankan anak</option>
-                                <option>Membaptis anak</option>
-                                <option>Menikahkan anak</option>
-                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu menderita sakit keras atau istri gugur kandungan</option>
-                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu meninggal dunia</option>
-                                <option>Istri melahirkan/option>
-                                <option>Menunaikan ibadah haji</option>
+                                <option>Cuti melangsungkan pernikahan (3 hari)</option>
+                                <option>Mengkhitankan anak (2 hari)</option>
+                                <option>Membaptis anak (2 hari)</option>
+                                <option>Menikahkan anak (2 hari)</option>
+                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu menderita sakit keras atau istri gugur kandungan (2 hari)</option>
+                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu meninggal dunia (2 hari)</option>
+                                <option>Istri melahirkan (2 hari)</option>
+                                <option>Menunaikan ibadah haji (45 hari)</option>
                                 <option>Istirahat panjang selama 6 (enam) bulan</option>
                             </select>
                         </div>
@@ -59,6 +58,12 @@
                         <label for="image" class="col-2 col-form-label">Lampiran</label>
                         <div class="col-10">
                             <input class="form-control" name="image" type="file" id="example-email-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input">
                         </div>
                     </div>
                     <div class="form-group row">

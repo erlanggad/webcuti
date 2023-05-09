@@ -12,6 +12,7 @@ class Konfig_cuti extends Model
     protected $table = "konfig_cuti";
     protected $fillable = [
         'tahun',
+        'cuti_bersama',
         'jumlah_cuti',
     ];
 }

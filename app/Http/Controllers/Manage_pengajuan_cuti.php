@@ -62,7 +62,13 @@ class Manage_pengajuan_cuti extends Controller
         if($sisa_cuti->sisa_cuti >= $request->lama_cuti) {
             $data = $request->all();
             $data['id_karyawan'] = $id_karyawan;
-            if (pengajuan_cuti::create($data)) {
+            $simpan = Pengajuan_cuti::create($data);
+            if ($request->hasFile('ttd_karyawan')) {
+               $request->file('ttd_karyawan')->move('ttd_karyawan/', $request->file('ttd_karyawan')->getClientOriginalName());
+               $simpan->ttd_karyawan = $request->file('ttd_karyawan')->getClientOriginalName();
+               $simpan->save();
+            }
+            if ($simpan) {
                 return redirect(Session('user')['role'].'/manage-pengajuan-cuti')->with('success', 'Berhasil membuat pengajuan cuti');
             } else {
                 return redirect(Session('user')['role'].'/manage-pengajuan-cuti')->with('failed', 'Gagal membuat pengajuan cuti');
@@ -85,8 +91,13 @@ class Manage_pengajuan_cuti extends Controller
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
         $nama = Session('user')['nama'];
+        $jabatan = Session('user')['jabatan'];
+        $image=Session('user')['image'];
         $pengajuan_cuti->status = $request->status;
         $pengajuan_cuti->verifikasi_oleh = $nama;
+        $pengajuan_cuti->jabatan_verifikasi = $jabatan;
+        $pengajuan_cuti->catatan = $request->catatan;
+        $pengajuan_cuti->image = $image;
         if ($pengajuan_cuti->save()) {
             return redirect(Session('user')['role'].'/manage-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {

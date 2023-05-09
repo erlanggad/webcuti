@@ -41,6 +41,7 @@ class Konfigurasi_cuti extends Controller
             'id_konfig_cuti' => $request->segment(3)
         ])->first();
         $konfigurasi_cuti->tahun = $request->tahun;
+        $konfigurasi_cuti->cuti_bersama = $request->cuti_bersama;
         $konfigurasi_cuti->jumlah_cuti = $request->jumlah_cuti;
         if ($konfigurasi_cuti->save()) {
             return redirect(Session('user')['role'].'/konfigurasi-cuti')->with('success', 'Berhasil memperbarui konfigurasi_cuti');

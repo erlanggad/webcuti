@@ -69,6 +69,7 @@ class Login extends Controller
             unset($user['password']);
             $user['role'] = $role;
             $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'];
+            
             Session(['user' => $user]);
             switch ($role) {
                 case 'karyawan':

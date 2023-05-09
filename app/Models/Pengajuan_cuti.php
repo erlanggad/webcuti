@@ -17,7 +17,11 @@ class Pengajuan_cuti extends Model
         'lama_cuti',
         'keterangan',
         'alamat',
+        'ttd_karyawan',
         'status',
-        'verifikasi_oleh'
+        'verifikasi_oleh',
+        'jabatan_verifikasi',
+        'catatan'
+        
     ];
 }

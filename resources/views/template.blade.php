@@ -100,7 +100,7 @@
                     <li class="nav-small-cap m-t-10">--- Main Menu</li>
                     @if (Session('user')['role'] == 'admin')
                     <li> <a href="/admin/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
-                    <li> <a href="/admin/manage-staf-hr" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Staf HR  </span></a></li>
+                    <li> <a href="/admin/manage-pejabat-struktural" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Pejabat Struktural  </span></a></li>
                     <li> <a href="/admin/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/admin/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>

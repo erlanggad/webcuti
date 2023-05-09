@@ -3,7 +3,15 @@
       
 <head>
       <style type="text/css">
-		table {
+	  body{
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #fafafa;
+		font: "Tahoma";
+	  }
+		.table {
 			border-style: double;
 			border-width: 3px;
 			border-color: white;
@@ -27,18 +35,25 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Print Cuti Tahunan</title>
+      <title>Print Cuti Diluar Tahunan</title>
 </head>
 <body>
+	<table width="720">
+		<tr>
+			<td>
+				<img src="{{URL::asset('plugins/images/baruu.png')}}" width="110" height="55">
+			</td>
+		</tr>
+	</table>
       <center>
 		<table>
                   <tr>
-                  <td><center><img src="{{URL::asset('plugins/images/jp.png')}}" width="210" height="90"></center></td>
+                  
                   </tr>
                   <tr>
 				<td>
 				<center>
-					<font size="4">PERMOHONAN CUTI DILUAR TAHUNAN KARYAWAN</font><br>
+					<b><font size="4">PERMOHONAN CUTI DILUAR TAHUNAN KARYAWAN</font></b><br>
 				</center>
 				</td>
 			</tr>
@@ -52,7 +67,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br>HCGA <b>Manager</b><br>PT. Jasamarga Pandaan Tolo<br>Di tempat</font>
+			       <font size="2">Yth.<br>HCGA <b>Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -118,12 +133,38 @@
 		    </tr>
 		</table>
 		<br>
-		<table width="625">
+		<table width="720" border="1">
+			<thead>
+				<th>
+					<B>PEJABAT BERWENANG</B>
+				</th>
+				<th>
+					<B>PEMOHON </B>
+				</th>
+			</thead>
 			<tr>
-				<td width="430"><br><br><br><br></td>
-				<td class="text" align="center"><br>Pandaan <br> Karyawan Yang Bersangkutan<br><br><br><br>{{$cuti_non->nama_karyawan}}</td>
+				<td width="350" class="text" align="center"><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="width: 150px" ><br>{{$cuti_non->verifikasi_oleh}}<br>{{$cuti_non->jabatan_verifikasi}} <br><br></td>
+				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="width: 150px" ><br>{{$cuti_non->nama_karyawan}}<br></td>
+			</tr>
+			<tr>
+				<td> Catatan : {{$cuti_non->catatan}}</td>
 			</tr>
 	     </table>
+		 
 	</center>
 </body>
+<script>
+	var tw = new Date();
+	if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
+	else (a=tw.getTime());
+	tw.setTime(a);
+	var tahun= tw.getFullYear ();
+	var hari= tw.getDay ();
+	var bulan= tw.getMonth ();
+	var tanggal= tw.getDate ();
+	var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
+	var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
+	document.getElementById("tanggalwaktu").innerHTML = " "+tanggal+" "+bulanarray[bulan]+" "+tahun;
+	window.print();
+	</script>
 </html>

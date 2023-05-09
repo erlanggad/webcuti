@@ -20,12 +20,18 @@ class Manage_staf_hr extends Controller
 
     public function store(Request $request)
     {
-        
-        if (Pejabat_struktural::create($request->all())) {
+        $staf_hr = Pejabat_struktural::where([
+            'id_pejabat_struktural' => $request->segment(3)
+        ])->first();
+        $data = $request->all();
+            $simpan = Pejabat_struktural::create($data);
+            if ($request->hasFile('image')) {
+                $request->file('image')->move('tanda_tangan/', $request->file('image')->getClientOriginalName());
+                $simpan->image = $request->file('image')->getClientOriginalName();
+                $simpan->save();
+         }
             return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil membuat pejabat struktural');
-        } else {
-            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('failed', 'Gagal membuat pejabat-struktural');
-        }
+       
     }
 
     public function edit(Request $request)
@@ -39,15 +45,16 @@ class Manage_staf_hr extends Controller
     public function update(Request $request)
     {
         $staf_hr = Pejabat_struktural::where([
-            'id_staf_hr' => $request->segment(3)
+            'id_pejabat_struktural' => $request->segment(3)
         ])->first();
-        $staf_hr->nama_pejabat_struktural = $request->nama_pejabat_struktural;
-        $staf_hr->email = $request->email;
-        if ($staf_hr->save()) {
+        $data = $request->all();
+            $simpan = Pejabat_struktural::create($data);
+            if ($request->hasFile('image')) {
+                $request->file('image')->move('tanda_tangan/', $request->file('image')->getClientOriginalName());
+                $simpan->image = $request->file('image')->getClientOriginalName();
+                $simpan->save();
+            }
             return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil memperbarui pejabat struktural');
-        } else {
-            return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('failed', 'Gagal memperbarui pejabat struktural');
-        }
     }
 
     public function show(){

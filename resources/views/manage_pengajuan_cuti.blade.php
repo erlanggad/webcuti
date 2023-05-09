@@ -47,7 +47,8 @@
                                 <th>Keterangan</th>
                                 <th>Alamat</th>
                                 <th>Status</th>
-                                <th>verifikasi Oleh</th>
+                                <th>Verifikasi Oleh</th>
+                                <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -63,8 +64,9 @@
                                 <td>{{$item->alamat}}</td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
+                                <td>{{$item->jabatan_verifikasi}}</td>
                                 <th>
-                                    @if (in_array($role,['staf-hr','admin']))
+                                    @if (in_array($role,['pejabat-struktural','admin']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>

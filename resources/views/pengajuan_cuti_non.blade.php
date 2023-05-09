@@ -47,7 +47,8 @@
                                 <th>Keterangan</th>
                                 <th>Lampiran</th>
                                 <th>Status</th>
-                                <th>verifikasi Oleh</th>
+                                <th>Verifikasi Oleh</th>
+                                <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -65,6 +66,7 @@
                                 </td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
+                                <td>{{$item->jabatan_verifikasi}}</td>
                                 <th>
                                     @if (in_array($role,['pejabat-struktural','admin']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
