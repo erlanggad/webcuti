@@ -88,7 +88,6 @@
                     @endif
                             <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
                             <input type="password" class="password" name="password" placeholder="Masukkan Password" style="margin-bottom: 2px;" required>
-                            <p><a href="forgot-password.php" style="margin-bottom: 15px; display: block; text-align: right;">Forgot Password?</a></p>
                             <button name="submit" name="submit" class="btn" type="submit">Login</button>
                         </form>
                         <div class="social-icons">

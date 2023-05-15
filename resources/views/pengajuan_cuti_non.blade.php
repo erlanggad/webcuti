@@ -42,13 +42,13 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Karyawan</th>
-                                <th>Tanggal Pengajuan</th>
+                                <th>Tanggal Awal</th>
+                                <th>Tanggal Akhir</th>
                                 <th>Lama Cuti</th>
                                 <th>Keterangan</th>
                                 <th>Lampiran</th>
                                 <th>Status</th>
                                 <th>Verifikasi Oleh</th>
-                                <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -58,7 +58,8 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_karyawan}}</td>
-                                <td>{{$item->tanggal_pengajuan->format('d M Y')}}</td>
+                                <td>{{$item->tanggal_pengajuan->translatedFormat('d M Y')}}</td>
+                                <td>{{$item->tanggal_akhir->translatedFormat('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
                                 <td>{{$item->keterangan}}</td>
                                 <td>
@@ -66,9 +67,8 @@
                                 </td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
-                                <td>{{$item->jabatan_verifikasi}}</td>
                                 <th>
-                                    @if (in_array($role,['pejabat-struktural','admin']))
+                                    @if (in_array($role,['pejabat-struktural']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
@@ -82,7 +82,7 @@
                                     </form>
                                     @endif
                                     @if ($item->status == 'disetujui')
-                                    @if (in_array($role,['karyawan']))
+                                    @if (in_array($role,['karyawan','admin']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-non-tahunan/{{ $item->id_cuti_non}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>

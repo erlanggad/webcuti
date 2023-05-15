@@ -48,7 +48,6 @@
                                 <th>Alamat</th>
                                 <th>Status</th>
                                 <th>Verifikasi Oleh</th>
-                                <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -58,15 +57,14 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$item->nama_karyawan}}</td>
-                                <td>{{$item->tanggal_pengajuan->format('d M Y')}}</td>
+                                <td>{{$item->tanggal_pengajuan->translatedFormat('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
                                 <td>{{$item->keterangan}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
-                                <td>{{$item->jabatan_verifikasi}}</td>
                                 <th>
-                                    @if (in_array($role,['pejabat-struktural','admin']))
+                                    @if (in_array($role,['pejabat-struktural']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
@@ -81,7 +79,7 @@
                                     @endif
                                     
                                     @if ($item->status == 'disetujui')
-                                    @if (in_array($role,['karyawan']))
+                                    @if (in_array($role,['karyawan','admin']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>

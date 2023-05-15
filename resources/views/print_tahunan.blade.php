@@ -70,7 +70,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br>HCGA <b>Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br>{{ $pengajuan_cuti->divisi }}<b>Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -98,7 +98,7 @@
 			</tr>
                   <tr>
 				<td>Tanggal Mulai Bekerja</td>
-				<td width="100">: <b>{{$pengajuan_cuti->tanggal_lahir->format('d M Y')}}</b></td>
+				<td width="100">: <b>{{$pengajuan_cuti->tanggal_lahir->translatedFormat('d M Y')}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
@@ -115,7 +115,7 @@
 			</tr>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>
-				<td width="525">: <b>{{$pengajuan_cuti->tanggal_pengajuan->format('d M Y')}}</b></td>
+				<td width="525">: <b>{{$pengajuan_cuti->tanggal_pengajuan->translatedFormat('d M Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Lama Cuti</td>
@@ -142,7 +142,7 @@
 		<table width="625" >
 			<tr>
 				<td width="430"><br><br></td>
-				<td class="text" align="center"><p>Pandaan, <span id="tanggalwaktu"></span><br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('ttd_karyawan/'.$pengajuan_cuti->ttd_karyawan)}}"alt="" style="width: 150px" ><br>{{$pengajuan_cuti->nama_karyawan}}</p></td>
+				<td class="text" align="center"><p>Pandaan, <span id="tanggalwaktu"></span><br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('ttd_karyawan/'.$pengajuan_cuti->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->nama_karyawan}}</p></td>
 			</tr>
 	     </table>
 		 <br>
@@ -173,7 +173,7 @@
 				<td></td>
 			<tr>
 				<td></td>
-				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->image)}}"alt="" style="width: 150px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br>{{$pengajuan_cuti->jabatan_verifikasi}}</td>
+				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->image)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br>{{$pengajuan_cuti->jabatan_verifikasi}}</td>
 			</tr>
 		 </table>
 	</center>

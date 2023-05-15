@@ -53,7 +53,7 @@
                   <tr>
 				<td>
 				<center>
-					<b><font size="4">PERMOHONAN CUTI DILUAR TAHUNAN KARYAWAN</font></b><br>
+					<b><font size="4">PERMOHONAN CUTI DILUAR CUTI TAHUNAN KARYAWAN</font></b><br>
 				</center>
 				</td>
 			</tr>
@@ -67,7 +67,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br>HCGA <b>Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br> {{$cuti_non->divisi }} </b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -95,7 +95,7 @@
 			</tr>
                   <tr>
 				<td>Tanggal Mulai Bekerja</td>
-				<td width="100">: <b>{{$cuti_non->tanggal_lahir->format('d M Y')}}</b></td>
+				<td width="100">: <b>{{$cuti_non->tanggal_lahir->translatedFormat('d M Y')}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
@@ -109,7 +109,7 @@
 		<table>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>
-				<td width="525">: <b>{{$cuti_non->tanggal_pengajuan->format('d M Y')}}</b></td>
+				<td width="525">: <b>{{$cuti_non->tanggal_pengajuan->translatedFormat('d M Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Lama Cuti</td>
@@ -143,8 +143,8 @@
 				</th>
 			</thead>
 			<tr>
-				<td width="350" class="text" align="center"><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="width: 150px" ><br>{{$cuti_non->verifikasi_oleh}}<br>{{$cuti_non->jabatan_verifikasi}} <br><br></td>
-				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="width: 150px" ><br>{{$cuti_non->nama_karyawan}}<br></td>
+				<td width="350" class="text" align="center"><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br>{{$cuti_non->jabatan_verifikasi}} <br><br></td>
+				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$cuti_non->nama_karyawan}}<br></td>
 			</tr>
 			<tr>
 				<td> Catatan : {{$cuti_non->catatan}}</td>

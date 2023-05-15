@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Form Pengajuan Cuti</h3>
+                <h3 class="box-title m-b-0">Form Konfirmasi Pengajuan Cuti Diluar Cuti Tahunan</h3>
                 <hr>
                 <form class="form" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{Request::segment(3)}}" method="post">
                     @csrf
@@ -30,12 +30,7 @@
                             <input class="form-control" type="text" value="{{$cuti_non->nama_karyawan}}" id="example-text-input" readonly>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Pengajuan</label>
-                        <div class="col-10">
-                            <input class="form-control" type="date" value="{{$cuti_non->tanggal_pengajuan}}" id="example-email-input" readonly>
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Lama Cuti</label>
                         <div class="col-10">

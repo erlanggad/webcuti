@@ -17,6 +17,7 @@ class Pengajuan_cuti extends Model
         'lama_cuti',
         'keterangan',
         'alamat',
+        'divisi',
         'ttd_karyawan',
         'status',
         'verifikasi_oleh',

@@ -24,9 +24,15 @@
                 <form class="form" action="/{{ Session('user')['role'] }}/store-pengajuan-non" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
-                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Pengajuan</label>
+                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Awal </label>
                         <div class="col-10">
                             <input class="form-control" name="tanggal_pengajuan" type="date" value="" id="example-email-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Akhir </label>
+                        <div class="col-10">
+                            <input class="form-control" name="tanggal_akhir" type="date" value="" id="example-email-input" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -58,6 +64,12 @@
                         <label for="image" class="col-2 col-form-label">Lampiran</label>
                         <div class="col-10">
                             <input class="form-control" name="image" type="file" id="example-email-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Divisi</label>
+                        <div class="col-10">
+                            <input class="form-control" name="divisi" type="text"  id="example-text-input" required>
                         </div>
                     </div>
                     <div class="form-group row">
