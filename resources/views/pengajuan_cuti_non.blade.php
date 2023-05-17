@@ -82,7 +82,7 @@
                                     </form>
                                     @endif
                                     @if ($item->status == 'disetujui')
-                                    @if (in_array($role,['karyawan','admin']))
+                                    @if (in_array($role,['karyawan']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-non-tahunan/{{ $item->id_cuti_non}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>

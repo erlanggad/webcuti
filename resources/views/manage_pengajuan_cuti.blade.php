@@ -79,10 +79,18 @@
                                     @endif
                                     
                                     @if ($item->status == 'disetujui')
-                                    @if (in_array($role,['karyawan','admin']))
+                                    @if (in_array($role,['admin']))
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
+                                        <button class="btn btn-danger ml-auto mr-auto">Delete</button>
+                                    </form>
+                                    @if (in_array($role,['karyawan']))
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
+                                    @endif
                                     
                                     @endif
                                     @endif
