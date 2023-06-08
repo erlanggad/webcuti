@@ -13,6 +13,7 @@ class Pejabat_struktural extends Model
     protected $fillable = [
         'nama_pejabat_struktural',
         'jabatan',
+        'divisi',
         'email',
         'password',
         'image'=> 'image|file',

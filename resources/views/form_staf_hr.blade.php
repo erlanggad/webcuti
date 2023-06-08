@@ -36,6 +36,16 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Divisi</label>
+                        <div class="col-10">
+                        <select class="form-control" id="divisi" name="divisi">
+                            @foreach ($divisis as $divisi)
+                               <option value="{{ $divisi->id_divisi }}">{{ $divisi->ket_divisi }}</option>
+                            @endforeach
+                         </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="example-search-input" class="col-2 col-form-label">Email</label>
                         <div class="col-10">
                             <input class="form-control" name="email" type="email" value="" id="example-search-input" required>

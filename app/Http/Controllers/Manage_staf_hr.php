@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Pejabat_struktural;
+use App\models\Divisi;
 
 class Manage_staf_hr extends Controller
 {

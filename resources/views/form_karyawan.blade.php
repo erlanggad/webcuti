@@ -63,7 +63,12 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Unit Kerja</label>
                         <div class="col-10">
-                            <input class="form-control" name="unit" type="text" value="" id="example-email-input" required>
+                            <select name="unit" class="form-control" id="" required>
+                                <option>HCGA</option>
+                                <option>Finance</option>
+                                <option>Operation</option>
+                                <option>Maintenance</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -123,7 +128,12 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Unit Kerja</label>
                         <div class="col-10">
-                            <input class="form-control" name="unit" type="text" value="{{$karyawan->unit}}" id="example-text-input" required>
+                            <select name="unit" class="form-control" id="" required>
+                                <option>HCGA</option>
+                                <option>Finance</option>
+                                <option>Operation</option>
+                                <option>Maintenance</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

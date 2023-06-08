@@ -36,7 +36,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Print Cuti Tahunan</title>
+      <title> </title>
 	  <link href="css/style1.css" rel="stylesheet">
 </head>
 <body>
@@ -70,7 +70,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br>{{ $pengajuan_cuti->divisi }}<b>Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br><b>{{$pengajuan_cuti->unit}}</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -149,17 +149,17 @@
 		 <table width="720" border="1">
 			<thead>
 				<th width="550" align="left">
-					<b>KONFIRMASI HUMAN CAPITAL OFFICER</b>
+					<b>&ensp;&nbsp;KONFIRMASI HUMAN CAPITAL OFFICER</b>
 				</th>
 				<th>
 					<b>Paraf</b>
 				</th>
 			</thead>
 			<tr >
-				<td>Periode Cuti &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;: <b>{{date('Y')}}</b>
-					<br><br>&emsp;Jumlah Cuti Tahunan &ensp;&ensp;&ensp;&ensp;&nbsp;: 14 Hari &emsp;&emsp;&emsp;&emsp;&emsp; Cuti Yang Sudah Dijalani&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; : {{$cuti_terpakai}} Hari
-					<br> &emsp;Jumlah Cuti Bersama &ensp;&ensp;&ensp;&ensp;&nbsp;: {{$cuti_bersama}} Hari &emsp;&emsp;&emsp;&ensp;&emsp;&emsp; Cuti Yang Diajukan&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$pengajuan_cuti->lama_cuti}} Hari
-					<br> &emsp;Jumlah Cuti Periode &ensp;&ensp;&ensp;&nbsp;&emsp;: {{$jumlah_cuti}} Hari &emsp;&emsp;&emsp;&emsp;&emsp; Sisa Cuti &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$sisa_cuti}} Hari
+				<td>&emsp;Periode Cuti &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;: <b>{{date('Y')}}</b>
+					<br><br>&emsp;Jumlah Cuti Tahunan &ensp;&ensp;&ensp;&ensp;&nbsp;: 14 Hari &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Cuti Yang Sudah Dijalani&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; : {{$cuti_terpakai}} Hari
+					<br> &emsp;Jumlah Cuti Bersama &ensp;&ensp;&ensp;&ensp;&nbsp;: {{$cuti_bersama}} Hari &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; Cuti Yang Diajukan&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$pengajuan_cuti->lama_cuti}} Hari
+					<br> &emsp;Jumlah Cuti Periode &ensp;&ensp;&ensp;&nbsp;&emsp;: {{$jumlah_cuti}} Hari &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; Sisa Cuti &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$sisa_cuti}} Hari
 				</td>
 				<td class="text"><img src="{{asset('images/Rendy.png')}}"alt="" style="width: 100px" ></td>
 			</tr>
@@ -173,7 +173,7 @@
 				<td></td>
 			<tr>
 				<td></td>
-				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->image)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br>{{$pengajuan_cuti->jabatan_verifikasi}}</td>
+				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->image)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br></td>
 			</tr>
 		 </table>
 	</center>
@@ -190,7 +190,9 @@
 	var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
 	var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
 	document.getElementById("tanggalwaktu").innerHTML = " "+tanggal+" "+bulanarray[bulan]+" "+tahun;
-	window.print();
-	</script>
 	
+	</script>
+	<script type="text/javascript">
+		window.print();
+	</script>
 </html>

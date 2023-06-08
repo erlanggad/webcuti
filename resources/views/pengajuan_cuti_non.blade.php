@@ -82,8 +82,19 @@
                                     </form>
                                     @endif
                                     @if ($item->status == 'disetujui')
+                                    @if (in_array($role,['admin']))
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
+                                        <button class="btn btn-danger ml-auto mr-auto">Delete</button>
+                                    </form>
+                                    @endif
+                                    @endif
+
+                                    @if ($item->status == 'disetujui')
                                     @if (in_array($role,['karyawan']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-non-tahunan/{{ $item->id_cuti_non}}">
+                                    <a class="ml-auto mr-auto"  target = "_blank" href="/{{ Session('user')['role'] }}/print-non-tahunan/{{ $item->id_cuti_non}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
                                     @endif

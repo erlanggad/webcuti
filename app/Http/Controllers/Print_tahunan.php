@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\models\Pengajuan_cuti;
 use App\models\View_sisa_cuti;
 
+
 class Print_tahunan extends Controller
 {
     public function show(Request $request)

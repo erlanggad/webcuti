@@ -86,14 +86,17 @@
 
                                         <button class="btn btn-danger ml-auto mr-auto">Delete</button>
                                     </form>
+                                    @endif
+                                    @endif
+                                    
+                                    @if ($item->status == 'disetujui')
                                     @if (in_array($role,['karyawan']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
+                                    <a class="ml-auto mr-auto" target = "_blank" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
                                     @endif
+                                    @endif
                                     
-                                    @endif
-                                    @endif
                                 </th>
                             </tr>
                             <?php $no++ ?>

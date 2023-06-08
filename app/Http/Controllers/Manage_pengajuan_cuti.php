@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Pengajuan_cuti;
 use App\models\View_sisa_cuti;
+use App\models\DIvisi;
 
 class Manage_pengajuan_cuti extends Controller
 {
@@ -37,7 +38,16 @@ class Manage_pengajuan_cuti extends Controller
         $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->get();
         return view('manage_pengajuan_cuti', $data);
     }
-
+    public function index_pengelolaa($request){
+        $data['role'] = Session('user')['role'];
+        $id_divisi = Session('user')['id_divisi'];
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')
+        ->first();
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pejabat_struktural','pejabat_struktural.id_divisi','=','pengajuan_cuti.id_divisi')
+        ->where(['pengajuan_cuti.id_divisi' => $id_divisi])
+        ->get();
+        return view('manage_pengajuan_cuti', $data);
+    }
     public function index_karyawan($request){
         $data['role'] = Session('user')['role'];
         $id_karyawan = Session('user')['id_karyawan'];;
@@ -49,6 +59,7 @@ class Manage_pengajuan_cuti extends Controller
 
     public function create()
     {
+ 
         return view('form_pengajuan_cuti');
     }
 

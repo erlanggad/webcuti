@@ -21,6 +21,7 @@
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
+    
     <!-- color CSS -->
     <link href="{{URL::asset('css/colors/default.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -54,7 +55,7 @@
     <link href="//fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!--/Style-CSS -->
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css"  >
     <link href="css/style1.css" rel="stylesheet">
     <!--//Style-CSS -->
 
@@ -86,11 +87,17 @@
                             @csrf
                             <input type="text" class="nama_karyawan" name="nama_karyawan" placeholder="Masukkan Nama" required>
                             <input type="text" class="nik" name="nik" placeholder="Masukkan NIK" required>
-                            <input type="date" class="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Mulai" required>
+                            <input type="text" class="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Mulai Bekerja" onblur="if(this.value==''){this.type='text'}" onfocus="(this.type='date')"required>
                             <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
                             <input type="password" class="password" name="password" placeholder="Masukkan Password" required>
                             <input type="text" class="posisi" name="posisi" placeholder="Masukkan Jabatan" required>
-                            <input type="text" class="unit" name="unit" placeholder="Masukkan Unit" required>
+                            <select name="unit" class="form-control" id="" required>
+                                <option>HCGA</option>
+                                <option>Finance</option>
+                                <option>Operation</option>
+                                <option>Maintenance</option>
+                            </select>
+                            <br>
                             <button name="submit" class="btn" type="submit">Register</button>
                         </form>
                         <div class="social-icons">
