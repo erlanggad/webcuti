@@ -30,9 +30,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-2 col-form-label">Jabatan</label>
+                        <label for="example-email-input" class="col-2 col-form-label">Jabatan</label>
                         <div class="col-10">
-                            <input class="form-control" name="jabatan" type="text" value="" id="example-text-input" required>
+                           <select name="jabatan" class="form-control" id="" required>
+                                <option>Direktur Utama</option>
+                                <option>Drektur Keuangan & Umum</option>
+                                <option>Genereal Manager Finance & HCGA</option>
+                                <option>General Manager Operation & Maintenance</option>
+                                <option>Finance Manager</option>
+                                <option>Human Capital General Affair & Manager</option>
+                                <option>Operation Manaager</option>
+                                <option>Maintenance Manager</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -91,9 +100,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-2 col-form-label">Jabatan</label>
+                        <label for="example-email-input" class="col-2 col-form-label">Ditujukan kepada</label>
                         <div class="col-10">
-                            <input class="form-control" name="jabatan" type="text" value="{{$staf_hr->jabatan}}" id="example-search-input" required>
+                           <select name="divisi" class="form-control" value="{{$staf_hr->jabatan}}" id="" required>
+                                <option>Direktur Utama</option>
+                                <option>Drektur Keuangan & Umum</option>
+                                <option>Genereal Manager Finance & HCGA</option>
+                                <option>General Manager Operation & Maintenance</option>
+                                <option>Finance Manager</option>
+                                <option>Human Capital General Affair & Manager</option>
+                                <option>Operation Manaager</option>
+                                <option>Maintenance Manager</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

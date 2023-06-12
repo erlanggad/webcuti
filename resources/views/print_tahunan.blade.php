@@ -70,7 +70,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br><b>{{$pengajuan_cuti->unit}}</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br><b>{{$pengajuan_cuti->unit}} Manager</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>

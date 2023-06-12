@@ -91,12 +91,7 @@
                             <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
                             <input type="password" class="password" name="password" placeholder="Masukkan Password" required>
                             <input type="text" class="posisi" name="posisi" placeholder="Masukkan Jabatan" required>
-                            <select name="unit" class="form-control" id="" required>
-                                <option>HCGA</option>
-                                <option>Finance</option>
-                                <option>Operation</option>
-                                <option>Maintenance</option>
-                            </select>
+                            <input type="text" name="unit" placeholder="Masukkan Divisi" id="" required>
                             <br>
                             <button name="submit" class="btn" type="submit">Register</button>
                         </form>

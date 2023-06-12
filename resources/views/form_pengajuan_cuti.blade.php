@@ -48,6 +48,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Ditujukan kepada</label>
+                        <div class="col-10">
+                           <select name="divisi" class="form-control" id="" required>
+                                <option>Direktur Utama</option>
+                                <option>Drektur Keuangan & Umum</option>
+                                <option>Genereal Manager Finance & HCGA</option>
+                                <option>General Manager Operation & Maintenance</option>
+                                <option>Finance Manager</option>
+                                <option>Human Capital General Affair & Manager</option>
+                                <option>Operation Manaager</option>
+                                <option>Maintenance Manager</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
                         <div class="col-10">
                             <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input">
