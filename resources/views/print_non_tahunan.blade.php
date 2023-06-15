@@ -67,7 +67,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br> <b>{{$cuti_non->unit }} </b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br> <b>{{$cuti_non->divisi }} </b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -143,7 +143,7 @@
 				</th>
 			</thead>
 			<tr>
-				<td width="350" class="text" align="center"><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br> <br><br></td>
+				<td width="350" class="text" align="center"><br><br><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br> <br><br></td>
 				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$cuti_non->nama_karyawan}}<br></td>
 			</tr>
 			<tr>

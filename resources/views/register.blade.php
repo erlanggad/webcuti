@@ -91,7 +91,7 @@
                             <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
                             <input type="password" class="password" name="password" placeholder="Masukkan Password" required>
                             <input type="text" class="posisi" name="posisi" placeholder="Masukkan Jabatan" required>
-                            <input type="text" name="unit" placeholder="Masukkan Divisi" id="" required>
+                            <input type="text" name="unit" placeholder="Masukkan Unit Kerja" id="" required>
                             <br>
                             <button name="submit" class="btn" type="submit">Register</button>
                         </form>
