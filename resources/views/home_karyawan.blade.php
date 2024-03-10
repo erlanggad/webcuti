@@ -8,9 +8,9 @@
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
             <h4 class="page-title">Dashboard</h4>
         </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             <ol class="breadcrumb">
-               
+
             </ol>
         </div>
         <!-- /.col-lg-12 -->
@@ -23,7 +23,7 @@
                 <ul class="list-inline two-part">
                     <li>
                     </li>
-                    <li class="text-right"><span class="counter text-info">{{$cuti_terpakai}}</span></li>
+                    {{-- <li class="text-right"><span class="counter text-info">{{$cuti_terpakai}}</span></li> --}}
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <ul class="list-inline two-part">
                     <li>
                     </li>
-                    <li class="text-right"><span class="counter text-info">{{$sisa_cuti}}</span></li>
+                    {{-- <li class="text-right"><span class="counter text-info">{{$sisa_cuti}}</span></li> --}}
                 </ul>
             </div>
         </div>
@@ -59,7 +59,7 @@
         </div>
     </div>
     <!--/.row -->
-    
+
 </div>
 <!-- /.container-fluid -->
 @endsection

@@ -62,6 +62,49 @@
 </head>
 
 <body>
+ <!-- Modal -->
+  <!-- Modal -->
+
+<div id="modalotp" class="modal fade" role="dialog" >
+    <div class="modal-dialog modal-md modal-dialog-centered" style="margin-top:250px ">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header bg-warning py-4" style="background-color: #499DB1 !important">
+          <h4 class="modal-title text-light">Verifikasi Kode OTP</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body bg-light">
+              <div class="form-group">
+                  <label for="otp">Masukkan Kode OTP</label>
+                  <input id="otp"class="form-control" type="number" name="otp" id="otp" autofocus="" min="0">
+                  <div class="red" id="redotp" style="color: red; display:none;"><b>Kode OTP Salah!</b></div>
+                  *Masukkan kode OTP yang telah dikirim ke email anda
+              </div>
+
+
+              <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" onclick="confirmotp()">
+               Konfirmasi
+              </button>
+              </div>
+
+              <center id="kirimotp" style="display:none;">
+              <div class="form-group">
+              <a  class="btn-lg btn-block" style="font-size:14px; cursor:pointer;" tabindex="4" onclick="kirimotp()">
+                Kirim Ulang Kode OTP
+              </a>
+              </div>
+              </center>
+
+              <div class="mt-2 text-muted text-center" id="containercounter">
+                   Mohon tunggu dalam <span id="counterotp">60</span> detik untuk kirim ulang kode otp
+              </div>
+        </div>
+        </div>
+       </div>
+    </div>
+  </div>
 
     <!-- form section start -->
     <section class="w3l-mockup-form">
@@ -76,26 +119,18 @@
                         </div>
                     </div>
                     <div class="content-wthree">
-                        <center><h2>Login</h2></center>
-                        <form id="loginform" action="/login-action" method="post">
+                        <center><h2>Forgot Password</h2></center>
+                        <form id="loginform" action="/forgot-password-action" method="post">
                             @csrf
+                            @if (session('email'))
+                            <div class="red"  style="color: red"><b>Akun tidak ditemukan!</b></div>
+                            @endif
 
-                         @if (Session::has('failed'))
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ Session::get('failed') }}
-                    </div>
-                    @endif
-                            <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
-                            <input type="password" class="password" name="password" placeholder="Masukkan Password" style="margin-bottom: 2px;" required>
-                            <button name="submit" name="submit" class="btn" type="submit">Login</button>
-                            <div class="mt-2" style="width: 100%; text-align:right">
-                            <a href="/forgot-password" >Lupa Kata Sandi ?</a>
-                        </div>
+                            <input type="email" class="email" name="email" placeholder="Masukkan Email" required id="email">
+                            <button name="submit" name="submit" class="btn" type="submit">Submit</button>
+
                         </form>
-                        <div class="social-icons">
-                            <p>Create Account! <a href="/register">Register</a>.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -105,15 +140,7 @@
     <!-- //form section start -->
 
     <script src="js/jquery.min.js"></script>
-    <script>
-        $(document).ready(function (c) {
-            $('.alert-close').on('click', function (c) {
-                $('.main-mockup').fadeOut('slow', function (c) {
-                    $('.main-mockup').remove();
-                });
-            });
-        });
-    </script>
+
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="bootstrap/dist/js/tether.min.js"></script>
@@ -129,6 +156,60 @@
     <script src="js/custom.min.js"></script>
     <!--Style Switcher -->
     <script src="plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <script>
+
+        var email = ""
+        @if (Session::has('showmodal'))
+                    email = "{{ Session::get('showmodal') }}";
+                    $(document).ready(function() {
+                        $("#modalotp").modal("show");
+                    });
+                @endif
+
+                var count = 60, timer = setInterval(function() {
+    $("#counterotp").html(count--);
+    if(count == -1) {
+        clearInterval(timer);
+        $("#kirimotp").css("display", "");
+        $("#containercounter").css("display", "none");
+    }
+    }, 1000);
+
+
+    function kirimotp() {
+      $.ajax({
+      url: '/forgot-password-action',
+      data: {email : email},
+      dataType:'json',
+      success:function(data){
+      }
+      });
+    }
+
+    function confirmotp() {
+      let otp = $("#otp").val();
+      $.ajax({
+      url: '/verify-otp-action',
+      data: {otp : otp},
+      dataType:'json',
+      success:function(data){
+        if (data.status == 1) {
+            window.location.href = "{{ url('/') }}" + "/reset-password?otp="+otp+"&email="+email;
+        } else {
+            $("#redotp").css("display", "");
+        }
+      }
+      });
+    }
+                // $(document).ready(function (c) {
+                //     $('.alert-close').on('click', function (c) {
+                //         $('.main-mockup').fadeOut('slow', function (c) {
+                //             $('.main-mockup').remove();
+                //         });
+                //     });
+                // });
+            </script>
 
 </body>
 

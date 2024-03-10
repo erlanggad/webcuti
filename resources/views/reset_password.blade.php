@@ -76,26 +76,23 @@
                         </div>
                     </div>
                     <div class="content-wthree">
-                        <center><h2>Login</h2></center>
-                        <form id="loginform" action="/login-action" method="post">
+                        <center><h2>Reset Password</h2></center>
+                        <form id="loginform" action="/reset-password-action" method="post">
                             @csrf
 
-                         @if (Session::has('failed'))
+                         {{-- @if (Session::has('failed'))
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         {{ Session::get('failed') }}
                     </div>
-                    @endif
-                            <input type="email" class="email" name="email" placeholder="Masukkan Email" required>
-                            <input type="password" class="password" name="password" placeholder="Masukkan Password" style="margin-bottom: 2px;" required>
-                            <button name="submit" name="submit" class="btn" type="submit">Login</button>
-                            <div class="mt-2" style="width: 100%; text-align:right">
-                            <a href="/forgot-password" >Lupa Kata Sandi ?</a>
-                        </div>
+                    @endif --}}
+                    <input type="hidden" name="otp" value="{{ $data->otp }}">
+                    <input type="hidden" name="email" value="{{ $data->email }}">
+                            <input type="text" class="password" name="password" placeholder="Masukkan Password Baru" required min="0">
+                            <button name="submit" name="submit" class="btn" type="submit">Submit</button>
+
                         </form>
-                        <div class="social-icons">
-                            <p>Create Account! <a href="/register">Register</a>.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -106,13 +103,13 @@
 
     <script src="js/jquery.min.js"></script>
     <script>
-        $(document).ready(function (c) {
-            $('.alert-close').on('click', function (c) {
-                $('.main-mockup').fadeOut('slow', function (c) {
-                    $('.main-mockup').remove();
-                });
-            });
-        });
+        // $(document).ready(function (c) {
+        //     $('.alert-close').on('click', function (c) {
+        //         $('.main-mockup').fadeOut('slow', function (c) {
+        //             $('.main-mockup').remove();
+        //         });
+        //     });
+        // });
     </script>
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->

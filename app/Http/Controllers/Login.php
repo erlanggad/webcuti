@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\models\Admin;
 use App\models\Pejabat_struktural;
 use App\models\Karyawan;
+use App\Models\Pegawai;
 
 class Login extends Controller
 {
@@ -34,7 +35,7 @@ class Login extends Controller
             'password' => $request->password,
         ]);
 
-        $check = $this->checkUser($request, $karyawan, 'karyawan');
+        $check = $this->checkUser($request, $karyawan, 'Karyawan');
         if($check != null){
             return $check;
         }
@@ -49,6 +50,20 @@ class Login extends Controller
             return $check;
         }
 
+        $pegawai = Pegawai::where([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])->with('divisi', 'jabatan')->first();
+
+        if ($pegawai) {
+            $check = $this->checkUser($request, $pegawai, $pegawai->jabatan->nama);
+            if($check != null){
+                return $check;
+            }
+        }
+
+
+
         $admin = Admin::where([
             'email' => $request->email,
             'password' => $request->password,
@@ -59,7 +74,7 @@ class Login extends Controller
             return $check;
         }
 
-        return redirect('/')->with('failed', 'Data User Tidak Ditemukan');;
+        return redirect('/')->with('failed', 'Data User Tidak Ditemukan');
     }
 
     private function checkUser($request, $user, $role)
@@ -68,28 +83,29 @@ class Login extends Controller
             $user = $user->first()->toArray();
             unset($user['password']);
             $user['role'] = $role;
-            $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'];
-            
+            $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'] ?? $user['nama_pegawai'];
+
             Session(['user' => $user]);
+
             switch ($role) {
                 case 'karyawan':
-                    # code...
+                    return redirect('/karyawan/home');
+                    break;
+
+                case 'Karyawan':
                     return redirect('/karyawan/home');
                     break;
 
                 case 'pejabat-struktural':
-                    # code...
                     return redirect('/pejabat-struktural/home');
                     break;
 
                 case 'admin':
-                    # code...
                     return redirect('/admin/home');
                     break;
 
                 default:
-                    # code...
-                    return redirect('/')->with('failed', 'Data User Tidak Ditemukan');;
+                    return redirect('/')->with('failed', 'Data User Tidak Ditemukan');
                     break;
             }
         } else {

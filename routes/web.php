@@ -11,6 +11,7 @@ use App\Http\Controllers\Manage_staf_hr;
 use App\Http\Controllers\Manage_pengajuan_cuti;
 use App\Http\Controllers\Rekap_pengajuan_cuti;
 use App\Http\Controllers\Cuti_non;
+use App\Http\Controllers\Forgot_Password;
 use App\Http\Controllers\Print_tahunan;
 use App\Http\Controllers\Print_non_tahunan;
 /*
@@ -30,6 +31,20 @@ Route::post('/login-action', [Login::class,'login_action']);
 Route::get('/register', [Register::class,'index']);
 Route::post('/store-register', [Register::class,'store']);
 Route::get('/logout-action', [Login::class,'logout_action']);
+Route::get('/forgot-password', [Forgot_Password::class,'index']);
+// Route untuk mengirim email dengan OTP
+Route::post('/forgot-password-action', [Forgot_Password::class,'sendOTP']);
+
+// Route untuk menampilkan form input OTP
+Route::get('/verify-otp', [Forgot_Password::class,'showOTPForm'])->name('verify-otp');
+// Route untuk memverifikasi OTP
+Route::get('/verify-otp-action', [Forgot_Password::class,'verifyOTP']);
+
+// Route untuk menampilkan form input password baru
+Route::get('/reset-password', [Forgot_Password::class,'showResetPasswordForm'])->name('reset-password');
+// Route untuk menyimpan password baru
+Route::post('/reset-password-action', [Forgot_Password::class,'resetPassword']);
+// Route::post('/store-register', [Register::class,'store']);
 //admin
 Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/home', [Home::class,'index']);
