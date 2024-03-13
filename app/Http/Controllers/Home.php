@@ -17,7 +17,7 @@ class Home extends Controller
                 # code...
                 return $this->index_karyawan($request);
                 break;
-            case 'pejabat-struktural':
+            case 'Manager':
                 # code...
                 return $this->index_pejabat_struktural($request);
                 break;

@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\CriteriaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Register;
@@ -12,6 +12,7 @@ use App\Http\Controllers\Manage_pengajuan_cuti;
 use App\Http\Controllers\Rekap_pengajuan_cuti;
 use App\Http\Controllers\Cuti_non;
 use App\Http\Controllers\Forgot_Password;
+use App\Http\Controllers\PerhitunganWaspasController;
 use App\Http\Controllers\Print_tahunan;
 use App\Http\Controllers\Print_non_tahunan;
 /*
@@ -54,6 +55,13 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
     Route::resource('/manage-karyawan', Manage_karyawan::class);
     Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
+    Route::resource('/kriteria', CriteriaController::class);
+    Route::get('konversi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'index']);
+    Route::get('normalisasi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'normalisasi']);
+    Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'hasil_akhir']);
+
+
+
 
 });
 
@@ -65,6 +73,9 @@ Route::middleware(['authStafHR'])->prefix('pejabat-struktural')->group(function 
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
     Route::resource('/manage-karyawan', Manage_karyawan::class);
     Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
+    Route::get('konversi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'index']);
+    Route::get('normalisasi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'normalisasi']);
+    Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'hasil_akhir']);
 
 });
 
@@ -79,3 +90,5 @@ Route::middleware(['authKaryawan'])->prefix('karyawan')->group(function () {
     Route::post('/store-pengajuan-non', [Cuti_non::class,'store']);
 
 });
+
+Route::get('/urgensi_cuti_detail/{id}', [Cuti_non::class, 'getUrgensiCuti']);

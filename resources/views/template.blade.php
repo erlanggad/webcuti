@@ -57,7 +57,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
-                
+
                 <ul class="nav navbar-top-links navbar-left hidden-xs">
                     <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
                     <!-- <li>
@@ -67,8 +67,8 @@
                     </li> -->
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                  
-                    
+
+
                     <li class="dropdown">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{URL::asset('plugins/images/users/user.png')}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{Session('user')['nama']}}</b> </a>
                         <ul class="dropdown-menu dropdown-user scale-up">
@@ -76,7 +76,7 @@
                         </ul>
                         <!-- /.dropdown-user -->
                     </li>
-                    
+
                 </ul>
             </div>
             <!-- /.navbar-header -->
@@ -96,24 +96,41 @@
                         </div>
                         <!-- /input-group -->
                     </li>
-                    
+
                     <li class="nav-small-cap m-t-10">--- Main Menu</li>
                     @if (Session('user')['role'] == 'admin')
                     <li> <a href="/admin/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
                     <li> <a href="/admin/manage-pejabat-struktural" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Pejabat Struktural  </span></a></li>
+                    <li> <a href="/admin/kriteria" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Bobot dan Kriteria  </span></a></li>
                     <li> <a href="/admin/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/admin/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/normalisasi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li>
                     <li> <a href="/admin/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
                     <li> <a href="/admin/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan  </span></a></li>
-                    @elseif (Session('user')['role'] == 'pejabat-struktural')
+                    <li> <a href="/admin/konversi-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Diluar Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/normalisasi-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Diluar Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/hasil-akhir-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Diluar Cuti Tahunan  </span></a></li>
+
+                    @elseif (Session('user')['role'] == 'Manager')
                     <li> <a href="/pejabat-struktural/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
                     <li> <a href="/pejabat-struktural/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/pejabat-struktural/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/pejabat-struktural/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
-                    <li> <a href="/pejabat-struktural/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan <Non-Tahunan></Non-Tahunan>  </span></a></li>
+                    <li> <a href="/pejabat-struktural/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/normalisasi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Cuti Tahunan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li>
                     <li> <a href="/pejabat-struktural/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
-                    @elseif (Session('user')['role'] == 'karyawan')
+
+                    <li> <a href="/pejabat-struktural/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan <Non-Tahunan></Non-Tahunan>  </span></a></li>
+
+                    <li> <a href="/pejabat-struktural/konversi-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Diluar Cuti Tahunan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/normalisasi-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Diluar Cuti Tahunan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/hasil-akhir-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Diluar Cuti Tahunan  </span></a></li>
+
+                    @elseif (Session('user')['role'] == 'karyawan' || Session('user')['role'] == 'Karyawan')
                     <li> <a href="/karyawan/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
                     <li> <a href="/karyawan/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
                     <li> <a href="/karyawan/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan  </span></a></li>

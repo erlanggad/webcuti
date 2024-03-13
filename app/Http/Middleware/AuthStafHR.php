@@ -16,7 +16,7 @@ class AuthStafHR
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->get('user')['role'] == 'pejabat-struktural'){
+        if($request->session()->get('user')['role'] == 'Manager'){
             return $next($request);
           }
           return redirect('login')->with('failed','Akses ditolak ! Anda bukan Pejabat Struktural.');

@@ -38,14 +38,21 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Lama Cuti</label>
                         <div class="col-10">
-                            <input class="form-control" name="lama_cuti" type="number" min="1" value="1" id="example-email-input" required>
+                            <input class="form-control" name="lama_cuti" type="number" min="1" value="1" id="lama_cuti" required readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Keterangan</label>
                         <div class="col-10">
-                           <select name="keterangan" class="form-control" id="" required>
-                                <option>Cuti sakit dengan surat keterangan dokter</option>
+                           <select name="keterangan" class="form-control" id="keterangan" required>
+                            @foreach ($urgensi_cuti as $list_urgensi)
+                                <option value="{{ $list_urgensi->id }}">{{ $list_urgensi->nama }}</option>
+                            @endforeach
+
+                            </select>
+                        </div>
+                    </div>
+                          {{-- <option>Cuti sakit dengan surat keterangan dokter</option>
                                 <option>Cuti bersalin</option>
                                 <option>Cuti gugur kandungan dengan surat keterangan dokter</option>
                                 <option>Cuti melangsungkan pernikahan (3 hari)</option>
@@ -56,10 +63,7 @@
                                 <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu meninggal dunia (2 hari)</option>
                                 <option>Istri melahirkan (2 hari)</option>
                                 <option>Menunaikan ibadah haji (45 hari)</option>
-                                <option>Istirahat panjang selama 6 (enam) bulan</option>
-                            </select>
-                        </div>
-                    </div>
+                                <option>Istirahat panjang selama 6 (enam) bulan</option> --}}
                     <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Lampiran</label>
                         <div class="col-10">
@@ -98,8 +102,28 @@
         </div>
     </div>
     <!-- /.row -->
-    
+
     @endif
 
 </div>
+<script>
+    document.getElementById('keterangan').addEventListener('change', function() {
+        var selectedId = this.value;
+        console.log(selectedId)
+        if(selectedId) {
+            fetch('/urgensi_cuti_detail/' + selectedId)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        console.log(data.data)
+                        document.getElementById('lama_cuti').value = data.data.lama_cuti;
+                    } else {
+                        console.error('Data tidak ditemukan');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+</script>
+
 @endsection

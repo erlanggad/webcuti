@@ -23,13 +23,7 @@
             @endif
         </div>
         <!-- /.col-lg-12 -->
-        <div class="col-md-12">
-            @if ($role == 'karyawan' || $role == 'Karyawan')
-            <a href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/create">
-                <button class="btn btn-primary btn-block">Tambah</button>
-            </a>
-            @endif
-        </div>
+
     </div>
     <!-- /row -->
     <div class="row">
@@ -42,35 +36,37 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Karyawan</th>
+                                <th>Skor Waspas</th>
                                 <th>Tanggal Pengajuan</th>
                                 <th>Lama Cuti</th>
                                 <th>Keterangan</th>
-                                <th>Alamat</th>
                                 <th>Status</th>
                                 <th>Verifikasi Oleh</th>
                                 <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1 ?>
-                            @foreach($pengajuan_cuti as $item)
+                            @foreach($data as $item)
+                            {{-- <?php dd($role) ?> --}}
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$item->nama_pegawai}}</td>
-                                <td>{{$item->tanggal_pengajuan->translatedFormat('d M Y')}}</td>
-                                <td>{{$item->lama_cuti}} hari</td>
-                                <td>{{$item->nama}}</td>
-                                <td>{{$item->alamat}}</td>
-                                <td>{{$item->status}}</td>
-                                <td>{{$item->verifikasi_oleh}}</td>
+                                <td>{{$item['nama']}}</td>
+                                <td>{{$item['skor_akhir']}}</td>
+                                <td>{{$item['tanggal_pengajuan']->translatedFormat('d M Y')}}</td>
+                                <td>{{$item['lama_cuti']}} hari</td>
+                                <td>{{$item['keterangan']}}</td>
+                                <td>{{$item['status']}}</td>
+                                <td>{{$item['verifikasi_oleh']}}</td>
                                 <th>
-                                    @if (in_array($role,['pejabat-struktural']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}/edit">
+                                    @if ($role == 'Manager')
+                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item['id_cuti_non']}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
-                                    @endif
-                                    @if ($item->status == 'verifikasi')
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}">
+                                @endif
+                                    @if ($item['status'] == 'verifikasi')
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item['id_cuti_non']}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
@@ -78,9 +74,9 @@
                                     </form>
                                     @endif
 
-                                    @if ($item->status == 'disetujui')
+                                    @if ($item['status'] == 'disetujui')
                                     @if (in_array($role,['admin']))
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}">
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item['id_cuti_non']}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
@@ -89,15 +85,16 @@
                                     @endif
                                     @endif
 
-                                    @if ($item->status == 'disetujui')
+                                    @if ($item['status'] == 'disetujui')
                                     @if (in_array($role,['karyawan']))
-                                    <a class="ml-auto mr-auto" target = "_blank" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item->id_pengajuan_cuti}}">
+                                    <a class="ml-auto mr-auto" target = "_blank" href="/{{ Session('user')['role'] }}/print-tahunan/{{ $item['id_cuti_non']}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
                                     @endif
                                     @endif
 
                                 </th>
+
                             </tr>
                             <?php $no++ ?>
                             @endforeach

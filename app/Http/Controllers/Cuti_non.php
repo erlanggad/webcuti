@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Pengajuan_cuti_non;
+use App\Models\Urgensi_Cuti;
 
 class Cuti_non extends Controller
 {
@@ -15,7 +16,11 @@ class Cuti_non extends Controller
                 # code...
                 return $this->index_karyawan($request);
                 break;
-            case 'pejabat-struktural':
+            case 'Karyawan':
+                # code...
+                return $this->index_karyawan($request);
+                break;
+            case 'Manager':
                 # code...
                 return $this->index_pengelola($request);
                 break;
@@ -23,7 +28,7 @@ class Cuti_non extends Controller
                 # code...
                 return $this->index_pengelola($request);
                 break;
-            
+
             default:
                 # code...
                 return redirect('/login');
@@ -33,7 +38,8 @@ class Cuti_non extends Controller
 
     public function index_pengelola($request){
         $data['role'] = Session('user')['role'];
-        $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')->get();
+        // $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')->get();
+        $data['cuti_non'] = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')->get();
         return view('pengajuan_cuti_non', $data);
     }
 
@@ -43,16 +49,38 @@ class Cuti_non extends Controller
         $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')
         ->where(['karyawan.id_karyawan' => $id_karyawan])
         ->get();
+
         return view('pengajuan_cuti_non', $data);
     }
 
     public function create()
     {
-        return view('form_pengajuan_cuti_non');
+        $urgensi_cuti = Urgensi_Cuti::all();
+
+        return view('form_pengajuan_cuti_non', compact('urgensi_cuti'));
+    }
+
+    public function getUrgensiCuti($id){
+        $urgensi_cuti = Urgensi_Cuti::find($id);
+
+        if ($urgensi_cuti) {
+            // Data ditemukan
+            return response()->json([
+                'success' => true,
+                'data' => $urgensi_cuti
+            ]);
+        } else {
+            // Data tidak ditemukan
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
     }
 
     public function store(Request $request)
-    {    
+    {
         $id_karyawan = Session('user')['id_karyawan'];
         $data = $request->all();
             $data['id_karyawan'] = $id_karyawan;
@@ -99,7 +127,7 @@ class Cuti_non extends Controller
     }
 
     public function show(Request $request){
-        
+
     }
 
     public function destroy(Request $request)

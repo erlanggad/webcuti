@@ -17,7 +17,12 @@ class Manage_pengajuan_cuti extends Controller
                 # code...
                 return $this->index_karyawan($request);
                 break;
-            case 'pejabat-struktural':
+
+            case 'Karyawan':
+                # code...
+                return $this->index_karyawan($request);
+                break;
+            case 'Manager':
                 # code...
                 return $this->index_pengelola($request);
                 break;
@@ -25,7 +30,7 @@ class Manage_pengajuan_cuti extends Controller
                 # code...
                 return $this->index_pengelola($request);
                 break;
-            
+
             default:
                 # code...
                 return redirect('/login');
@@ -35,7 +40,8 @@ class Manage_pengajuan_cuti extends Controller
 
     public function index_pengelola($request){
         $data['role'] = Session('user')['role'];
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->get();
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','pengajuan_cuti.urgensi_cuti_id')->get();
+        // dd($data)
         return view('manage_pengajuan_cuti', $data);
     }
     public function index_pengelolaa($request){
@@ -59,7 +65,7 @@ class Manage_pengajuan_cuti extends Controller
 
     public function create()
     {
- 
+
         return view('form_pengajuan_cuti');
     }
 
@@ -121,10 +127,10 @@ class Manage_pengajuan_cuti extends Controller
         $p['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->where([
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
-        return view('form_konfirmasi_pengajuan', $p); 
+        return view('form_konfirmasi_pengajuan', $p);
     }
     public function print(){
-        
+
     }
     public function destroy(Request $request)
     {

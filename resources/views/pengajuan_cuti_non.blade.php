@@ -24,7 +24,7 @@
         </div>
         <!-- /.col-lg-12 -->
         <div class="col-md-12">
-            @if ($role == 'karyawan')
+            @if ($role == 'karyawan' || $role == 'Karyawan')
             <a href="/{{ Session('user')['role'] }}/cuti-non-tahunan/create">
                 <button class="btn btn-primary btn-block">Tambah</button>
             </a>

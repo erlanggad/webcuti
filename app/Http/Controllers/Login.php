@@ -40,15 +40,15 @@ class Login extends Controller
             return $check;
         }
 
-        $staf_hr = Pejabat_struktural::where([
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        // $staf_hr = Pejabat_struktural::where([
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        // ]);
 
-        $check = $this->checkUser($request, $staf_hr, 'pejabat-struktural');
-        if($check != null){
-            return $check;
-        }
+        // $check = $this->checkUser($request, $staf_hr, 'pejabat-struktural');
+        // if($check != null){
+        //     return $check;
+        // }
 
         $pegawai = Pegawai::where([
             'email' => $request->email,
@@ -86,7 +86,7 @@ class Login extends Controller
             $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'] ?? $user['nama_pegawai'];
 
             Session(['user' => $user]);
-
+            // dd($role);
             switch ($role) {
                 case 'karyawan':
                     return redirect('/karyawan/home');
@@ -96,9 +96,13 @@ class Login extends Controller
                     return redirect('/karyawan/home');
                     break;
 
-                case 'pejabat-struktural':
+                case 'Manager':
                     return redirect('/pejabat-struktural/home');
                     break;
+
+                // case 'Manager':
+                //     return redirect('/pejabat-struktural/home');
+                //     break;
 
                 case 'admin':
                     return redirect('/admin/home');
