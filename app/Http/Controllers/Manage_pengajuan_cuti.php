@@ -97,7 +97,7 @@ class Manage_pengajuan_cuti extends Controller
 
     public function edit(Request $request)
     {
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')->where([
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','pengajuan_cuti.urgensi_cuti_id')->where([
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
         return view('form_konfirmasi_pengajuan', $data);
@@ -108,17 +108,17 @@ class Manage_pengajuan_cuti extends Controller
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
         $nama = Session('user')['nama'];
-        $jabatan = Session('user')['jabatan'];
-        $image=Session('user')['image'];
+        $jabatan = Session('user')['role'];
+        // $image=Session('user')['image'];
         $pengajuan_cuti->status = $request->status;
         $pengajuan_cuti->verifikasi_oleh = $nama;
         $pengajuan_cuti->jabatan_verifikasi = $jabatan;
         $pengajuan_cuti->catatan = $request->catatan;
-        $pengajuan_cuti->image = $image;
+        // $pengajuan_cuti->image = $image;
         if ($pengajuan_cuti->save()) {
-            return redirect(Session('user')['role'].'/manage-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
+            return redirect('pejabat-struktural/hasil-akhir-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {
-            return redirect(Session('user')['role'].'/manage-pengajuan-cuti')->with('failed', 'Gagal memperbarui pengajuan cuti');
+            return redirect('pejabat-struktural/hasil-akhir-pengajuan-cuti')->with('failed', 'Gagal memperbarui pengajuan cuti');
         }
     }
 

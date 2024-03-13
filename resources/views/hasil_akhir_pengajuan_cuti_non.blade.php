@@ -60,8 +60,8 @@
                                 <td>{{$item['status']}}</td>
                                 <td>{{$item['verifikasi_oleh']}}</td>
                                 <th>
-                                    @if ($role == 'Manager')
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item['id_cuti_non']}}/edit">
+                                    @if (Session('user')['role'] == 'Manager')
+                                    <a class="ml-auto mr-auto" href="/pejabat-struktural/manage-pengajuan-cuti/{{$item['id_cuti_non']}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
                                 @endif

@@ -21,13 +21,13 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Konfirmasi Pengajuan Cuti Tahunan</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{Request::segment(3)}}" method="post">
+                <form class="form" action="/pejabat-struktural/manage-pengajuan-cuti/{{Request::segment(3)}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Nama Karyawan</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" value="{{$pengajuan_cuti->nama_karyawan}}" id="example-text-input" readonly>
+                            <input class="form-control" type="text" value="{{$pengajuan_cuti->nama_pegawai}}" id="example-text-input" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Keterangan</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" value="{{$pengajuan_cuti->keterangan}}" id="example-text-input" readonly>
+                            <input class="form-control" type="text" value="{{$pengajuan_cuti->nama}}" id="example-text-input" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
