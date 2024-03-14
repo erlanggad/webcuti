@@ -105,9 +105,9 @@
                     <li> <a href="/admin/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/admin/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/admin/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
-                    <li> <a href="/admin/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
+                    {{-- <li> <a href="/admin/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
                     <li> <a href="/admin/normalisasi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Cuti Tahunan  </span></a></li>
-                    <li> <a href="/admin/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li>
+                    <li> <a href="/admin/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li> --}}
                     <li> <a href="/admin/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
                     <li> <a href="/admin/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan  </span></a></li>
                     <li> <a href="/admin/konversi-pengajuan-cuti/non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Diluar Cuti Tahunan  </span></a></li>
@@ -119,9 +119,9 @@
                     <li> <a href="/pejabat-struktural/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
                     <li> <a href="/pejabat-struktural/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
                     <li> <a href="/pejabat-struktural/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
-                    <li> <a href="/pejabat-struktural/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
+                    {{-- <li> <a href="/pejabat-struktural/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
                     <li> <a href="/pejabat-struktural/normalisasi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Cuti Tahunan  </span></a></li>
-                    <li> <a href="/pejabat-struktural/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/hasil-akhir-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Akhir Cuti Tahunan  </span></a></li> --}}
                     <li> <a href="/pejabat-struktural/rekap-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-border-all zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Rekap Data Cuti  </span></a></li>
 
                     <li> <a href="/pejabat-struktural/cuti-non-tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Diluar Cuti Tahunan <Non-Tahunan></Non-Tahunan>  </span></a></li>

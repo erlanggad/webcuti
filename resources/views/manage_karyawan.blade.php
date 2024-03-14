@@ -44,7 +44,7 @@
                                 <th>Email</th>
                                 <th>Tanggal Mulai Bekerja</th>
                                 <th>Posisi</th>
-                                <th>Unit Kerja</th>
+                                <th>Divisi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,12 +53,12 @@
                             @foreach($karyawan as $item)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$item->nama_karyawan}}</td>
+                                <td>{{$item->nama_pegawai}}</td>
                                 <td>{{$item->nik}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->tanggal_lahir->translatedFormat('d M Y')}}</td>
-                                <td>{{$item->posisi}}</td>
-                                <td>{{$item->unit}}</td>
+                                <td>{{$item->nama_jabatan}}</td>
+                                <td>{{$item->nama_divisi}}</td>
                                 <th>
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id_karyawan}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Karyawan;
+use App\Models\Pegawai;
 
 class Manage_karyawan extends Controller
 {
     public function index()
     {
-        $data['karyawan'] = Karyawan::all();
+        $data['karyawan'] = Pegawai::join('jabatan','jabatan.id','=','pegawai.jabatan_id')->join('divisi', 'divisi.id','=','pegawai.divisi_id')->select('pegawai.*', 'divisi.nama as nama_divisi', 'jabatan.nama as nama_jabatan')->get();
         return view('manage_karyawan', $data);
     }
 
