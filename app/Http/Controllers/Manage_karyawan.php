@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Divisi;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use App\models\Karyawan;
 use App\Models\Pegawai;
@@ -30,22 +32,28 @@ class Manage_karyawan extends Controller
 
     public function edit(Request $request)
     {
-        $data['karyawan'] = Karyawan::where([
-            'id_karyawan' => $request->segment(3)
+        // $data['karyawan'] = Pegawai::where([
+        //     'id' => $request->segment(3)
+        // ])->first();
+        $karyawan = Pegawai::where([
+            'id' => $request->segment(3)
         ])->first();
-        return view('form_karyawan', $data);
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+        return view('form_karyawan', compact('karyawan', 'divisi', 'jabatan'));
     }
 
     public function update(Request $request)
     {
-        $karyawan = Karyawan::where([
-            'id_karyawan' => $request->segment(3)
+        $karyawan = Pegawai::where([
+            'id' => $request->segment(3)
         ])->first();
-        $karyawan->nama_karyawan = $request->nama_karyawan;
+        $karyawan->nama_pegawai = $request->nama_karyawan;
         $karyawan->email = $request->email;
         $karyawan->nik = $request->nik;
-        $karyawan->posisi = $request->posisi;
-        $karyawan->unit = $request->unit;
+        $karyawan->created_at = $request->tanggal_lahir;
+        $karyawan->jabatan_id = $request->jabatan_id;
+        $karyawan->divisi_id = $request->divisi_id;
         if ($karyawan->save()) {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('success', 'Berhasil memperbarui karyawan');
         } else {

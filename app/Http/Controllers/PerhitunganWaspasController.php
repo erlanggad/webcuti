@@ -494,9 +494,9 @@ foreach ($pengajuanCutis as $pengajuanCuti) {
         $k2 = 4;
     } elseif ($sisaCuti == 4) {
         $k2 = 3;
-    } elseif ($sisaCuti == 3) {
+    } elseif ($sisaCuti >= 2 && $sisaCuti <= 3) {
         $k2 = 2;
-    } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
+    } elseif ($sisaCuti >= 0 && $sisaCuti <= 1) {
         $k2 = 1;
     } else {
         $k2 = 0; // Jika tidak sesuai kondisi di atas

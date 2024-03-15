@@ -53,7 +53,7 @@
                             <input class="form-control" name="tanggal_lahir" type="date" value="" id="example-email-input" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Posisi</label>
                         <div class="col-10">
@@ -90,7 +90,7 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Nama Karyawan</label>
                         <div class="col-10">
-                            <input class="form-control" name="nama_karyawan" type="text" value="{{$karyawan->nama_karyawan}}" id="example-text-input" required>
+                            <input class="form-control" name="nama_karyawan" type="text" value="{{$karyawan->nama_pegawai}}" id="example-text-input" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -105,25 +105,37 @@
                             <input class="form-control" name="email" type="email" value="{{$karyawan->email}}" id="example-search-input" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Tanggal Mulai Bekerja</label>
                         <div class="col-10">
-                            <input class="form-control" name="tanggal_lahir" type="date" value="{{$karyawan->tanggal_lahir}}" id="example-email-input" required>
+                            <input class="form-control" name="tanggal_lahir" type="date" value="{{ \Carbon\Carbon::parse($karyawan->created_at)->format('Y-m-d') }}" id="example-email-input" required>
+
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Posisi</label>
                         <div class="col-10">
-                            <input class="form-control" name="posisi" type="text" value="{{$karyawan->posisi}}" id="example-text-input" required>
+                            {{-- <input class="form-control" name="posisi" type="text" value="{{$karyawan->posisi}}" id="example-text-input" required> --}}
+                            <select name="jabatan_id" class="form-control" id="jabatan_id" required>
+                                @foreach ($jabatan as $list_jabatan)
+                                    <option value="{{ $list_jabatan->id }}" {{ $list_jabatan->id == $karyawan->jabatan_id ? 'selected' : '' }}>{{ $list_jabatan->nama }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Unit Kerja</label>
                         <div class="col-10">
-                            <input class="form-control" name="unit" type="text" value="{{$karyawan->unit}}" id="example-text-input" required>
+                            <select name="divisi_id" class="form-control" id="divisi_id" required>
+                                @foreach ($divisi as $list_divisi)
+                                    <option value="{{ $list_divisi->id }}" {{ $list_divisi->id == $karyawan->divisi_id ? 'selected' : '' }}>{{ $list_divisi->nama }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
                     <div class="form-group row">
