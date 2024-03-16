@@ -13,7 +13,7 @@ class Home extends Controller
     public function index(Request $request){
         $role = Session('user')['role'];
         switch ($role) {
-            case 'Karyawan':
+            case 'karyawan':
                 # code...
                 return $this->index_karyawan($request);
                 break;
@@ -61,23 +61,24 @@ class Home extends Controller
     private function index_karyawan($request){
         $id_karyawan = Session('user')['id'] ;
         $sisa_cuti = View_sisa_cuti::where([
-            'id_karyawan' => $id_karyawan,
+            'pegawai_id' => $id_karyawan,
             'tahun' => date('Y')
         ])
         ->first();
+        // dd($sisa_cuti);
         $pengajuan_cuti_verifikasi = pengajuan_cuti::where([
-            'id_karyawan' => $id_karyawan,
+            'pegawai_id' => $id_karyawan,
             'status' => 'verifikasi'
         ])
         ->where('tanggal_pengajuan','like',date('Y')."%")
         ->count();
         $total_pengajuan_cuti = pengajuan_cuti::where([
-            'id_karyawan' => $id_karyawan,
+            'pegawai_id' => $id_karyawan,
         ])
         ->where('tanggal_pengajuan','like',date('Y')."%")
         ->count();
         // $data['cuti_terpakai'] = $sisa_cuti->cuti_terpakai;
-        // $data['sisa_cuti'] = $sisa_cuti->sisa_cuti;
+        $data['sisa_cuti'] = $sisa_cuti->sisa_cuti;
         $data['pengajuan_cuti_verifikasi'] = $pengajuan_cuti_verifikasi;
         $data['total_pengajuan_cuti'] = $total_pengajuan_cuti;
         return view('home_karyawan',$data);

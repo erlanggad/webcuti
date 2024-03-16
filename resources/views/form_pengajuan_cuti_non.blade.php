@@ -3,6 +3,9 @@
 @section('title','- Form Pengajuan Cuti')
 
 @section('konten')
+@php
+    use App\Models\Divisi;
+@endphp
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -21,7 +24,7 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Pengajuan Cuti</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/store-pengajuan-non" method="post" enctype="multipart/form-data">
+                <form class="form" action="/karyawan/store-pengajuan-non" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Tanggal Awal </label>
@@ -44,7 +47,7 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Keterangan</label>
                         <div class="col-10">
-                           <select name="keterangan" class="form-control" id="keterangan" required>
+                           <select name="urgensi_cuti_id" class="form-control" id="urgensi_cuti_id" required>
                             @foreach ($urgensi_cuti as $list_urgensi)
                                 <option value="{{ $list_urgensi->id }}">{{ $list_urgensi->nama }}</option>
                             @endforeach
@@ -52,18 +55,7 @@
                             </select>
                         </div>
                     </div>
-                          {{-- <option>Cuti sakit dengan surat keterangan dokter</option>
-                                <option>Cuti bersalin</option>
-                                <option>Cuti gugur kandungan dengan surat keterangan dokter</option>
-                                <option>Cuti melangsungkan pernikahan (3 hari)</option>
-                                <option>Mengkhitankan anak (2 hari)</option>
-                                <option>Membaptis anak (2 hari)</option>
-                                <option>Menikahkan anak (2 hari)</option>
-                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu menderita sakit keras atau istri gugur kandungan (2 hari)</option>
-                                <option>Ibu/Bapak, Istri/Suami, anak, kakak/adik, mertua/menantu meninggal dunia (2 hari)</option>
-                                <option>Istri melahirkan (2 hari)</option>
-                                <option>Menunaikan ibadah haji (45 hari)</option>
-                                <option>Istirahat panjang selama 6 (enam) bulan</option> --}}
+
                     <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Lampiran</label>
                         <div class="col-10">
@@ -73,16 +65,14 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Ditujukan kepada</label>
                         <div class="col-10">
-                           <select name="divisi" class="form-control" id="" required>
-                            <option>Direktur Utama</option>
-                            <option>Direktur Keuangan & Umum</option>
-                            <option>General Manager Finance & HCGA</option>
-                            <option>General Manager Operation & Maintenance</option>
-                            <option>Finance Manager</option>
-                            <option>Human Capital General Affair & Manager</option>
-                            <option>Operation Manager</option>
-                            <option>Maintenance Manager</option>
-                            </select>
+                            @php
+
+                                $divisi = Divisi::where('id', Session('user')['divisi'] )->first();
+                            @endphp
+                            <input class="form-control" name="divisi_id" type="text" min="1" value="{{ $divisi['id'] }}" id="divisi_id" required hidden>
+                            <input class="form-control" name="" type="text" min="1" value="{{ $divisi['nama'] }}" id="" required readonly>
+
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -107,7 +97,7 @@
 
 </div>
 <script>
-    document.getElementById('keterangan').addEventListener('change', function() {
+    document.getElementById('urgensi_cuti_id').addEventListener('change', function() {
         var selectedId = this.value;
         console.log(selectedId)
         if(selectedId) {

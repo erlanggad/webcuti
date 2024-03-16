@@ -21,13 +21,13 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Konfirmasi Pengajuan Cuti Diluar Cuti Tahunan</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{Request::segment(3)}}" method="post">
+                <form class="form" action="/pejabat-struktural/cuti-non-tahunan/{{Request::segment(3)}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Nama Karyawan</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" value="{{$cuti_non->nama_karyawan}}" id="example-text-input" readonly>
+                            <input class="form-control" type="text" value="{{$cuti_non->nama_pegawai}}" id="example-text-input" readonly>
                         </div>
                     </div>
 

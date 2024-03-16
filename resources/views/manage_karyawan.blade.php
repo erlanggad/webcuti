@@ -63,9 +63,11 @@
                                     <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id_karyawan}}">
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/manage-karyawan/{{$item->id}}">
                                         {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
+                      @method("DELETE")
+
+                                        {{-- {{ method_field('DELETE') }} --}}
 
                                         <button class="btn btn-danger ml-auto mr-auto">Delete</button>
                                     </form>

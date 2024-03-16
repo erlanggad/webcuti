@@ -16,7 +16,7 @@ class AuthKaryawan
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->get('user')['role'] == 'Karyawan' || $request->session()->get('user')['role'] == 'karyawan'){
+        if($request->session()->get('user')['role'] == 'karyawan'){
             return $next($request);
           }
           return redirect('login')->with('failed','Akses ditolak ! Anda bukan Karyawan.');

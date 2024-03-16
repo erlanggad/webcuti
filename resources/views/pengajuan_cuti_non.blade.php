@@ -25,7 +25,7 @@
         <!-- /.col-lg-12 -->
         <div class="col-md-12">
             @if ($role == 'karyawan' || $role == 'Karyawan')
-            <a href="/{{ Session('user')['role'] }}/cuti-non-tahunan/create">
+            <a href="/karyawan/cuti-non-tahunan/create">
                 <button class="btn btn-primary btn-block">Tambah</button>
             </a>
             @endif
@@ -57,7 +57,7 @@
                             @foreach($cuti_non as $item)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$item->nama_karyawan}}</td>
+                                <td>{{$item->nama_pegawai}}</td>
                                 <td>{{$item->tanggal_pengajuan->translatedFormat('d M Y')}}</td>
                                 <td>{{$item->tanggal_akhir->translatedFormat('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
@@ -68,22 +68,23 @@
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
-                                    @if (in_array($role,['pejabat-struktural']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
+                                    @if (in_array($role,['Manager']))
+                                    <a class="ml-auto mr-auto" href="/pejabat-struktural/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
                                     @endif
                                     @if ($item->status == 'verifikasi')
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
+    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] . '/cuti-non-tahunan/' . $item->id_cuti_non }}">
+        {{ csrf_field() }}
+                      @method("DELETE")
 
-                                        <button class="btn btn-danger ml-auto mr-auto">Delete</button>
-                                    </form>
-                                    @endif
+        <button class="btn btn-danger ml-auto mr-auto">Deletes</button>
+    </form>
+@endif
+
                                     @if ($item->status == 'disetujui')
                                     @if (in_array($role,['admin']))
-                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{ Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}">
+                                    <form class="ml-auto mr-auto mt-3" method="POST" action="/{{Session('user')['role'] }}/cuti-non-tahunan/{{$item->id_cuti_non}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
@@ -94,7 +95,7 @@
 
                                     @if ($item->status == 'disetujui')
                                     @if (in_array($role,['karyawan']))
-                                    <a class="ml-auto mr-auto"  target = "_blank" href="/{{ Session('user')['role'] }}/print-non-tahunan/{{ $item->id_cuti_non}}">
+                                    <a class="ml-auto mr-auto"  target = "_blank" href="/@php Session('user')['role'] === "Karyawan" ? "karyawan" : Session('user')['role'] @endphp/print-non-tahunan/{{ $item->id_cuti_non}}">
                                         <button class="btn btn-success ml-auto mr-auto">Print</button>
                                     </a>
                                     @endif

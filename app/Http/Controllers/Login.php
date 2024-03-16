@@ -30,15 +30,15 @@ class Login extends Controller
             return redirect('login');
         }
 
-        $karyawan = Karyawan::where([
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        // $karyawan = Karyawan::where([
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        // ]);
 
-        $check = $this->checkUser($request, $karyawan, 'Karyawan');
-        if($check != null){
-            return $check;
-        }
+        // $check = $this->checkUser($request, $karyawan, 'Karyawan');
+        // if($check != null){
+        //     return $check;
+        // }
 
         // $staf_hr = Pejabat_struktural::where([
         //     'email' => $request->email,
@@ -54,9 +54,11 @@ class Login extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ])->with('divisi', 'jabatan')->first();
-
         if ($pegawai) {
+
             $check = $this->checkUser($request, $pegawai, $pegawai->jabatan->nama);
+        // dd($check);
+
             if($check != null){
                 return $check;
             }
@@ -79,12 +81,17 @@ class Login extends Controller
 
     private function checkUser($request, $user, $role)
     {
-        if ($user->exists()) {
-            $user = $user->first()->toArray();
-            unset($user['password']);
-            $user['role'] = $role;
-            $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_karyawan'] ?? $user['nama_pegawai'];
+        Session::flush();
 
+        if ($user->exists()) {
+        // dd($user);
+
+            // $user = $user->first()->toArray();
+            // unset($user['password']);
+            $user['role'] = $role;
+            $user['id'] = $user['id'] ?? $user['id_admin'];
+            $user['nama'] = $user['nama_admin'] ?? $user['nama_pejabat_struktural'] ?? $user['nama_pegawai'];
+            $user['divisi'] = $user['divisi_id'] ?? null;
             Session(['user' => $user]);
             // dd($role);
             switch ($role) {
@@ -92,9 +99,9 @@ class Login extends Controller
                     return redirect('/karyawan/home');
                     break;
 
-                case 'Karyawan':
-                    return redirect('/karyawan/home');
-                    break;
+                // case 'Karyawan':
+                //     return redirect('/karyawan/home');
+                //     break;
 
                 case 'Manager':
                     return redirect('/pejabat-struktural/home');
@@ -120,6 +127,8 @@ class Login extends Controller
     public function logout_action()
     {
         Session::flush();
+        // dd(Session('user'));
+
         return redirect('/login');
     }
 }

@@ -6,7 +6,9 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use App\models\Karyawan;
+use App\Models\Konfig_cuti;
 use App\Models\Pegawai;
+use App\Models\View_sisa_cuti;
 
 class Manage_karyawan extends Controller
 {
@@ -18,12 +20,26 @@ class Manage_karyawan extends Controller
 
     public function create()
     {
-        return view('form_karyawan');
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+        return view('form_karyawan', compact('divisi', 'jabatan'));
     }
 
     public function store(Request $request)
     {
-        if (Karyawan::create($request->all())) {
+        if (Pegawai::create($request->all())) {
+            $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
+            $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
+
+            $sisa_cuti = new View_sisa_cuti;
+            $sisa_cuti->pegawai_id = $getPegawaiBaru->id;
+            $sisa_cuti->tahun = (new \DateTime())->format('Y');
+            $sisa_cuti->cuti_bersama = $getKonfigCuti->cuti_bersama;
+            $sisa_cuti->jumlah_cuti = $getKonfigCuti->jumlah_cuti;
+            $sisa_cuti->cuti_terpakai = 0;
+            $sisa_cuti->sisa_cuti = $getKonfigCuti->jumlah_cuti;
+            $sisa_cuti->save();
+
             return redirect(Session('user')['role'].'/manage-karyawan')->with('success', 'Berhasil membuat karyawan');
         } else {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('failed', 'Gagal membuat karyawan');
@@ -65,10 +81,15 @@ class Manage_karyawan extends Controller
 
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $karyawan = Karyawan::find($request->segment(3));
+        $karyawan = Pegawai::findOrFail($id);
+
+
+
         if ($karyawan->delete()) {
+            $sisacuti = View_sisa_cuti::where('pegawai_id', $id)->first();
+             $sisacuti->delete();
             return redirect(Session('user')['role'].'/manage-karyawan')->with('success', 'Berhasil menghapus karyawan');
         } else {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('failed', 'Gagal menghapus karyawan');

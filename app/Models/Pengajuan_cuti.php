@@ -12,7 +12,7 @@ class Pengajuan_cuti extends Model
     protected $primaryKey = 'id_pengajuan_cuti';
     protected $table = "pengajuan_cuti";
     protected $fillable = [
-        'id_karyawan',
+        'pegawai_id',
         'tanggal_pengajuan',
         'lama_cuti',
         'keterangan',
@@ -23,6 +23,6 @@ class Pengajuan_cuti extends Model
         'verifikasi_oleh',
         'jabatan_verifikasi',
         'catatan'
-        
+
     ];
 }

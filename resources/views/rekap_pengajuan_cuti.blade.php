@@ -51,7 +51,7 @@
                             @foreach($sisa_cuti as $item)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$item->nama_karyawan}}</td>
+                                <td>{{$item->nama_pegawai}}</td>
                                 <td>{{$item->tahun}}</td>
                                 <td>{{$item->jumlah_cuti}}</td>
                                 <td>{{$item->cuti_terpakai}}</td>
