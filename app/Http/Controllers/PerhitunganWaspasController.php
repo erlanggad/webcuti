@@ -91,7 +91,7 @@ class PerhitunganWaspasController extends Controller
     }else if($jenis == "non-tahunan"){
         $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
         ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
         ->get();
 
     $data = [];
@@ -251,10 +251,12 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
         // dd($normalisasi);
         return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
 
-    }else if($jenis == "non-tahunan"){
+    }
+    //  non tahunan
+    else if($jenis == "non-tahunan"){
         $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
         ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
         ->get();
 
     $data = [];
@@ -314,22 +316,31 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
 
         $normalisasi = [];
 
-foreach ($data as $item) {
-    $Rij_satu = $item['k1'] / 4;
-    $Rij_dua = $item['k2'] / 4;
-    $Rij_tiga = $item['k3'] / 4;
-// Pastikan k4 tidak bernilai 0 untuk menghindari pembagian dengan nol
-$Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
-    $normalisasi[] = [
-        'nama_pegawai' => $item['nama_pegawai'],
-        'Rij_satu' => number_format($Rij_satu, 2),
-        'Rij_dua' => number_format($Rij_dua, 2),
-        'Rij_tiga' => number_format($Rij_tiga, 2),
-        'Rij_empat' => number_format($Rij_empat, 2)
-    ];
-}
-    }
+        foreach ($data as $item) {
+            // Mencari nilai maksimal untuk setiap kriteria
+            $max_k1 = max(array_column($data, 'k1'));
+            $max_k2 = max(array_column($data, 'k2'));
+            $max_k3 = max(array_column($data, 'k3'));
+            $min_k4 = min(array_column($data, 'k4'));
 
+            // Menghitung nilai $Rij_satu sampai $Rij_empat
+            $Rij_satu = $item['k1'] / $max_k1;
+            $Rij_dua = $item['k2'] / $max_k2;
+            $Rij_tiga = $item['k3'] / $max_k3;
+            // Pastikan k4 tidak bernilai 0 untuk menghindari pembagian dengan nol
+            // $Rij_empat = ($max_k4 != 0) ? $item['k4'] / $max_k4 : 0;
+            $Rij_empat = ($item['k4'] != 0) ? $min_k4 / $item['k4'] : 0;
+
+            $normalisasi[] = [
+                'nama_pegawai' => $item['nama_pegawai'],
+                'Rij_satu' => number_format($Rij_satu, 2),
+                'Rij_dua' => number_format($Rij_dua, 2),
+                'Rij_tiga' => number_format($Rij_tiga, 2),
+                'Rij_empat' => number_format($Rij_empat, 2)
+            ];
+        }
+    }
+    // dd([$max_k1, $max_k2,$max_k3, $min_k4]);
         return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
     }
 }
@@ -466,7 +477,7 @@ usort($hasil_akhir, function($a, $b) {
 }else if($jenis == "non-tahunan"){
     $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
     ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
     ->get();
 
 $data = [];

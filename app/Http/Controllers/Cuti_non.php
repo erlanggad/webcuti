@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Pengajuan_cuti_non;
 use App\Models\Urgensi_Cuti;
+use App\Models\View_sisa_cuti;
 use Illuminate\Contracts\Session\Session;
 
 class Cuti_non extends Controller
@@ -84,6 +85,7 @@ class Cuti_non extends Controller
     {
         $id_karyawan = Session('user')['id'];
         $urgensiCuti = Urgensi_Cuti::where('id', $request->urgensi_cuti_id)->first();
+        $sisaCuti = View_sisa_cuti::where('pegawai_id', $id_karyawan)->first();
 
         // dd($urgensiCuti->nama);
         $data = $request->all();
@@ -99,6 +101,7 @@ class Cuti_non extends Controller
             $simpan->lama_cuti = $request->lama_cuti;
             $simpan->keterangan = $urgensiCuti->nama;
             $simpan->divisi_id = $request->divisi_id;
+            $simpan->sisa_cuti = $sisaCuti->sisa_cuti;
             if ($request->hasFile('image') ) {
                $request->file('image')->move('uploadnon/', $request->file('image')->getClientOriginalName());
                $simpan->image = $request->file('image')->getClientOriginalName();
