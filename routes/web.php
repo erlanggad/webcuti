@@ -73,10 +73,13 @@ Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}/print', [Manage_pengajuan
 
 // Route untuk menampilkan halaman detail pengajuan cuti
 Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'show'])->name('manage_pengajuan_cuti.show');
-    Route::resource('/cuti-non-tahunan', Cuti_non::class);
+    // Route::resource('/cuti-non-tahunan', Cuti_non::class);
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
     Route::resource('/manage-karyawan', Manage_karyawan::class);
-    Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
+    Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class, 'index'])->name('rekap_pengajuan_cuti.indexAdmin');
+
+Route::get('/cuti-non-tahunan', [Cuti_non::class, 'index'])->name('cuti_non.indexAdmin');
+
     Route::resource('/kriteria', CriteriaController::class);
     Route::get('konversi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'index']);
     Route::get('normalisasi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'normalisasi']);
@@ -115,6 +118,7 @@ Route::delete('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cu
 // Route untuk menampilkan halaman print
 Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}/print', [Manage_pengajuan_cuti::class, 'print'])->name('manage_pengajuan_cuti.print');
 
+
 // Route untuk menampilkan halaman detail pengajuan cuti
 Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'show'])->name('manage_pengajuan_cuti.show');
 
@@ -123,9 +127,19 @@ Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti:
     // Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
     Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class, 'index'])->name('rekap_pengajuan_cuti.index');
 
+    Route::get('/cuti-non-tahunan', [Cuti_non::class, 'index'])->name('cuti_non.indexManager');
+    Route::get('/cuti-non-tahunan/create', [Cuti_non::class, 'create'])->name('cuti_non.create');
+    // Route::post('/cuti-non-tahunan', [Cuti_non::class, 'store'])->name('cuti_non.store');
+    Route::get('/cuti-non-tahunan/{id}/edit', [Cuti_non::class, 'edit'])->name('cuti_non.edit');
+    Route::put('/cuti-non-tahunan/{id}', [Cuti_non::class, 'update'])->name('cuti_non.update');
+    Route::delete('/cuti-non-tahunan/{id}', [Cuti_non::class, 'destroy'])->name('cuti_non.destroy');
+
     Route::get('konversi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'index']);
     Route::get('normalisasi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'normalisasi']);
-    Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'hasil_akhir']);
+    // Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'hasil_akhir']);
+
+    Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class, 'hasil_akhir'])->name('cuti_non.indexHasilAkhirManager');
+
 
 });
 
@@ -157,8 +171,17 @@ Route::middleware(['authKaryawan'])->prefix('karyawan')->group(function () {
 
     // Route untuk menampilkan halaman detail pengajuan cuti
     Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'show'])->name('manage_pengajuan_cuti.show');
+
+
     Route::resource('/print-tahunan', Print_tahunan::class);
-    Route::resource('/cuti-non-tahunan', Cuti_non::class);
+    // Route::resource('/cuti-non-tahunan', Cuti_non::class);
+
+    Route::get('/cuti-non-tahunan', [Cuti_non::class, 'index'])->name('cuti_non.indexKaryawan');
+    Route::get('/cuti-non-tahunan/create', [Cuti_non::class, 'create'])->name('cuti_non.create');
+    // Route::post('/cuti-non-tahunan', [Cuti_non::class, 'store'])->name('cuti_non.store');
+    Route::get('/cuti-non-tahunan/{id}/edit', [Cuti_non::class, 'edit'])->name('cuti_non.edit');
+    Route::put('/cuti-non-tahunan/{id}', [Cuti_non::class, 'update'])->name('cuti_non.update');
+    Route::delete('/cuti-non-tahunan/{id}', [Cuti_non::class, 'destroy'])->name('cuti_non.destroy');
     Route::resource('/print-non-tahunan', Print_non_tahunan::class);
     Route::post('/store-pengajuan-non', [Cuti_non::class,'store']);
 

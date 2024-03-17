@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-      
+
 <head>
       <style type="text/css">
 	  body{
@@ -48,7 +48,7 @@
       <center>
 		<table>
                   <tr>
-                  
+
                   </tr>
                   <tr>
 				<td>
@@ -60,7 +60,7 @@
 			<tr>
 				<td colspan="2"><hr></td>
 			</tr>
-		
+
 		</table>
 
 		<br>
@@ -83,19 +83,19 @@
 		<table>
 			<tr >
 				<td>Nama</td>
-				<td width="545">: <b>{{$cuti_non->nama_karyawan}}</b></td>
+				<td width="545">: <b>{{$cuti_non->nama_pegawai}}</b></td>
 			</tr>
 			<tr>
 				<td>Jabatan</td>
-				<td width="525">: <b>{{$cuti_non->posisi}}</b></td>
+				<td width="525">: <b>{{$cuti_non->nama_jabatan}}</b></td>
 			</tr>
 			<tr>
-				<td>Unit Kerja</td>
-				<td width="525">: <b>{{$cuti_non->unit}}</b></td>
+				<td>Divisi</td>
+				<td width="525">: <b>{{$cuti_non->nama_divisi}}</b></td>
 			</tr>
                   <tr>
 				<td>Tanggal Mulai Bekerja</td>
-				<td width="100">: <b>{{$cuti_non->tanggal_lahir->translatedFormat('d M Y')}}</b></td>
+				<td width="100">: <b>{{$cuti_non->created_at->translatedFormat('d F Y')}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
@@ -109,7 +109,7 @@
 		<table>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>
-				<td width="525">: <b>{{$cuti_non->tanggal_pengajuan->translatedFormat('d M Y')}}</b></td>
+				<td width="525">: <b>{{$cuti_non->tanggal_pengajuan->translatedFormat('d F Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Lama Cuti</td>
@@ -144,13 +144,13 @@
 			</thead>
 			<tr>
 				<td width="350" class="text" align="center"><br><br><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br> <br><br></td>
-				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$cuti_non->nama_karyawan}}<br></td>
+				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$cuti_non->nama_pegawai}}<br></td>
 			</tr>
 			<tr>
 				<td> Catatan : {{$cuti_non->catatan}}</td>
 			</tr>
 	     </table>
-		 
+
 	</center>
 </body>
 <script>

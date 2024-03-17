@@ -39,20 +39,76 @@ class Cuti_non extends Controller
     }
 
     public function index_pengelola($request){
+        // $data['role'] = Session('user')['role'];
+        // // $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')->get();
+        // // $data['cuti_non'] = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')->where('cuti_non.divisi_id', Session('user')['divisi'])->get();
+        // // return view('pengajuan_cuti_non', $data);
+
         $data['role'] = Session('user')['role'];
-        // $data['cuti_non'] = Pengajuan_cuti_non::join('karyawan','karyawan.id_karyawan','=','cuti_non.id_karyawan')->get();
-        $data['cuti_non'] = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')->where('cuti_non.divisi_id', Session('user')['divisi'])->get();
+        $id_divisi = Session('user')['id_divisi'];
+
+        // Ambil bulan dari request
+        if($data['role'] == 'Manager'){
+        $bulan = $request->input('bulan');
+
+        // Buat query untuk pengajuan cuti
+        $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
+            ->where('cuti_non.divisi_id', Session('user')['divisi']);
+
+        // Terapkan filter berdasarkan bulan jika dipilih
+        if ($bulan) {
+            $query->whereMonth('tanggal_pengajuan', $bulan);
+        }
+
+        // Ambil data pengajuan cuti
+        $data['cuti_non'] = $query->get();
+
         return view('pengajuan_cuti_non', $data);
+
+    }else{
+        $bulan = $request->input('bulan');
+
+        // Buat query untuk pengajuan cuti
+        $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id');
+
+
+        // Terapkan filter berdasarkan bulan jika dipilih
+        if ($bulan) {
+            $query->whereMonth('tanggal_pengajuan', $bulan);
+        }
+
+        // Ambil data pengajuan cuti
+        $data['cuti_non'] = $query->get();
+
+        return view('pengajuan_cuti_non', $data);
+    }
     }
 
     public function index_karyawan($request){
         $data['role'] = Session('user')['role'];
         $id_karyawan = Session('user')['id'];;
-        $data['cuti_non'] = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
-        ->where(['pegawai_id' => $id_karyawan])
-        ->get();
+        // $data['cuti_non'] = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+        // ->where(['pegawai_id' => $id_karyawan])
+        // ->get();
+
+        // return view('pengajuan_cuti_non', $data);
+
+        $bulan = $request->input('bulan');
+
+        // Buat query untuk pengajuan cuti
+        $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+        ->where(['pegawai_id' => $id_karyawan]);
+
+        // Terapkan filter berdasarkan bulan jika dipilih
+        if ($bulan) {
+            $query->whereMonth('tanggal_pengajuan', $bulan);
+        }
+
+        // Ambil data pengajuan cuti
+        $data['cuti_non'] = $query->get();
 
         return view('pengajuan_cuti_non', $data);
+
     }
 
     public function create()
@@ -146,7 +202,7 @@ class Cuti_non extends Controller
         if ($pengajuan_cuti->save()) {
             // $data_sisa_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
             // $data_sisa_cuti->cuti_terpakai = $data_sisa_cuti->cuti_terpakai + $pengajuan_cuti->lama_cuti;
-            $data_sisa_cuti->save();
+            // $data_sisa_cuti->save();
             return redirect('/pejabat-struktural/hasil-akhir-pengajuan-cuti/non-tahunan')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {
             return redirect('/pejabat-struktural/hasil-akhir-pengajuan-cuti/non-tahunan')->with('failed', 'Gagal memperbarui pengajuan cuti');

@@ -89,10 +89,17 @@ class PerhitunganWaspasController extends Controller
         // dd($data);
         return view('konversi_pengajuan_cuti', ['data' => $data]);
     }else if($jenis == "non-tahunan"){
-        $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
-        ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
-        ->get();
+        if(Session('user')['role'] === "Manager"){
+            $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+            ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
+            ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
+            ->get();
+            }else{
+                $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+                ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
+                ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+                ->get();
+            }
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
@@ -254,10 +261,17 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
     }
     //  non tahunan
     else if($jenis == "non-tahunan"){
+        if(Session('user')['role'] === "Manager"){
         $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
         ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
         ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
         ->get();
+        }else{
+            $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+            ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
+            ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+            ->get();
+        }
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
@@ -345,7 +359,7 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
     }
 }
 
-    public function hasil_akhir($jenis)
+    public function hasil_akhir($jenis, Request $request)
     {
 
        if($jenis == 'tahunan'){
@@ -467,21 +481,29 @@ usort($hasil_akhir, function($a, $b) {
 });
 
     }
-        //     $roc = new RankOrderCentroidController();
-        //     $criteriaWeight = $roccriteriaWeight();
 
-        //     return view('admin.criteria.index', compact('criterias', 'criteriaWeight'));
-        // }
-        // dd($data);
-        // dd($normalisasi);
         $role['role'] = Session('user')['role'];
         // dd($hasil_akhir);
         return view('hasil_akhir_pengajuan_cuti', ['data' => $hasil_akhir, 'role' => $role]);
 }else if($jenis == "non-tahunan"){
+    if(Session("user")['role'] === "Manager"){
     $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
     ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
-    ->get();
+    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi']);
+    }else{
+        $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
+        ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
+        ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk','urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai');
+    }
+    // ->get();
+
+
+    if ($request->has('bulan')) {
+        $pengajuanCutis->whereMonth('cuti_non.tanggal_pengajuan', $request->bulan);
+    }
+
+    $pengajuanCutis = $pengajuanCutis->get();
+    if($pengajuanCutis->count() > 0){
 
 $data = [];
 foreach ($pengajuanCutis as $pengajuanCuti) {
@@ -545,30 +567,6 @@ foreach ($pengajuanCutis as $pengajuanCuti) {
     ];
 
     $normalisasi = [];
-
-    // foreach ($data as $item) {
-    //     // Mencari nilai maksimal untuk setiap kriteria
-    //     $max_k1 = max(array_column($data, 'k1'));
-    //     $max_k2 = max(array_column($data, 'k2'));
-    //     $max_k3 = max(array_column($data, 'k3'));
-    //     $min_k4 = min(array_column($data, 'k4'));
-
-    //     // Menghitung nilai $Rij_satu sampai $Rij_empat
-    //     $Rij_satu = $item['k1'] / $max_k1;
-    //     $Rij_dua = $item['k2'] / $max_k2;
-    //     $Rij_tiga = $item['k3'] / $max_k3;
-    //     // Pastikan k4 tidak bernilai 0 untuk menghindari pembagian dengan nol
-    //     // $Rij_empat = ($max_k4 != 0) ? $item['k4'] / $max_k4 : 0;
-    //     $Rij_empat = ($item['k4'] != 0) ? $min_k4 / $item['k4'] : 0;
-
-    //     $normalisasi[] = [
-    //         'nama_pegawai' => $item['nama_pegawai'],
-    //         'Rij_satu' => number_format($Rij_satu, 2),
-    //         'Rij_dua' => number_format($Rij_dua, 2),
-    //         'Rij_tiga' => number_format($Rij_tiga, 2),
-    //         'Rij_empat' => number_format($Rij_empat, 2)
-    //     ];
-    // }
 foreach ($data as $item) {
 
     $max_k1 = max(array_column($data, 'k1'));
@@ -623,18 +621,23 @@ return $b['skor_akhir'] <=> $a['skor_akhir'];
 });
 
 }
-    //     $roc = new RankOrderCentroidController();
-    //     $criteriaWeight = $roccriteriaWeight();
 
-    //     return view('admin.criteria.index', compact('criterias', 'criteriaWeight'));
-    // }
     // dd($data);
     // dd($normalisasi);
     $role['role'] = Session('user')['role'];
     // dd($hasil_akhir);
     return view('hasil_akhir_pengajuan_cuti_non', ['data' => $hasil_akhir, 'role' => $role]);
+}else{
+
+    $hasil_akhir = [];
+
+    $role['role'] = Session('user')['role'];
+
+    return view('hasil_akhir_pengajuan_cuti_non', ['data' => $hasil_akhir, 'role' => $role]);
+
 }
     }
+}
 
 
 

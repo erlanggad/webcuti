@@ -80,7 +80,7 @@
 <script>
     document.getElementById('tahun').addEventListener('change', function() {
         var tahun = this.value;
-        var url = "{{ route('rekap_pengajuan_cuti.index') }}";
+        var url = "{{ Session('user')['role'] === 'Manager' ? route('rekap_pengajuan_cuti.index') : route('rekap_pengajuan_cuti.indexAdmin') }}";
         if (tahun) {
             url += "?tahun=" + tahun;
         }
