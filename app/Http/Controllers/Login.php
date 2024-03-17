@@ -69,7 +69,7 @@ class Login extends Controller
         $admin = Admin::where([
             'email' => $request->email,
             'password' => $request->password,
-        ]);
+        ])->first();
 
         $check = $this->checkUser($request, $admin, 'admin');
         if($check != null){
@@ -81,7 +81,7 @@ class Login extends Controller
 
     private function checkUser($request, $user, $role)
     {
-        Session::flush();
+        // Session::flush();
 
         if ($user->exists()) {
         // dd($user);

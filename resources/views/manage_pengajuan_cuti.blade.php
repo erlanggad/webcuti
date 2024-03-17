@@ -135,7 +135,8 @@
 <script>
     document.getElementById('bulan').addEventListener('change', function() {
     var bulan = this.value;
-    var url = "{{ route('manage_pengajuan_cuti.index') }}";
+    var url = "{{ Session('user')['role'] === 'karyawan' ? route('manage_pengajuan_cuti.indexKaryawan') : (Session('user')['role'] === 'Manager' ? route('manage_pengajuan_cuti.indexManager') : route('manage_pengajuan_cuti.indexAdmin')) }}";
+
     if (bulan) {
         url += "?bulan=" + bulan;
     }
