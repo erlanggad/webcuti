@@ -59,13 +59,13 @@
                                 <td>{{$item->nama_pegawai}}</td>
                                 <td>{{$item->tanggal_pengajuan->translatedFormat('d M Y')}}</td>
                                 <td>{{$item->lama_cuti}} hari</td>
-                                <td>{{$item->nama}}</td>
+                                <td>{{$item->keterangan}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>{{$item->status}}</td>
                                 <td>{{$item->verifikasi_oleh}}</td>
                                 <th>
-                                    @if (in_array($role,['pejabat-struktural']))
-                                    <a class="ml-auto mr-auto" href="/{{ Session('user')['role'] }}/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}/edit">
+                                    @if (in_array($role,['Manager']))
+                                    <a class="ml-auto mr-auto" href="/pejabat-struktural/manage-pengajuan-cuti/{{$item->id_pengajuan_cuti}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
                                     </a>
                                     @endif

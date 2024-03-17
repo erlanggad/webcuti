@@ -33,7 +33,7 @@ class Manage_karyawan extends Controller
 
             $sisa_cuti = new View_sisa_cuti;
             $sisa_cuti->pegawai_id = $getPegawaiBaru->id;
-            $sisa_cuti->tahun = (new \DateTime())->format('Y');
+            $sisa_cuti->tahun = $getKonfigCuti->tahun;
             $sisa_cuti->cuti_bersama = $getKonfigCuti->cuti_bersama;
             $sisa_cuti->jumlah_cuti = $getKonfigCuti->jumlah_cuti;
             $sisa_cuti->cuti_terpakai = 0;

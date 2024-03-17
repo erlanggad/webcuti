@@ -48,8 +48,8 @@
                                 <th>Keterangan</th>
                                 <th>Lampiran</th>
                                 <th>Status</th>
-                                <th>Verifikasi Oleh</th>
-                                <th>Aksi</th>
+                                {{-- <th>Verifikasi Oleh</th> --}}
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -66,8 +66,8 @@
                                     <img src="{{asset('uploadnon/'.$item->image)}}"alt="" style="width: 50px" >
                                 </td>
                                 <td>{{$item->status}}</td>
-                                <td>{{$item->verifikasi_oleh}}</td>
-                                <th>
+                                {{-- <td>{{$item->verifikasi_oleh}}</td> --}}
+                                {{-- <th>
                                     @if (in_array($role,['Manager']))
                                     <a class="ml-auto mr-auto" href="/pejabat-struktural/cuti-non-tahunan/{{$item->id_cuti_non}}/edit">
                                         <button class="btn btn-warning ml-auto mr-auto">Edit</button>
@@ -100,7 +100,7 @@
                                     </a>
                                     @endif
                                     @endif
-                                </th>
+                                </th> --}}
                             </tr>
                             <?php $no++ ?>
                             @endforeach

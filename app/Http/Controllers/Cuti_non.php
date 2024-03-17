@@ -128,6 +128,11 @@ class Cuti_non extends Controller
         $pengajuan_cuti = Pengajuan_cuti_non::where([
             'id_cuti_non' => $request->segment(3)
         ])->first();
+        $data_sisa_cuti = View_sisa_cuti::where([
+            'pegawai_id' => $pengajuan_cuti->pegawai_id
+        ])->first();
+
+        // dd($data_sisa_cuti);
         $nama = Session('user')['nama'];
         $jabatan = Session('user')['jabatan'];
         $ttd = Session('user')['image'];
@@ -136,10 +141,15 @@ class Cuti_non extends Controller
         $pengajuan_cuti->jabatan_verifikasi = $jabatan;
         $pengajuan_cuti->catatan = $request->catatan;
         $pengajuan_cuti->ttd = $ttd;
+        // $pengajuan_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
+
         if ($pengajuan_cuti->save()) {
-            return redirect('/pejabat-struktural/cuti-non-tahunan')->with('success', 'Berhasil memperbarui pengajuan cuti');
+            // $data_sisa_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
+            // $data_sisa_cuti->cuti_terpakai = $data_sisa_cuti->cuti_terpakai + $pengajuan_cuti->lama_cuti;
+            $data_sisa_cuti->save();
+            return redirect('/pejabat-struktural/hasil-akhir-pengajuan-cuti/non-tahunan')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {
-            return redirect('/pejabat-struktural/cuti-non-tahunan')->with('failed', 'Gagal memperbarui pengajuan cuti');
+            return redirect('/pejabat-struktural/hasil-akhir-pengajuan-cuti/non-tahunan')->with('failed', 'Gagal memperbarui pengajuan cuti');
         }
     }
 

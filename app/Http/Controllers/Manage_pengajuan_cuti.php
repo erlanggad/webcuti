@@ -24,7 +24,7 @@ class Manage_pengajuan_cuti extends Controller
                 break;
             case 'Manager':
                 # code...
-                return $this->index_pengelola($request);
+                return $this->index_pengelolaa($request);
                 break;
             case 'admin':
                 # code...
@@ -40,25 +40,24 @@ class Manage_pengajuan_cuti extends Controller
 
     public function index_pengelola($request){
         $data['role'] = Session('user')['role'];
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','pengajuan_cuti.urgensi_cuti_id')->get();
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','pengajuan_cuti.urgensi_cuti_id')->where('pengajuan_cuti.divisi_id', Session('user')['divisi'])->get();
         // dd($data)
         return view('manage_pengajuan_cuti', $data);
     }
     public function index_pengelolaa($request){
         $data['role'] = Session('user')['role'];
         $id_divisi = Session('user')['id_divisi'];
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')
-        ->first();
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pejabat_struktural','pejabat_struktural.id_divisi','=','pengajuan_cuti.id_divisi')
-        ->where(['pengajuan_cuti.id_divisi' => $id_divisi])
-        ->get();
+        // $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')
+        // ->first();
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->where('pengajuan_cuti.divisi_id', Session('user')['divisi'])->get();
+        // ->get();
         return view('manage_pengajuan_cuti', $data);
     }
     public function index_karyawan($request){
         $data['role'] = Session('user')['role'];
-        $id_karyawan = Session('user')['id_karyawan'];;
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')
-        ->where(['karyawan.id_karyawan' => $id_karyawan])
+        $id_karyawan = Session('user')['id'];;
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')
+        ->where(['pengajuan_cuti.pegawai_id' => $id_karyawan])
         ->get();
         return view('manage_pengajuan_cuti', $data);
     }
@@ -71,15 +70,22 @@ class Manage_pengajuan_cuti extends Controller
 
     public function store(Request $request)
     {
-        $id_karyawan = Session('user')['id_karyawan'];
+        $id_karyawan = Session('user')['id'];
         $sisa_cuti = View_sisa_cuti::where([
-            'id_karyawan' => $id_karyawan,
-            'tahun' => substr($request->tanggal_pengajuan,0,4),
+            'pegawai_id' => $id_karyawan,
         ])->first();
+        $sisaCuti = View_sisa_cuti::where('pegawai_id', $id_karyawan)->first();
+
         if($sisa_cuti->sisa_cuti >= $request->lama_cuti) {
             $data = $request->all();
-            $data['id_karyawan'] = $id_karyawan;
+            // $data['pegawai_id'] = $id_karyawan;
             $simpan = Pengajuan_cuti::create($data);
+            $simpan->pegawai_id = $id_karyawan;
+            // $simpan->urgensi_cuti_id = $request->urgensi_cuti_id;
+            $simpan->lama_cuti = $request->lama_cuti;
+            $simpan->keterangan = $request->keterangan;
+            $simpan->divisi_id = $request->divisi_id;
+            $simpan->sisa_cuti = $sisaCuti->sisa_cuti;
             if ($request->hasFile('ttd_karyawan')) {
                $request->file('ttd_karyawan')->move('ttd_karyawan/', $request->file('ttd_karyawan')->getClientOriginalName());
                $simpan->ttd_karyawan = $request->file('ttd_karyawan')->getClientOriginalName();
@@ -97,7 +103,7 @@ class Manage_pengajuan_cuti extends Controller
 
     public function edit(Request $request)
     {
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','pengajuan_cuti.urgensi_cuti_id')->where([
+        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->where([
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
         return view('form_konfirmasi_pengajuan', $data);
@@ -107,6 +113,11 @@ class Manage_pengajuan_cuti extends Controller
         $pengajuan_cuti = Pengajuan_cuti::where([
             'id_pengajuan_cuti' => $request->segment(3)
         ])->first();
+        $data_sisa_cuti = View_sisa_cuti::where([
+            'pegawai_id' => $pengajuan_cuti->pegawai_id
+        ])->first();
+
+        // dd($pengajuan_cuti);
         $nama = Session('user')['nama'];
         $jabatan = Session('user')['role'];
         // $image=Session('user')['image'];
@@ -114,12 +125,28 @@ class Manage_pengajuan_cuti extends Controller
         $pengajuan_cuti->verifikasi_oleh = $nama;
         $pengajuan_cuti->jabatan_verifikasi = $jabatan;
         $pengajuan_cuti->catatan = $request->catatan;
+        if($request->status == "disetujui"){
+
+        $pengajuan_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
         // $pengajuan_cuti->image = $image;
         if ($pengajuan_cuti->save()) {
-            return redirect('pejabat-struktural/hasil-akhir-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
+            $data_sisa_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
+            $data_sisa_cuti->cuti_terpakai = $data_sisa_cuti->cuti_terpakai + $pengajuan_cuti->lama_cuti;
+            $data_sisa_cuti->save();
+
+            return redirect('/pejabat-struktural/manage-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
         } else {
-            return redirect('pejabat-struktural/hasil-akhir-pengajuan-cuti')->with('failed', 'Gagal memperbarui pengajuan cuti');
+            return redirect('/pejabat-struktural/manage-pengajuan-cuti')->with('failed', 'Gagal memperbarui pengajuan cuti');
         }
+    }else{
+        if ($pengajuan_cuti->save()) {
+
+
+            return redirect('/pejabat-struktural/manage-pengajuan-cuti')->with('success', 'Berhasil memperbarui pengajuan cuti');
+        } else {
+            return redirect('/pejabat-struktural/manage-pengajuan-cuti')->with('failed', 'Gagal memperbarui pengajuan cuti');
+        }
+    }
     }
 
     public function show(Request $request)

@@ -3,6 +3,9 @@
 @section('title','- Form Pengajuan Cuti')
 
 @section('konten')
+@php
+    use App\Models\Divisi;
+@endphp
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -50,16 +53,13 @@
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Ditujukan kepada</label>
                         <div class="col-10">
-                           <select name="divisi" class="form-control" id="" required>
-                            <option>Direktur Utama</option>
-                            <option>Direktur Keuangan & Umum</option>
-                            <option>General Manager Finance & HCGA</option>
-                            <option>General Manager Operation & Maintenance</option>
-                            <option>Finance Manager</option>
-                            <option>Human Capital General Affair & Manager</option>
-                            <option>Operation Manager</option>
-                            <option>Maintenance Manager</option>
-                            </select>
+                            @php
+
+                            $divisi = Divisi::where('id', Session('user')['divisi'] )->first();
+                        @endphp
+                        <input class="form-control" name="divisi_id" type="text" min="1" value="{{ $divisi['id'] }}" id="divisi_id" required hidden>
+                        <input class="form-control" name="" type="text" min="1" value="{{ $divisi['nama'] }}" id="" required readonly>
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -79,7 +79,7 @@
         </div>
     </div>
     <!-- /.row -->
-    
+
     @endif
 
 </div>

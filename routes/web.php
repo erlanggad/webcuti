@@ -72,7 +72,9 @@ Route::middleware(['authStafHR'])->prefix('pejabat-struktural')->group(function 
     Route::resource('/cuti-non-tahunan', Cuti_non::class);
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
     Route::resource('/manage-karyawan', Manage_karyawan::class);
-    Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
+    // Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);
+    Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class, 'index'])->name('rekap_pengajuan_cuti.index');
+
     Route::get('konversi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'index']);
     Route::get('normalisasi-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'normalisasi']);
     Route::get('hasil-akhir-pengajuan-cuti/{jenis}', [PerhitunganWaspasController::class,'hasil_akhir']);
