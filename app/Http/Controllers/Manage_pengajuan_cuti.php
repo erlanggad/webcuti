@@ -44,15 +44,28 @@ class Manage_pengajuan_cuti extends Controller
         // dd($data)
         return view('manage_pengajuan_cuti', $data);
     }
-    public function index_pengelolaa($request){
+    public function index_pengelolaa(Request $request) {
         $data['role'] = Session('user')['role'];
         $id_divisi = Session('user')['id_divisi'];
-        // $data['pengajuan_cuti'] = Pengajuan_cuti::join('karyawan','karyawan.id_karyawan','=','pengajuan_cuti.id_karyawan')
-        // ->first();
-        $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->where('pengajuan_cuti.divisi_id', Session('user')['divisi'])->get();
-        // ->get();
+
+        // Ambil bulan dari request
+        $bulan = $request->input('bulan');
+
+        // Buat query untuk pengajuan cuti
+        $query = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')
+            ->where('pengajuan_cuti.divisi_id', Session('user')['divisi']);
+
+        // Terapkan filter berdasarkan bulan jika dipilih
+        if ($bulan) {
+            $query->whereMonth('tanggal_pengajuan', $bulan);
+        }
+
+        // Ambil data pengajuan cuti
+        $data['pengajuan_cuti'] = $query->get();
+
         return view('manage_pengajuan_cuti', $data);
     }
+
     public function index_karyawan($request){
         $data['role'] = Session('user')['role'];
         $id_karyawan = Session('user')['id'];;

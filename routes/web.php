@@ -68,8 +68,34 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
 //staf hr
 Route::middleware(['authStafHR'])->prefix('pejabat-struktural')->group(function () {
     Route::get('/home', [Home::class,'index']);
-    Route::resource('/manage-pengajuan-cuti', Manage_pengajuan_cuti::class);
-    Route::resource('/cuti-non-tahunan', Cuti_non::class);
+    // Route::resource('/manage-pengajuan-cuti', Manage_pengajuan_cuti::class);
+    // Route::get('/manage-pengajuan-cuti', [Manage_pengajuan_cuti::class, 'index_pengelolaa'])->name('manage_pengajuan_cuti.index_pengelolaa');
+    // Route::resource('/cuti-non-tahunan', Cuti_non::class);
+
+    // Route untuk menampilkan halaman index pengelola
+Route::get('/manage-pengajuan-cuti', [Manage_pengajuan_cuti::class, 'index'])->name('manage_pengajuan_cuti.index');
+
+// Route untuk menyimpan data pengajuan cuti
+Route::post('/manage-pengajuan-cuti', [Manage_pengajuan_cuti::class, 'store'])->name('manage_pengajuan_cuti.store');
+
+// Route untuk menampilkan halaman form pengajuan cuti
+Route::get('/manage-pengajuan-cuti/create', [Manage_pengajuan_cuti::class, 'create'])->name('manage_pengajuan_cuti.create');
+
+// Route untuk menampilkan halaman edit pengajuan cuti
+Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}/edit', [Manage_pengajuan_cuti::class, 'edit'])->name('manage_pengajuan_cuti.edit');
+
+// Route untuk mengupdate data pengajuan cuti
+Route::put('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'update'])->name('manage_pengajuan_cuti.update');
+
+// Route untuk menghapus data pengajuan cuti
+Route::delete('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'destroy'])->name('manage_pengajuan_cuti.destroy');
+
+// Route untuk menampilkan halaman print
+Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}/print', [Manage_pengajuan_cuti::class, 'print'])->name('manage_pengajuan_cuti.print');
+
+// Route untuk menampilkan halaman detail pengajuan cuti
+Route::get('/manage-pengajuan-cuti/{id_pengajuan_cuti}', [Manage_pengajuan_cuti::class, 'show'])->name('manage_pengajuan_cuti.show');
+
     Route::resource('/konfigurasi-cuti', Konfigurasi_cuti::class);
     Route::resource('/manage-karyawan', Manage_karyawan::class);
     // Route::get('/rekap-pengajuan-cuti', [Rekap_pengajuan_cuti::class,'index']);

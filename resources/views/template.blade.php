@@ -116,8 +116,8 @@
 
                     @elseif (Session('user')['role'] == 'Manager')
                     <li> <a href="/pejabat-struktural/home" class="waves-effect "><i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Home  </span></a></li>
-                    <li> <a href="/pejabat-struktural/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
-                    <li> <a href="/pejabat-struktural/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li>
+                    {{-- <li> <a href="/pejabat-struktural/manage-karyawan" class="waves-effect "><i class="zmdi zmdi-account zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Manage Karyawan  </span></a></li>
+                    <li> <a href="/pejabat-struktural/konfigurasi-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konfigurasi Cuti  </span></a></li> --}}
                     <li> <a href="/pejabat-struktural/manage-pengajuan-cuti" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Cuti Tahunan  </span></a></li>
                     {{-- <li> <a href="/pejabat-struktural/konversi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Konversi Alternatif Cuti Tahunan  </span></a></li>
                     <li> <a href="/pejabat-struktural/normalisasi-pengajuan-cuti/tahunan" class="waves-effect "><i class="zmdi zmdi-settings zmdi-hc-fw fa-fw"></i> <span class="hide-menu"> Hasil Normalisasi Cuti Tahunan  </span></a></li>
