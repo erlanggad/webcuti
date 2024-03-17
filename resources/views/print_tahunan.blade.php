@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-      
+
 <head>
       <style type="text/css">
 	  body{
@@ -31,7 +31,7 @@
 		table tr td {
 			font-size: 13px;
 		}
-		
+
       </style>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@
 	  <link href="css/style1.css" rel="stylesheet">
 </head>
 <body>
-      
+
 		<table width="720">
 			<tr>
 				<td>
@@ -51,7 +51,7 @@
 		<center>
 		<table>
                   <tr>
-                  
+
                   </tr>
                   <tr>
 				<td>
@@ -63,14 +63,14 @@
 			<tr>
 				<td colspan="2"><hr></td>
 			</tr>
-		
+
 		</table>
 
 		<br>
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br><b>{{$pengajuan_cuti->divisi}}</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br><b>{{$pengajuan_cuti->nama_divisi}}</b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
@@ -86,19 +86,19 @@
 		<table>
 			<tr >
 				<td>Nama</td>
-				<td width="545">: <b>{{$pengajuan_cuti->nama_karyawan}}</b></td>
+				<td width="545">: <b>{{$pengajuan_cuti->nama_pegawai}}</b></td>
 			</tr>
 			<tr>
 				<td>Jabatan</td>
-				<td width="525">: <b>{{$pengajuan_cuti->posisi}}</b></td>
+				<td width="525">: <b>{{$pengajuan_cuti->nama_jabatan}}</b></td>
 			</tr>
 			<tr>
-				<td>Unit Kerja</td>
-				<td width="525">: <b>{{$pengajuan_cuti->unit}}</b></td>
+				<td>Divisi</td>
+				<td width="525">: <b>{{$pengajuan_cuti->nama_divisi}}</b></td>
 			</tr>
                   <tr>
 				<td>Tanggal Mulai Bekerja</td>
-				<td width="100">: <b>{{$pengajuan_cuti->tanggal_lahir->translatedFormat('d M Y')}}</b></td>
+				<td width="100">: <b>{{$pengajuan_cuti->created_at->translatedFormat('d F Y')}}</b></td>
 			</tr>
 		</table>
 		<table width="720">
@@ -115,7 +115,7 @@
 			</tr>
 			<tr>
 				<td>Tanggal Pelaksanaan Cuti</td>
-				<td width="525">: <b>{{$pengajuan_cuti->tanggal_pengajuan->translatedFormat('d M Y')}}</b></td>
+				<td width="525">: <b>{{$pengajuan_cuti->tanggal_pengajuan->translatedFormat('d F Y')}}</b></td>
 			</tr>
 			<tr>
 				<td>Lama Cuti</td>
@@ -142,7 +142,7 @@
 		<table width="625" >
 			<tr>
 				<td width="430"><br><br></td>
-				<td class="text" align="center"><p>Pandaan, <span id="tanggalwaktu"></span><br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('ttd_karyawan/'.$pengajuan_cuti->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->nama_karyawan}}</p></td>
+				<td class="text" align="center"><p>Pandaan, <span id="tanggalwaktu"></span><br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('ttd_karyawan/'.$pengajuan_cuti->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->nama_pegawai}}</p></td>
 			</tr>
 	     </table>
 		 <br>
@@ -164,7 +164,7 @@
 				<td class="text"><img src="{{asset('images/Rendy.png')}}"alt="" style="width: 100px" ></td>
 			</tr>
 		 </table> <br>
-		 <table width="720" >	
+		 <table width="720" >
 			<thead>
 				<td align="left">
 				<b>	Catatan : </b> {{$pengajuan_cuti->catatan}}
@@ -190,7 +190,7 @@
 	var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
 	var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
 	document.getElementById("tanggalwaktu").innerHTML = " "+tanggal+" "+bulanarray[bulan]+" "+tahun;
-	
+
 	</script>
 	<script type="text/javascript">
 		window.print();

@@ -67,7 +67,7 @@
 		<table width="720">
 			<tr>
 		       <td>
-			       <font size="2">Yth.<br> <b>{{$cuti_non->divisi }} </b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
+			       <font size="2">Yth.<br> <b>{{$cuti_non->nama_divisi }} </b><br>PT. Jasamarga Pandaan Tol<br>Di tempat</font>
 		       </td>
 		    </tr>
 		</table>
