@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\models\View_sisa_cuti;
 use App\models\Pengajuan_cuti;
 use App\models\Karyawan;
+use App\Models\Pegawai;
 use App\models\Pejabat_struktural;
 
 class Home extends Controller
@@ -85,7 +86,9 @@ class Home extends Controller
     }
 
     private function index_pejabat_struktural($request){
-        $jumlah_karyawan = Karyawan::count();
+        $role = Session('user')['divisi'] ;
+
+        $jumlah_karyawan = Pegawai::where('jabatan_id', '!=' , '1')->where('divisi_id', '=', $role)->count();
         $pengajuan_cuti_verifikasi = pengajuan_cuti::where([
             'status' => 'verifikasi'
         ])
@@ -99,8 +102,8 @@ class Home extends Controller
     }
 
     private function index_admin($request){
-        $jumlah_karyawan = Karyawan::count();
-        $jumlah_staf_hr = Pejabat_struktural::count();
+        $jumlah_karyawan = Pegawai::where('jabatan_id', '!=' , '1')->count();
+        $jumlah_staf_hr = Pegawai::where('jabatan_id', '=' , '1')->count();
         $pengajuan_cuti_verifikasi = pengajuan_cuti::where([
             'status' => 'verifikasi'
         ])

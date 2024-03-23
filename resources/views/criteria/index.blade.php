@@ -11,9 +11,9 @@
       <i class="bi bi-justify fs-3"></i>
     </a>
   </header>
-  <div class="page-heading">
+  {{-- <div class="page-heading">
     <h3>Kriteria</h3>
-  </div>
+  </div> --}}
   <div class="page-content">
     <section class="row">
       <div class="col-12">
@@ -25,9 +25,9 @@
           <div class="card-content">
             {{-- <form action="{{ route('generateDB') }}" method="POST">
               @csrf --}}
-              <a  class="btn btn-outline-success btn-sm m-2 ms-4" href="kriteria/create">
+              {{-- <a  class="btn btn-outline-success btn-sm m-2 ms-4" href="kriteria/create">
                 Tambah Kriteria
-              </a>
+              </a> --}}
               {{-- <button type="submit" class="btn btn-outline-primary btn-sm m-2">generete to database</button>
             </form> --}}
             @if(session()->has('success'))
@@ -64,7 +64,7 @@
                       @method("DELETE")
                       <a href="{{ route('kriteria.edit', ['kriterium' => $criteria->id]) }}" class='btn btn-info btn-sm'>Edit</a>
 
-                      <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                      {{-- <button type="submit" class="btn btn-danger btn-sm">Hapus</button> --}}
 
                     </form>
                   </td>
