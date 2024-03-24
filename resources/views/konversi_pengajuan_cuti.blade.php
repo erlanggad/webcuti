@@ -5,8 +5,8 @@
 @section('konten')
 <div class="container-fluid">
     <div class="row bg-title">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Manage Pengajuan Cuti</h4>
+        <div class="col-12">
+            <h4 class="page-title">Konversi Alternatif (Cuti Non Tahunan)</h4>
         </div>
         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             @if (Session::has('success'))
@@ -29,8 +29,14 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Data Pengajuan Cuti</h3>
+                <h3 class="box-title m-b-0" style="font-size:17px">Keterangan</h3>
                 <div class="table-responsive">
+                    <ul style="">
+                        <li>K1 = Urgensi Cuti (40%)</li>
+                        <li>K2 = Sisa Cuti (30%)</li>
+                        <li>K3 = Lama Bekerja (20%)</li>
+                        <li>K4 = Lama Cuti (10%)</li>
+                    </ul>
                     <table id="myTable" class="table table-striped">
                         <thead>
                             <tr>

@@ -5,8 +5,8 @@
 @section('konten')
 <div class="container-fluid">
     <div class="row bg-title">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Manage Pengajuan Cuti</h4>
+        <div class="col-12">
+            <h4 class="page-title">Hasil Akhir (Cuti Non Tahunan)</h4>
         </div>
         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             @if (Session::has('success'))
@@ -29,8 +29,13 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Data Pengajuan Cuti</h3>
-                <div class="col-md-4"></div>
+                {{-- <div> --}}
+                <h3 class="box-title m-b-0" style="font-size:17px">Rumus</h3>
+            {{-- </div> --}}
+                <div class="col-md-8 mb-4">
+                <img src="{{asset('rumus/waspas.png')}}" alt="" style="width: 50%" >
+
+                </div>
                 <div class="col-md-3 mb-4">
                     <label for="bulan">Filter Bulan:</label>
                     <select class="form-control" id="bulan" name="bulan">
