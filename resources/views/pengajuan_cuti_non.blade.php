@@ -105,7 +105,7 @@
         {{ csrf_field() }}
                       @method("DELETE")
 
-        <button class="btn btn-danger ml-auto mr-auto">Deletes</button>
+        <button class="btn btn-danger ml-auto mr-auto">Delete</button>
     </form>
 @endif
 

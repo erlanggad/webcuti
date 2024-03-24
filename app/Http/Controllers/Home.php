@@ -78,7 +78,7 @@ class Home extends Controller
         ])
         ->where('tanggal_pengajuan','like',date('Y')."%")
         ->count();
-        // $data['cuti_terpakai'] = $sisa_cuti->cuti_terpakai;
+        $data['cuti_terpakai'] = $sisa_cuti->cuti_terpakai;
         $data['sisa_cuti'] = $sisa_cuti->sisa_cuti;
         $data['pengajuan_cuti_verifikasi'] = $pengajuan_cuti_verifikasi;
         $data['total_pengajuan_cuti'] = $total_pengajuan_cuti;

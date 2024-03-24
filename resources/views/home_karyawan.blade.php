@@ -23,7 +23,7 @@
                 <ul class="list-inline two-part">
                     <li>
                     </li>
-                    {{-- <li class="text-right"><span class="counter text-info">{{$cuti_terpakai}}</span></li> --}}
+                    <li class="text-right"><span class="counter text-info">{{$cuti_terpakai}}</span></li>
                 </ul>
             </div>
         </div>
