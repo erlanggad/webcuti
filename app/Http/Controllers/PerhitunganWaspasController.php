@@ -28,19 +28,22 @@ class PerhitunganWaspasController extends Controller
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
-        $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-        $tahunSekarang = (new \DateTime())->format('Y');
+        $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+        $tanggalSekarang = new \DateTime();
+        $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+        $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+        // dd($totalBulan);
         // Menghitung k3 sesuai ketentuan
-        $tahunDiff = $tahunSekarang - $tahunMasuk;
-        if ($tahunDiff > 5) {
-            $k3 = 4;
-        } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-            $k3 = 3;
-        } elseif ($tahunDiff == 3) {
-            $k3 = 2;
-        } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+        if ($totalBulan >= 0 && $totalBulan < 24) {
             $k3 = 1;
+        } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+            $k3 = 2;
+        } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+            $k3 = 3;
+        } elseif ($totalBulan > 60) {
+            $k3 = 4;
         } else {
             $k3 = 0; // Jika tidak sesuai kondisi di atas
         }
@@ -88,7 +91,9 @@ class PerhitunganWaspasController extends Controller
         // }
         // dd($data);
         return view('konversi_pengajuan_cuti', ['data' => $data]);
-    }else if($jenis == "non-tahunan"){
+    }
+
+    else if($jenis == "non-tahunan"){
         if(Session('user')['role'] === "Manager"){
             $pengajuanCutis = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
             ->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
@@ -103,19 +108,22 @@ class PerhitunganWaspasController extends Controller
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
-        $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-        $tahunSekarang = (new \DateTime())->format('Y');
+        $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+        $tanggalSekarang = new \DateTime();
+        $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+        $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+        // dd($totalBulan);
         // Menghitung k3 sesuai ketentuan
-        $tahunDiff = $tahunSekarang - $tahunMasuk;
-        if ($tahunDiff > 5) {
-            $k3 = 4;
-        } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-            $k3 = 3;
-        } elseif ($tahunDiff == 3) {
-            $k3 = 2;
-        } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+        if ($totalBulan >= 0 && $totalBulan < 24) {
             $k3 = 1;
+        } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+            $k3 = 2;
+        } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+            $k3 = 3;
+        } elseif ($totalBulan > 60) {
+            $k3 = 4;
         } else {
             $k3 = 0; // Jika tidak sesuai kondisi di atas
         }
@@ -149,6 +157,9 @@ class PerhitunganWaspasController extends Controller
         }
 
         $data[] = [
+            // 'tgl masukan' => $pengajuanCuti->tgl_pegawai_masuk,
+            // 'selisihbULAN' => $selisihBulan,
+            // 'TOTAL' => $totalBulan,
             'nama_pegawai' => $pengajuanCuti->nama_pegawai,
             'k1' => $pengajuanCuti->nilai,
             'k2' => $k2,
@@ -156,6 +167,8 @@ class PerhitunganWaspasController extends Controller
             'k4' => $k4
         ];
     }
+
+    // dd($data);
         //     $roc = new RankOrderCentroidController();
         //     $criteriaWeight = $roc->criteriaWeight();
 
@@ -179,19 +192,22 @@ class PerhitunganWaspasController extends Controller
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
-        $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-        $tahunSekarang = (new \DateTime())->format('Y');
+        $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+        $tanggalSekarang = new \DateTime();
+        $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+        $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+        // dd($totalBulan);
         // Menghitung k3 sesuai ketentuan
-        $tahunDiff = $tahunSekarang - $tahunMasuk;
-        if ($tahunDiff > 5) {
-            $k3 = 4;
-        } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-            $k3 = 3;
-        } elseif ($tahunDiff == 3) {
-            $k3 = 2;
-        } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+        if ($totalBulan >= 0 && $totalBulan < 24) {
             $k3 = 1;
+        } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+            $k3 = 2;
+        } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+            $k3 = 3;
+        } elseif ($totalBulan > 60) {
+            $k3 = 4;
         } else {
             $k3 = 0; // Jika tidak sesuai kondisi di atas
         }
@@ -275,19 +291,22 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
-        $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-        $tahunSekarang = (new \DateTime())->format('Y');
+        $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+        $tanggalSekarang = new \DateTime();
+        $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+        $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+        // dd($totalBulan);
         // Menghitung k3 sesuai ketentuan
-        $tahunDiff = $tahunSekarang - $tahunMasuk;
-        if ($tahunDiff > 5) {
-            $k3 = 4;
-        } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-            $k3 = 3;
-        } elseif ($tahunDiff == 3) {
-            $k3 = 2;
-        } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+        if ($totalBulan >= 0 && $totalBulan < 24) {
             $k3 = 1;
+        } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+            $k3 = 2;
+        } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+            $k3 = 3;
+        } elseif ($totalBulan > 60) {
+            $k3 = 4;
         } else {
             $k3 = 0; // Jika tidak sesuai kondisi di atas
         }
@@ -371,19 +390,22 @@ $Rij_empat = ($item['k4'] != 0) ? 1 / $item['k4'] : 0;
 
     $data = [];
     foreach ($pengajuanCutis as $pengajuanCuti) {
-        $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-        $tahunSekarang = (new \DateTime())->format('Y');
+        $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+        $tanggalSekarang = new \DateTime();
+        $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+        $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+        // dd($totalBulan);
         // Menghitung k3 sesuai ketentuan
-        $tahunDiff = $tahunSekarang - $tahunMasuk;
-        if ($tahunDiff > 5) {
-            $k3 = 4;
-        } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-            $k3 = 3;
-        } elseif ($tahunDiff == 3) {
-            $k3 = 2;
-        } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+        if ($totalBulan >= 0 && $totalBulan < 24) {
             $k3 = 1;
+        } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+            $k3 = 2;
+        } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+            $k3 = 3;
+        } elseif ($totalBulan > 60) {
+            $k3 = 4;
         } else {
             $k3 = 0; // Jika tidak sesuai kondisi di atas
         }
@@ -507,22 +529,27 @@ usort($hasil_akhir, function($a, $b) {
 
 $data = [];
 foreach ($pengajuanCutis as $pengajuanCuti) {
-    $tahunMasuk = (new \DateTime($pengajuanCuti->tgl_pegawai_masuk))->format('Y');
-    $tahunSekarang = (new \DateTime())->format('Y');
+    $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+    $tanggalSekarang = new \DateTime();
+    $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
+    $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+
+    // dd($totalBulan);
     // Menghitung k3 sesuai ketentuan
-    $tahunDiff = $tahunSekarang - $tahunMasuk;
-    if ($tahunDiff > 5) {
-        $k3 = 4;
-    } elseif ($tahunDiff >= 4 && $tahunDiff <= 5) {
-        $k3 = 3;
-    } elseif ($tahunDiff == 3) {
-        $k3 = 2;
-    } elseif ($tahunDiff >= 1 && $tahunDiff <= 2) {
+    if ($totalBulan >= 0 && $totalBulan < 24) {
         $k3 = 1;
+    } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+        $k3 = 2;
+    } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+        $k3 = 3;
+    } elseif ($totalBulan > 60) {
+        $k3 = 4;
     } else {
         $k3 = 0; // Jika tidak sesuai kondisi di atas
     }
+
+
 
     // Menghitung k2 sesuai ketentuan
     $sisaCuti = $pengajuanCuti->sisa_cuti;
