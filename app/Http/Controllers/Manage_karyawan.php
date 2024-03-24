@@ -27,6 +27,7 @@ class Manage_karyawan extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         if (Pegawai::create($request->all())) {
             $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
             $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();

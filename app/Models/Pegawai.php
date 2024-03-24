@@ -20,7 +20,9 @@ class Pegawai extends Model
         'posisi',
         'unit',
         'divisi_id',
-        'jabatan_id'
+        'jabatan_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function divisi()
