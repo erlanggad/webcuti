@@ -32,7 +32,7 @@ class Manage_staf_hr extends Controller
                 $simpan->save();
          }
             return redirect(Session('user')['role'].'/manage-pejabat-struktural')->with('success', 'Berhasil membuat pejabat struktural');
-       
+
     }
 
     public function edit(Request $request)

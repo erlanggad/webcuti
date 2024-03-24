@@ -21,7 +21,7 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Karyawan</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/manage-karyawan" method="post">
+                <form class="form" action="/{{ Session('user')['role'] }}/manage-karyawan" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Nama Karyawan</label>
@@ -83,6 +83,12 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                            <div class="col-10">
+                                <input class="form-control" name="image" type="file" id="example-email-input">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
@@ -102,7 +108,7 @@
             <div class="white-box">
                 <h3 class="box-title m-b-0">Form Karyawan</h3>
                 <hr>
-                <form class="form" action="/{{ Session('user')['role'] }}/manage-karyawan/{{Request::segment(3)}}" method="post">
+                <form class="form" action="/{{ Session('user')['role'] }}/manage-karyawan/{{Request::segment(3)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -154,6 +160,12 @@
                                 @endforeach
                             </select>
 
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
+                        <div class="col-10">
+                            <input class="form-control" name="image" type="file" id="example-email-input" value="{{ $karyawan->image }}">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -59,6 +59,7 @@
                             <input class="form-control" name="catatan" type="text" value="{{$cuti_non->catatan }}" id="example-email-input">
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-md-12">
 

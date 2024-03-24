@@ -64,13 +64,21 @@ class Manage_karyawan extends Controller
         $karyawan = Pegawai::where([
             'id' => $request->segment(3)
         ])->first();
+        // dd($request->image);
         $karyawan->nama_pegawai = $request->nama_karyawan;
         $karyawan->email = $request->email;
         $karyawan->nik = $request->nik;
         $karyawan->created_at = $request->tanggal_lahir;
         $karyawan->jabatan_id = $request->jabatan_id;
         $karyawan->divisi_id = $request->divisi_id;
+        // $karyawan->image=$request->image;
+
         if ($karyawan->save()) {
+            if ($request->hasFile('image') ) {
+                $request->file('image')->move('tanda_tangan/', $request->file('image')->getClientOriginalName());
+                $karyawan->image = $request->file('image')->getClientOriginalName();
+                $karyawan->save();
+            }
             return redirect(Session('user')['role'].'/manage-karyawan')->with('success', 'Berhasil memperbarui karyawan');
         } else {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('failed', 'Gagal memperbarui karyawan');
