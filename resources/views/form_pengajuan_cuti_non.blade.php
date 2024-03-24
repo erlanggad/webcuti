@@ -91,7 +91,7 @@
                     <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
                         <div class="col-10">
-                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input" required>
+                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input" required accept="image/*">
                         </div>
                     </div>
                     <div class="form-group row">
