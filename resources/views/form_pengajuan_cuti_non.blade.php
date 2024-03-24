@@ -26,28 +26,41 @@
                 <hr>
                 <form class="form" action="/karyawan/store-pengajuan-non" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Tanggal Awal </label>
                         <div class="col-10">
                             <input class="form-control" name="tanggal_pengajuan" type="date" value="" id="example-email-input" required>
+                        </div>
+                    </div> --}}
+                    {{-- <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Akhir </label>
+                        <div class="col-10">
+                            <input class="form-control" name="tanggal_akhir" type="date" value="" id="example-email-input" required>
+                        </div>
+                    </div> --}}
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Tanggal Awal </label>
+                        <div class="col-10">
+                            <input class="form-control" name="tanggal_pengajuan" type="date" value="" id="tanggal_awal" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Tanggal Akhir </label>
                         <div class="col-10">
-                            <input class="form-control" name="tanggal_akhir" type="date" value="" id="example-email-input" required>
+                            <input class="form-control" name="tanggal_akhir" type="date" value="" id="tanggal_akhir" required readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Lama Cuti</label>
                         <div class="col-10">
-                            <input class="form-control" name="lama_cuti" type="number" min="1" value="1" id="lama_cuti" required readonly>
+                            <input class="form-control" name="lama_cuti" type="number" min="1" value="0" id="lama_cuti" required readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="example-email-input" class="col-2 col-form-label">Keterangan</label>
                         <div class="col-10">
                            <select name="urgensi_cuti_id" class="form-control" id="urgensi_cuti_id" required>
+                            <option value="" disabled selected>Pilih Keterangan</option>
                             @foreach ($urgensi_cuti as $list_urgensi)
                                 <option value="{{ $list_urgensi->id }}">{{ $list_urgensi->nama }}</option>
                             @endforeach
@@ -78,7 +91,7 @@
                     <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
                         <div class="col-10">
-                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input">
+                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -105,8 +118,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.success) {
-                        console.log(data.data)
+                        // console.log(data.data)
                         document.getElementById('lama_cuti').value = data.data.lama_cuti;
+                        updateTanggalAkhir();
+
                     } else {
                         console.error('Data tidak ditemukan');
                     }
@@ -114,6 +129,24 @@
                 .catch(error => console.error('Error:', error));
         }
     });
+
+     // Hitung tanggal akhir berdasarkan tanggal awal dan lama cuti
+     function updateTanggalAkhir() {
+        var tanggalAwal = document.getElementById('tanggal_awal').value;
+        var lamaCuti = parseInt(document.getElementById('lama_cuti').value);
+        if (tanggalAwal && lamaCuti) {
+            var dateAwal = new Date(tanggalAwal);
+            dateAwal.setDate(dateAwal.getDate() + lamaCuti);
+            var tanggalAkhir = dateAwal.toISOString().split('T')[0];
+            document.getElementById('tanggal_akhir').value = tanggalAkhir;
+        }
+        console.log("tanggalawal", tanggalAwal);
+        console.log("lamaCuti", lamaCuti);
+    }
+
+    // Panggil fungsi updateTanggalAkhir saat tanggal_awal berubah
+    document.getElementById('tanggal_awal').addEventListener('change', updateTanggalAkhir);
+
 </script>
 
 @endsection

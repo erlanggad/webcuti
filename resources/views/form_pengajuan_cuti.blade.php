@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="example-email-input" class="col-2 col-form-label">Lama Cuti</label>
+                        <label for="example-email-input" class="col-2 col-form-label">Lama Cuti (hari)</label>
                         <div class="col-10">
-                            <input class="form-control" name="lama_cuti" type="number" min="1" value="1" id="example-email-input" required>
+                            <input class="form-control" name="lama_cuti" type="number" min="1" value="" id="example-email-input" required placeholder="Lama Cuti (hari)">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         <label for="image" class="col-2 col-form-label">Tanda Tangan</label>
                         <div class="col-10">
-                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input">
+                            <input class="form-control" name="ttd_karyawan" type="file" id="example-email-input" required accept="image/*">
                         </div>
                     </div>
                     <div class="form-group row">
