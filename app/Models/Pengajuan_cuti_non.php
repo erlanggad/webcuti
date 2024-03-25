@@ -16,6 +16,7 @@ class Pengajuan_cuti_non extends Model
         'tanggal_pengajuan',
         'tanggal_akhir',
         'lama_cuti',
+        'pegawai_id',
         'keterangan',
         'divisi',
         'ttd_karyawan',
