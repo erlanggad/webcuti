@@ -53,7 +53,7 @@ class Cuti_non extends Controller
 
         // Buat query untuk pengajuan cuti
         $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')
-            ->where('cuti_non.divisi_id', Session('user')['divisi']);
+            ->where('cuti_non.divisi_id', Session('user')['divisi'])->select('pegawai.*', 'cuti_non.*', 'cuti_non.image as lampiran');
 
         // Terapkan filter berdasarkan bulan jika dipilih
         if ($bulan) {
@@ -69,7 +69,7 @@ class Cuti_non extends Controller
         $bulan = $request->input('bulan');
 
         // Buat query untuk pengajuan cuti
-        $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id');
+        $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')->join('urgensi_cuti', 'urgensi_cuti.id','=','cuti_non.urgensi_cuti_id')->select('pegawai.*', 'cuti_non.*', 'cuti_non.image as lampiran');
 
 
         // Terapkan filter berdasarkan bulan jika dipilih
@@ -97,7 +97,7 @@ class Cuti_non extends Controller
 
         // Buat query untuk pengajuan cuti
         $query = Pengajuan_cuti_non::join('pegawai','pegawai.id','=','cuti_non.pegawai_id')
-        ->where(['pegawai_id' => $id_karyawan]);
+        ->where(['pegawai_id' => $id_karyawan])->select('pegawai.*', 'cuti_non.*', 'cuti_non.image as lampiran');
 
         // Terapkan filter berdasarkan bulan jika dipilih
         if ($bulan) {
@@ -106,6 +106,7 @@ class Cuti_non extends Controller
 
         // Ambil data pengajuan cuti
         $data['cuti_non'] = $query->get();
+        // dd($data);
 
         return view('pengajuan_cuti_non', $data);
 

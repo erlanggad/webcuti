@@ -173,7 +173,7 @@ class Manage_pengajuan_cuti extends Controller
         // dd($pengajuan_cuti);
         $nama = Session('user')['nama'];
         $jabatan = Session('user')['role'];
-        // $image=Session('user')['image'];
+        $image=Session('user')['image'];
         $pengajuan_cuti->status = $request->status;
         $pengajuan_cuti->verifikasi_oleh = $nama;
         $pengajuan_cuti->jabatan_verifikasi = $jabatan;
@@ -181,7 +181,7 @@ class Manage_pengajuan_cuti extends Controller
         if($request->status == "disetujui"){
 
         $pengajuan_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
-        // $pengajuan_cuti->image = $image;
+        $pengajuan_cuti->image = $image;
         if ($pengajuan_cuti->save()) {
             $data_sisa_cuti->sisa_cuti = $data_sisa_cuti->sisa_cuti - $pengajuan_cuti->lama_cuti;
             $data_sisa_cuti->cuti_terpakai = $data_sisa_cuti->cuti_terpakai + $pengajuan_cuti->lama_cuti;

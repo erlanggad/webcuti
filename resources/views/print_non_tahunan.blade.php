@@ -143,7 +143,7 @@
 				</th>
 			</thead>
 			<tr>
-				<td width="350" class="text" align="center"><br><br><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->image)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br> <br><br></td>
+				<td width="350" class="text" align="center"><br><br><br><br><br><img src="{{asset('tanda_tangan/'.$cuti_non->ttd)}}"alt="" style="height: 60px" ><br>{{$cuti_non->verifikasi_oleh}}<br> <br><br></td>
 				<td class="text" align="center">Pandaan, <span id="tanggalwaktu"></span> <br> Karyawan Yang Bersangkutan<br><br><img src="{{asset('uploadnon/'.$cuti_non->ttd_karyawan)}}"alt="" style="height: 60px" ><br>{{$cuti_non->nama_pegawai}}<br></td>
 			</tr>
 			<tr>

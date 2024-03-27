@@ -13,7 +13,7 @@ class Print_tahunan extends Controller
     {
         $data['pengajuan_cuti'] = Pengajuan_cuti::join('pegawai','pegawai.id','=','pengajuan_cuti.pegawai_id')->join('divisi','divisi.id','=','pengajuan_cuti.divisi_id')->join('jabatan','jabatan.id','=','pegawai.jabatan_id')->where([
             'id_pengajuan_cuti' => $request->segment(3)
-        ])->select('pengajuan_cuti.*', 'pegawai.*','divisi.nama as nama_divisi', 'jabatan.nama as nama_jabatan')->first();
+        ])->select('pengajuan_cuti.*', 'pegawai.*','divisi.nama as nama_divisi', 'jabatan.nama as nama_jabatan','pengajuan_cuti.image as ttd_pejabat')->first();
         $id_karyawan = Session('user')['id'];
         $sisa_cuti = View_sisa_cuti::where([
             'pegawai_id' => $id_karyawan,

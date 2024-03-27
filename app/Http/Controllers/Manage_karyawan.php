@@ -30,8 +30,13 @@ class Manage_karyawan extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        if (Pegawai::create($request->all())) {
-            $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
+       $pegawai = Pegawai::create($request->all());
+       if ($request->hasFile('image') ) {
+        $request->file('image')->move('uploadnon/', $request->file('image')->getClientOriginalName());
+        $pegawai->image = $request->file('image')->getClientOriginalName();
+
+        if ($pegawai->save()) {
+            $getPegawaiBaru = Pegawai::orderBy('id', 'desc')->first();
             $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
 
             $sisa_cuti = new View_sisa_cuti;
@@ -47,6 +52,8 @@ class Manage_karyawan extends Controller
         } else {
             return redirect(Session('user')['role'].'/manage-karyawan')->with('failed', 'Gagal membuat karyawan');
         }
+     }
+
     }
 
     public function edit(Request $request)

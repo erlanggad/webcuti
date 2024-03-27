@@ -173,7 +173,7 @@
 				<td></td>
 			<tr>
 				<td></td>
-				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->image)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br></td>
+				<td width="320" class="text" align="center"><br>Menyetujui,<br> Pejabat Yang Berwenang<br><img src="{{asset('tanda_tangan/'.$pengajuan_cuti->ttd_pejabat)}}"alt="" style="height: 60px" ><br>{{$pengajuan_cuti->verifikasi_oleh}}<br></td>
 			</tr>
 		 </table>
 	</center>
