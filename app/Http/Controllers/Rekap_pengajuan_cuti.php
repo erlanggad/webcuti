@@ -14,7 +14,7 @@ class Rekap_pengajuan_cuti extends Controller
 
         $tahun_list = View_sisa_cuti::distinct()->pluck('tahun')->toArray();
 
-        $query = View_sisa_cuti::join('pegawai', 'pegawai.id','=','sisa_cuti.pegawai_id');
+        $query = View_sisa_cuti::join('pegawai', 'pegawai.id','=','sisa_cuti.pegawai_id')->select('sisa_cuti.*', 'pegawai.*')->where('jabatan_id' ,'!=','1');
 
         if($request->has('tahun')) {
             $query->where('tahun', $request->tahun);
