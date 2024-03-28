@@ -23,7 +23,8 @@ class PerhitunganWaspasController extends Controller
 
             $pengajuanCutis = Pengajuan_cuti::join('pegawai', 'pegawai.id', '=', 'pengajuan_cuti.pegawai_id')
                 ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'pengajuan_cuti.urgensi_cuti_id')
-                ->select('pengajuan_cuti.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+                ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'pengajuan_cuti.pegawai_id')
+                ->select('pengajuan_cuti.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti as sisa_cuti_pegawai')
                 ->get();
 
             $data = [];
@@ -95,12 +96,14 @@ class PerhitunganWaspasController extends Controller
             if (Session('user')['role'] === "Manager") {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')->where('cuti_non.divisi_id', Session('user')['divisi'])
                     ->get();
             } else {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')
                     ->get();
             }
 
@@ -126,8 +129,10 @@ class PerhitunganWaspasController extends Controller
                     $k3 = 0; // Jika tidak sesuai kondisi di atas
                 }
 
+                // dd($pengajuanCutis);
+
                 // Menghitung k2 sesuai ketentuan
-                $sisaCuti = $pengajuanCuti->sisa_cuti;
+                $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
                 if ($sisaCuti > 5) {
                     $k2 = 4;
                 } elseif ($sisaCuti == 4) {
@@ -157,7 +162,7 @@ class PerhitunganWaspasController extends Controller
                 $data[] = [
                     // 'tgl masukan' => $pengajuanCuti->tgl_pegawai_masuk,
                     // 'selisihbULAN' => $selisihBulan,
-                    // 'TOTAL' => $totalBulan,
+                    // 'sisa' => $sisaCuti,
                     'nama_pegawai' => $pengajuanCuti->nama_pegawai,
                     'k1' => $pengajuanCuti->nilai,
                     'k2' => $k2,
@@ -277,12 +282,14 @@ class PerhitunganWaspasController extends Controller
             if (Session('user')['role'] === "Manager") {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi'])
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')->where('cuti_non.divisi_id', Session('user')['divisi'])
                     ->get();
             } else {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')
                     ->get();
             }
             // $pengajuanCutis = $pengajuanCutis->get();
@@ -310,7 +317,7 @@ class PerhitunganWaspasController extends Controller
                 }
 
                 // Menghitung k2 sesuai ketentuan
-                $sisaCuti = $pengajuanCuti->sisa_cuti;
+                $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
                 if ($sisaCuti > 5) {
                     $k2 = 4;
                 } elseif ($sisaCuti == 4) {
@@ -516,11 +523,13 @@ class PerhitunganWaspasController extends Controller
             if (Session("user")['role'] === "Manager") {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai')->where('cuti_non.divisi_id', Session('user')['divisi']);
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')->where('cuti_non.divisi_id', Session('user')['divisi']);
             } else {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai');
+                    ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan');
             }
             // ->get();
 
@@ -557,7 +566,7 @@ class PerhitunganWaspasController extends Controller
 
 
                     // Menghitung k2 sesuai ketentuan
-                    $sisaCuti = $pengajuanCuti->sisa_cuti;
+                    $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
                     if ($sisaCuti > 5) {
                         $k2 = 4;
                     } elseif ($sisaCuti == 4) {
