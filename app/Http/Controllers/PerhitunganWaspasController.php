@@ -542,6 +542,8 @@ class PerhitunganWaspasController extends Controller
             if ($pengajuanCutis->count() > 0) {
 
                 $data = [];
+                // dd($pengajuanCutis);
+
                 foreach ($pengajuanCutis as $pengajuanCuti) {
                     $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
                     $tanggalSekarang = new \DateTime();
@@ -565,19 +567,19 @@ class PerhitunganWaspasController extends Controller
 
 
 
-                    // Menghitung k2 sesuai ketentuan
-                    $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
-                    if ($sisaCuti > 5) {
-                        $k2 = 4;
-                    } elseif ($sisaCuti == 4) {
-                        $k2 = 3;
-                    } elseif ($sisaCuti >= 2 && $sisaCuti <= 3) {
-                        $k2 = 2;
-                    } elseif ($sisaCuti >= 0 && $sisaCuti <= 1) {
-                        $k2 = 1;
-                    } else {
-                        $k2 = 0; // Jika tidak sesuai kondisi di atas
-                    }
+                   // Menghitung k2 sesuai ketentuan
+                $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
+                if ($sisaCuti > 5) {
+                    $k2 = 4;
+                } elseif ($sisaCuti == 4) {
+                    $k2 = 3;
+                } elseif ($sisaCuti == 3) {
+                    $k2 = 2;
+                } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
+                    $k2 = 1;
+                } else {
+                    $k2 = 0; // Jika tidak sesuai kondisi di atas
+                }
 
                     // Menghitung k4 sesuai ketentuan
                     $lamaCuti = $pengajuanCuti->lama_cuti;
@@ -637,13 +639,20 @@ class PerhitunganWaspasController extends Controller
                         ];
                     }
 
+                    // dd($normalisasi);
                     // Menghitung nilai hasil akhir seperti sebelumnya
                     $hasil_akhir = [];
 
                     foreach ($normalisasi as $item2) {
+                    // dd($item2);
+
                         $nilai = (0.5 * ($item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1)) +
                             (0.5 * (pow($item2['Rij_satu'], 0.4) * pow($item2['Rij_dua'], 0.3) * pow($item2['Rij_tiga'], 0.2) * pow($item2['Rij_empat'], 0.1)));
 
+                            $q1 = (0.5 * ($item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1));
+                            $q2 = (0.5 * (pow($item2['Rij_satu'], 0.4) * pow($item2['Rij_dua'], 0.3) * pow($item2['Rij_tiga'], 0.2) * pow($item2['Rij_empat'], 0.1)));
+
+                            $sum1to4 = $item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1;
                         $hasil_akhir[] = [
                             'id_cuti_non' => $item2['id_cuti_non'],
                             'nama' => $item2['nama_pegawai'],
@@ -652,7 +661,22 @@ class PerhitunganWaspasController extends Controller
                             'keterangan' => $item2['keterangan'],
                             'status' => $item2['status'],
                             'verifikasi_oleh' => $item2['verifikasi_oleh'],
-                            'skor_akhir' => number_format($nilai, 2)
+                            'skor_akhir' => number_format($nilai, 2),
+                            'q1' => number_format($q1, 3),
+                            'q2' => number_format($q2, 3),
+                            'q1 + q2' => number_format($q1 + $q2),
+                            'row 1' => number_format(($item2['Rij_satu'] * 0.4), 3),
+                            'row 2' => number_format(($item2['Rij_dua'] * 0.3), 3),
+                            'row 3' => number_format(($item2['Rij_tiga'] * 0.2), 3),
+                            'row 4' => number_format(($item2['Rij_empat'] * 0.1), 3),
+                            'rij dua' => $item2['Rij_dua'],
+
+                            'rij tiga' => $item2['Rij_tiga'],
+
+                            'sum 1 - 4' => number_format($sum1to4, 3),
+                            'row 1 tes' => number_format(0.75 * 0.4, 3),
+
+
                         ];
                     }
 
@@ -662,8 +686,9 @@ class PerhitunganWaspasController extends Controller
                     });
                 }
 
-                // dd($data);
+                // dd($hasil_akhir);
                 // dd($normalisasi);
+                // dd($data);
                 $role['role'] = Session('user')['role'];
                 // dd($hasil_akhir);
                 return view('hasil_akhir_pengajuan_cuti_non', ['data' => $hasil_akhir, 'role' => $role]);
