@@ -294,99 +294,98 @@ class PerhitunganWaspasController extends Controller
             }
             // $pengajuanCutis = $pengajuanCutis->get();
             if ($pengajuanCutis->count() > 0) {
-            $data = [];
-            foreach ($pengajuanCutis as $pengajuanCuti) {
-                $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
-                $tanggalSekarang = new \DateTime();
-                $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
+                $data = [];
+                foreach ($pengajuanCutis as $pengajuanCuti) {
+                    $tanggalMasuk = new \DateTime($pengajuanCuti->tgl_pegawai_masuk);
+                    $tanggalSekarang = new \DateTime();
+                    $selisihBulan = $tanggalMasuk->diff($tanggalSekarang)->m;
 
-                $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
+                    $totalBulan = $tanggalMasuk->diff($tanggalSekarang)->y * 12 + $selisihBulan;
 
-                // dd($totalBulan);
-                // Menghitung k3 sesuai ketentuan
-                if ($totalBulan >= 0 && $totalBulan < 24) {
-                    $k3 = 1;
-                } elseif ($totalBulan >= 24 && $totalBulan < 48) {
-                    $k3 = 2;
-                } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
-                    $k3 = 3;
-                } elseif ($totalBulan > 60) {
-                    $k3 = 4;
-                } else {
-                    $k3 = 0; // Jika tidak sesuai kondisi di atas
+                    // dd($totalBulan);
+                    // Menghitung k3 sesuai ketentuan
+                    if ($totalBulan >= 0 && $totalBulan < 24) {
+                        $k3 = 1;
+                    } elseif ($totalBulan >= 24 && $totalBulan < 48) {
+                        $k3 = 2;
+                    } elseif ($totalBulan >= 48 && $totalBulan <= 60) {
+                        $k3 = 3;
+                    } elseif ($totalBulan > 60) {
+                        $k3 = 4;
+                    } else {
+                        $k3 = 0; // Jika tidak sesuai kondisi di atas
+                    }
+
+                    // Menghitung k2 sesuai ketentuan
+                    $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
+                    if ($sisaCuti > 5) {
+                        $k2 = 4;
+                    } elseif ($sisaCuti == 4) {
+                        $k2 = 3;
+                    } elseif ($sisaCuti == 3) {
+                        $k2 = 2;
+                    } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
+                        $k2 = 1;
+                    } else {
+                        $k2 = 0; // Jika tidak sesuai kondisi di atas
+                    }
+
+                    // Menghitung k4 sesuai ketentuan
+                    $lamaCuti = $pengajuanCuti->lama_cuti;
+                    if ($lamaCuti == 1) {
+                        $k4 = 4;
+                    } elseif ($lamaCuti == 2) {
+                        $k4 = 3;
+                    } elseif ($lamaCuti == 3) {
+                        $k4 = 2;
+                    } elseif ($lamaCuti > 3) {
+                        $k4 = 1;
+                    } else {
+                        $k4 = 0; // Jika tidak sesuai kondisi di atas
+                    }
+
+                    $data[] = [
+                        'nama_pegawai' => $pengajuanCuti->nama_pegawai,
+                        'k1' => $pengajuanCuti->nilai,
+                        'k2' => $k2,
+                        'k3' => $k3,
+                        'k4' => $k4
+                    ];
+
+                    $normalisasi = [];
+
+                    foreach ($data as $item) {
+                        // Mencari nilai maksimal untuk setiap kriteria
+                        $max_k1 = max(array_column($data, 'k1'));
+                        $max_k2 = max(array_column($data, 'k2'));
+                        $max_k3 = max(array_column($data, 'k3'));
+                        $min_k4 = min(array_column($data, 'k4'));
+
+                        // Menghitung nilai $Rij_satu sampai $Rij_empat
+                        $Rij_satu = $item['k1'] / $max_k1;
+                        $Rij_dua = $item['k2'] / $max_k2;
+                        $Rij_tiga = $item['k3'] / $max_k3;
+                        // Pastikan k4 tidak bernilai 0 untuk menghindari pembagian dengan nol
+                        // $Rij_empat = ($max_k4 != 0) ? $item['k4'] / $max_k4 : 0;
+                        $Rij_empat = ($item['k4'] != 0) ? $min_k4 / $item['k4'] : 0;
+
+                        $normalisasi[] = [
+                            'nama_pegawai' => $item['nama_pegawai'],
+                            'Rij_satu' => number_format($Rij_satu, 2),
+                            'Rij_dua' => number_format($Rij_dua, 2),
+                            'Rij_tiga' => number_format($Rij_tiga, 2),
+                            'Rij_empat' => number_format($Rij_empat, 2)
+                        ];
+                    }
                 }
-
-                // Menghitung k2 sesuai ketentuan
-                $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
-                if ($sisaCuti > 5) {
-                    $k2 = 4;
-                } elseif ($sisaCuti == 4) {
-                    $k2 = 3;
-                } elseif ($sisaCuti == 3) {
-                    $k2 = 2;
-                } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
-                    $k2 = 1;
-                } else {
-                    $k2 = 0; // Jika tidak sesuai kondisi di atas
-                }
-
-                // Menghitung k4 sesuai ketentuan
-                $lamaCuti = $pengajuanCuti->lama_cuti;
-                if ($lamaCuti == 1) {
-                    $k4 = 4;
-                } elseif ($lamaCuti == 2) {
-                    $k4 = 3;
-                } elseif ($lamaCuti == 3) {
-                    $k4 = 2;
-                } elseif ($lamaCuti > 3) {
-                    $k4 = 1;
-                } else {
-                    $k4 = 0; // Jika tidak sesuai kondisi di atas
-                }
-
-                $data[] = [
-                    'nama_pegawai' => $pengajuanCuti->nama_pegawai,
-                    'k1' => $pengajuanCuti->nilai,
-                    'k2' => $k2,
-                    'k3' => $k3,
-                    'k4' => $k4
-                ];
-
+                // dd([$max_k1, $max_k2,$max_k3, $min_k4]);
+                return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
+            } else {
                 $normalisasi = [];
 
-                foreach ($data as $item) {
-                    // Mencari nilai maksimal untuk setiap kriteria
-                    $max_k1 = max(array_column($data, 'k1'));
-                    $max_k2 = max(array_column($data, 'k2'));
-                    $max_k3 = max(array_column($data, 'k3'));
-                    $min_k4 = min(array_column($data, 'k4'));
+                // $role['role'] = Session('user')['role'];
 
-                    // Menghitung nilai $Rij_satu sampai $Rij_empat
-                    $Rij_satu = $item['k1'] / $max_k1;
-                    $Rij_dua = $item['k2'] / $max_k2;
-                    $Rij_tiga = $item['k3'] / $max_k3;
-                    // Pastikan k4 tidak bernilai 0 untuk menghindari pembagian dengan nol
-                    // $Rij_empat = ($max_k4 != 0) ? $item['k4'] / $max_k4 : 0;
-                    $Rij_empat = ($item['k4'] != 0) ? $min_k4 / $item['k4'] : 0;
-
-                    $normalisasi[] = [
-                        'nama_pegawai' => $item['nama_pegawai'],
-                        'Rij_satu' => number_format($Rij_satu, 2),
-                        'Rij_dua' => number_format($Rij_dua, 2),
-                        'Rij_tiga' => number_format($Rij_tiga, 2),
-                        'Rij_empat' => number_format($Rij_empat, 2)
-                    ];
-                }
-            }
-            // dd([$max_k1, $max_k2,$max_k3, $min_k4]);
-            return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
-         } else{
-            $normalisasi = [];
-
-            // $role['role'] = Session('user')['role'];
-
-            return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
-
+                return view('normalisasi_pengajuan_cuti', ['data' => $normalisasi]);
             }
         }
     }
@@ -567,19 +566,19 @@ class PerhitunganWaspasController extends Controller
 
 
 
-                   // Menghitung k2 sesuai ketentuan
-                $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
-                if ($sisaCuti > 5) {
-                    $k2 = 4;
-                } elseif ($sisaCuti == 4) {
-                    $k2 = 3;
-                } elseif ($sisaCuti == 3) {
-                    $k2 = 2;
-                } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
-                    $k2 = 1;
-                } else {
-                    $k2 = 0; // Jika tidak sesuai kondisi di atas
-                }
+                    // Menghitung k2 sesuai ketentuan
+                    $sisaCuti = $pengajuanCuti->sisa_cuti_karyawan;
+                    if ($sisaCuti > 5) {
+                        $k2 = 4;
+                    } elseif ($sisaCuti == 4) {
+                        $k2 = 3;
+                    } elseif ($sisaCuti == 3) {
+                        $k2 = 2;
+                    } elseif ($sisaCuti >= 1 && $sisaCuti <= 2) {
+                        $k2 = 1;
+                    } else {
+                        $k2 = 0; // Jika tidak sesuai kondisi di atas
+                    }
 
                     // Menghitung k4 sesuai ketentuan
                     $lamaCuti = $pengajuanCuti->lama_cuti;
@@ -644,15 +643,20 @@ class PerhitunganWaspasController extends Controller
                     $hasil_akhir = [];
 
                     foreach ($normalisasi as $item2) {
-                    // dd($item2);
+                        // dd($item2);
 
                         $nilai = (0.5 * ($item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1)) +
                             (0.5 * (pow($item2['Rij_satu'], 0.4) * pow($item2['Rij_dua'], 0.3) * pow($item2['Rij_tiga'], 0.2) * pow($item2['Rij_empat'], 0.1)));
 
-                            $q1 = (0.5 * ($item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1));
-                            $q2 = (0.5 * (pow($item2['Rij_satu'], 0.4) * pow($item2['Rij_dua'], 0.3) * pow($item2['Rij_tiga'], 0.2) * pow($item2['Rij_empat'], 0.1)));
+                        $q1 = (0.5 * ($item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1));
+                        $q2 = (0.5 * (pow($item2['Rij_satu'], 0.4) * pow($item2['Rij_dua'], 0.3) * pow($item2['Rij_tiga'], 0.2) * pow($item2['Rij_empat'], 0.1)));
 
-                            $sum1to4 = $item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1;
+                        if ($nilai < 0.5) {
+                            $rekomendasi = 0;
+                        } else {
+                            $rekomendasi = 1;
+                        }
+                        $sum1to4 = $item2['Rij_satu'] * 0.4 + $item2['Rij_dua'] * 0.3 + $item2['Rij_tiga'] * 0.2 + $item2['Rij_empat'] * 0.1;
                         $hasil_akhir[] = [
                             'id_cuti_non' => $item2['id_cuti_non'],
                             'nama' => $item2['nama_pegawai'],
@@ -660,6 +664,7 @@ class PerhitunganWaspasController extends Controller
                             'lama_cuti' => $item2['lama_cuti'],
                             'keterangan' => $item2['keterangan'],
                             'status' => $item2['status'],
+                            'rekomendasi' => $rekomendasi,
                             'verifikasi_oleh' => $item2['verifikasi_oleh'],
                             'skor_akhir' => number_format($nilai, 2),
                             'q1' => number_format($q1, 3),
@@ -679,7 +684,6 @@ class PerhitunganWaspasController extends Controller
 
                         ];
                     }
-
                     // Mengurutkan nilai hasil akhir dari yang tertinggi ke yang terendah
                     usort($hasil_akhir, function ($a, $b) {
                         return $b['skor_akhir'] <=> $a['skor_akhir'];
