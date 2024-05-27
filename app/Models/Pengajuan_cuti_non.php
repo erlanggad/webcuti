@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengajuan_cuti_non extends Model
 {
     use HasFactory;
-    protected $dates =['tanggal_pengajuan','tanggal_lahir','tanggal_akhir'];
+    protected $dates = ['tanggal_pengajuan', 'tanggal_lahir', 'tanggal_akhir'];
     protected $primaryKey = 'id_cuti_non';
     protected $table = "cuti_non";
     protected $fillable = [
@@ -16,11 +16,12 @@ class Pengajuan_cuti_non extends Model
         'tanggal_pengajuan',
         'tanggal_akhir',
         'lama_cuti',
+        'cuti_diterima',
         'pegawai_id',
         'keterangan',
         'divisi',
         'ttd_karyawan',
-        'image'=> 'image|file',
+        'image' => 'image|file',
         'status',
         'verifikasi_oleh',
         'jabatan_verifikasi',
