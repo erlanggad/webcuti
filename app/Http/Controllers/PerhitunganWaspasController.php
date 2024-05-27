@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Criteria;
 use App\Models\Pengajuan_cuti;
 use App\Models\Pengajuan_cuti_non;
+use App\Models\View_sisa_cuti;
 use Illuminate\Http\Request;
 
 class PerhitunganWaspasController extends Controller
@@ -523,12 +524,12 @@ class PerhitunganWaspasController extends Controller
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
                     ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')->where('cuti_non.divisi_id', Session('user')['divisi']);
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.id as id_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan')->where('cuti_non.divisi_id', Session('user')['divisi']);
             } else {
                 $pengajuanCutis = Pengajuan_cuti_non::join('pegawai', 'pegawai.id', '=', 'cuti_non.pegawai_id')
                     ->join('urgensi_cuti', 'urgensi_cuti.id', '=', 'cuti_non.urgensi_cuti_id')
                     ->join('sisa_cuti', 'sisa_cuti.pegawai_id', '=', 'cuti_non.pegawai_id')
-                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan');
+                    ->select('cuti_non.*', 'pegawai.nama_pegawai', 'pegawai.id as id_pegawai',  'pegawai.created_at as tgl_pegawai_masuk', 'urgensi_cuti.nama', 'urgensi_cuti.lama_cuti', 'urgensi_cuti.nilai', 'sisa_cuti.sisa_cuti as sisa_cuti_karyawan');
             }
             // ->get();
 
@@ -594,11 +595,32 @@ class PerhitunganWaspasController extends Controller
                         $k4 = 0; // Jika tidak sesuai kondisi di atas
                     }
 
+                    $sisa_cuti = View_sisa_cuti::where([
+                        'pegawai_id' => $pengajuanCuti->id_pegawai
+                    ])->first();
+
+                    if ($pengajuanCuti->lama_cuti < 4) {
+                        if ($pengajuanCuti->lama_cuti > $sisa_cuti->sisa_cuti) {
+                            $cuti_diterima =  $sisa_cuti->sisa_cuti;
+                            $cuti_ditolak = $pengajuanCuti->lama_cuti - $sisa_cuti->sisa_cuti;
+                        } else {
+                            $cuti_diterima = $pengajuanCuti->lama_cuti;
+                            $cuti_ditolak = 0;
+                        }
+                    } else {
+                        $cuti_diterima = $pengajuanCuti->lama_cuti;
+                        $cuti_ditolak = 0;
+                    }
+
                     $data[] = [
                         'id_cuti_non' => $pengajuanCuti->id_cuti_non,
+                        'id_pegawai' => $pengajuanCuti->id_pegawai,
                         'nama_pegawai' => $pengajuanCuti->nama_pegawai,
                         'tanggal_pengajuan' => $pengajuanCuti->tanggal_pengajuan,
                         'lama_cuti' => $pengajuanCuti->lama_cuti,
+                        'cuti_diterima' => $cuti_diterima,
+                        'cuti_ditolak' => $cuti_ditolak,
+                        'sisa_cuti' => $sisa_cuti->sisa_cuti,
                         'keterangan' => $pengajuanCuti->nama,
                         'status' => $pengajuanCuti->status,
                         'verifikasi_oleh' => $pengajuanCuti->verifikasi_oleh,
@@ -628,6 +650,9 @@ class PerhitunganWaspasController extends Controller
                             'nama_pegawai' => $item['nama_pegawai'],
                             'tanggal_pengajuan' => $item['tanggal_pengajuan'],
                             'lama_cuti' => $item['lama_cuti'],
+                            'cuti_diterima' => $item['cuti_diterima'],
+                            'cuti_ditolak' => $item['cuti_ditolak'],
+                            'sisa_cuti' => $item['sisa_cuti'],
                             'keterangan' => $item['keterangan'],
                             'status' => $item['status'],
                             'verifikasi_oleh' => $item['verifikasi_oleh'],
@@ -662,6 +687,9 @@ class PerhitunganWaspasController extends Controller
                             'nama' => $item2['nama_pegawai'],
                             'tanggal_pengajuan' => $item2['tanggal_pengajuan'],
                             'lama_cuti' => $item2['lama_cuti'],
+                            'cuti_diterima' => $item2['cuti_diterima'],
+                            'cuti_ditolak' => $item2['cuti_ditolak'],
+                            'sisa_cuti' => $item2['sisa_cuti'],
                             'keterangan' => $item2['keterangan'],
                             'status' => $item2['status'],
                             'rekomendasi' => $rekomendasi,
