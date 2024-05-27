@@ -95,7 +95,13 @@
                                             @if ($item['rekomendasi'] === 0)
                                                 <div class="badge badge-danger p-3">Tidak Memenuhi Syarat</div>
                                             @else
-                                                <div class="badge badge-success p-3"> Memenuhi Syarat</div>
+                                                <div class="badge badge-success pt-4">
+                                                    Memenuhi Syarat
+                                                    <p>
+                                                        Diterima : {{ $item['cuti_diterima'] }} hari, Ditolak :
+                                                        {{ $item['cuti_ditolak'] }} hari
+                                                    </p>
+                                                </div>
                                             @endif
                                         </td>
                                         <th>
